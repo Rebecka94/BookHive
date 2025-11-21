@@ -3,6 +3,8 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import type { Metadata } from "next";
 import { Gloock } from "next/font/google";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 import "./globals.css";
 import theme from "./theme";
 
@@ -26,7 +28,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className={gloock.className}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <CssBaseline>{children}</CssBaseline>
+            <CssBaseline>
+              <Header />
+              <main>{children}</main>
+              <Footer />
+            </CssBaseline>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
