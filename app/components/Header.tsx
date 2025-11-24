@@ -19,13 +19,13 @@ export default function Header() {
         </Link>
 
         <Box component="nav" display="flex" gap={4}>
-          <Link href="/about">
+          <Link href="/">
             <Typography variant="body1" color="text.secondary">About</Typography>
           </Link>
           <Link href="/">
             <Typography variant="body1" color="text.secondary">Community</Typography>
           </Link>
-          <Link href="/contact">
+          <Link href="/">
             <Typography variant="body1" color="text.secondary">Browse</Typography>
           </Link>
         </Box>
