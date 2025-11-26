@@ -37,6 +37,8 @@ export default function LoginDialog({ open, onClose }: LoginDialogProps) {
         borderRadius: 2,
       }}
     >
+      <Box sx={{ bgcolor: "background.paper" }}>
+
       <DialogTitle sx={{ textAlign: "center", pb: 1 }}>
         <Typography variant="body1" color="text.secondary">
           Welcome to BookHive
@@ -50,8 +52,9 @@ export default function LoginDialog({ open, onClose }: LoginDialogProps) {
         </Box>
 
         <Typography
-          variant="body2"
-          sx={{ display: "block", textAlign: "center", mt: 3 }}
+        color="text.secondary"
+        variant="body2"
+        sx={{ display: "block", textAlign: "center", mt: 3 }}
         >
           By continuing, you agree to our terms of service and privacy policy.
         </Typography>
@@ -59,9 +62,10 @@ export default function LoginDialog({ open, onClose }: LoginDialogProps) {
 
       <DialogActions sx={{ justifyContent: "center", pb: 2 }}>
         <Button onClick={onClose} color="inherit">
-          Avbryt
+          Cancel
         </Button>
       </DialogActions>
+          </Box>
     </Dialog>
   );
 }

@@ -14,6 +14,9 @@ export default function GoogleButton() {
         textTransform: "none",
         fontSize: "1rem",
       }}
+      onClick={() => {
+    alert('Google sign-in is not yet implemented.');
+  }}
     >
       Sign in with Google
     </Button>
