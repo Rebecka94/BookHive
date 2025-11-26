@@ -59,19 +59,20 @@ const theme = createTheme({
       },
     },
   },
+  
   palette: {
-    background: {
-      default: "#F7EBD5",
-    },
-    primary: {
-      main: "#3B6651",
+    background: { default: "#F7EBD5", paper: "#FFF8E9",},
+    primary: { 
+      main: "#345B49",
+      contrastText: "#FFF8E9",
     },
     secondary: {
       main: "#FFF8E9",
+      contrastText: "#000000",
     },
     text: {
-      primary: "#000000",
-      secondary: "#3B6651",
+      primary: "#345B49",
+      secondary: "#000000"
     },
   },
 });
