@@ -1,0 +1,61 @@
+import { Box, Button, Typography } from "@mui/material";
+import Image from "next/image";
+
+export default function Hero() {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        textAlign: "center",
+        mt: 10,
+      }}
+    >
+      <Typography variant="h1">
+        <span className="text-black">Reading together is more fun with</span>{" "}
+        BookHive
+      </Typography>
+
+      <div style={{ position: "relative", width: "100%", height: "300px" }}>
+        <Image
+          src="/hero-img.png"
+          alt="Hero Image"
+          fill
+          style={{ objectFit: "contain" }}
+        />
+      </div>
+
+      <Box
+        display={"flex"}
+        flexDirection={{ xs: "column", md: "row" }}
+        gap={2}
+        mt={4}
+        mb={4}
+        width="100%"
+        maxWidth="400px"
+      >
+        <Button
+          variant="contained"
+          size="large"
+          sx={{
+            backgroundColor: "#992B15",
+            width: { xs: "100%", md: "auto" },
+          }}
+        >
+          Explore books
+        </Button>
+
+        <Button
+          variant="outlined"
+          size="large"
+          sx={{
+            width: { xs: "100%", md: "auto", borderColor: "#992B15", color: "#992B15", borderWidth: 2},
+          }}
+        >
+          Become a member
+        </Button>
+      </Box>
+    </Box>
+  );
+}
