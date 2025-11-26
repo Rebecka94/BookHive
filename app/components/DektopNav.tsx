@@ -1,0 +1,49 @@
+"use client";
+
+import { signOut, useSession } from "@/lib/auth-client";
+import { Box, Button, Typography } from "@mui/material";
+import Link from "next/link";
+
+type Props = {
+  onOpenLogin: () => void;
+};
+
+export default function DesktopNav({ onOpenLogin }: Props) {
+  const { data: session } = useSession();
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
+
+  return (
+    <Box display={{ xs: "none", sm: "flex" }} gap={4} alignItems="center">
+      <Link href="/community">
+        <Typography variant="body1" color="text.secondary">
+          Community
+        </Typography>
+      </Link>
+
+      <Link href="/browse">
+        <Typography variant="body1" color="text.secondary">
+          Browse
+        </Typography>
+      </Link>
+
+      <Button
+        variant="outlined"
+        size="medium"
+        sx={{
+          borderColor: "#345b49",
+          borderWidth: "2px",
+          ":hover": {
+            backgroundColor: "#345B49",
+            color: "#ffffff",
+          },
+        }}
+        onClick={session?.user ? handleSignOut : onOpenLogin}
+      >
+        {session?.user ? "Sign Out" : "Sign In"}
+      </Button>
+    </Box>
+  );
+}

@@ -1,37 +1,15 @@
 "use client";
 
-import { Box, Typography, Button, Avatar, Menu, MenuItem } from "@mui/material";
-import Link from "next/link";
+import { Box } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
-import { signOut, useSession } from "@/lib/auth-client";
+import DesktopNav from "./DektopNav";
+import MobileNav from "./MobileNav";
 import LoginDialog from "./signin/LoginDialog";
 
 export default function Header() {
-  const { data: session } = useSession();
   const [loginDialogOpen, setLoginDialogOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const handleOpenLoginDialog = () => {
-    setLoginDialogOpen(true);
-  };
-
-  const handleCloseLoginDialog = () => {
-    setLoginDialogOpen(false);
-  };
-
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleSignOut = async () => {
-    await signOut();
-    handleMenuClose();
-  };
 
   return (
     <>
@@ -45,6 +23,7 @@ export default function Header() {
           py={2}
           px={3}
         >
+          {/* LOGO */}
           <Link href="/">
             <Image
               src="/bookhive-logo.png"
@@ -54,77 +33,24 @@ export default function Header() {
             />
           </Link>
 
-          <Box component="nav" display="flex" gap={4} alignItems="center">
-            <Link href="/">
-              <Typography variant="body1" color="text.secondary">
-                About
-              </Typography>
-            </Link>
-            <Link href="/">
-              <Typography variant="body1" color="text.secondary">
-                Community
-              </Typography>
-            </Link>
-            <Link href="/">
-              <Typography variant="body1" color="text.secondary">
-                Browse
-              </Typography>
-            </Link>
+          {/* NAVIGATION */}
+          <Box display="flex" alignItems="center" gap={4}>
+            {/* DESKTOP NAV */}
+            <DesktopNav onOpenLogin={() => setLoginDialogOpen(true)} />
 
-            {session?.user ? (
-              <>
-                <Box
-                  onClick={handleMenuOpen}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1,
-                    cursor: "pointer",
-                    "&:hover": { opacity: 0.8 },
-                  }}
-                >
-                  <Avatar
-                    src={session.user.image || undefined}
-                    alt={session.user.name || "User"}
-                    sx={{ width: 32, height: 32 }}
-                  />
-                  <Typography variant="body2">
-                    {session.user.name || session.user.email}
-                  </Typography>
-                </Box>
-
-                <Menu
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={handleMenuClose}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "right",
-                  }}
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                >
-                  <MenuItem onClick={handleMenuClose}>Profil</MenuItem>
-                  <MenuItem onClick={handleMenuClose}>Inställningar</MenuItem>
-                  <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
-                </Menu>
-              </>
-            ) : (
-              <Button
-                variant="contained"
-                size="small"
-                onClick={handleOpenLoginDialog}
-              >
-                Sign In
-              </Button>
-            )}
+            {/* MOBILE NAV */}
+            <Box display={{ xs: "flex", sm: "none" }}>
+              <MobileNav />
+            </Box>
           </Box>
         </Box>
       </header>
 
-      <LoginDialog open={loginDialogOpen} onClose={handleCloseLoginDialog} />
+      {/* LOGIN DIALOG */}
+      <LoginDialog
+        open={loginDialogOpen}
+        onClose={() => setLoginDialogOpen(false)}
+      />
     </>
   );
 }
