@@ -13,15 +13,16 @@ export default function Header() {
 
   return (
     <>
-      <header style={{ width: "100%" }}>
+      <Box component="header" sx={{ width: "100%" }}>
         <Box
-          px={3}
-          py={2}
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
+          sx={{
+            px: 3,
+            py: 2,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
         >
-          {/* LOGO */}
           <Link href="/">
             <Image
               src="/bookhive-logo.png"
@@ -31,19 +32,16 @@ export default function Header() {
             />
           </Link>
 
-          {/* NAVIGATION */}
-          <Box display="flex" alignItems="center" gap={4}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
             <DesktopNav onOpenLogin={() => setLoginDialogOpen(true)} />
 
-            {/* MOBILE NAV */}
-            <Box display={{ xs: "flex", sm: "none" }}>
-              <MobileNav />
+            <Box sx={{ display: { xs: "flex", sm: "none" } }}>
+              <MobileNav onOpenLogin={() => setLoginDialogOpen(true)}/>
             </Box>
           </Box>
         </Box>
-      </header>
+      </Box>
 
-      {/* LOGIN DIALOG */}
       <LoginDialog
         open={loginDialogOpen}
         onClose={() => setLoginDialogOpen(false)}

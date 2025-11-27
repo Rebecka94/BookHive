@@ -9,14 +9,16 @@ export default function HomePage() {
       <Hero />
       <GreenSection>
         <Box
-          display={"flex"}
-          flexDirection={{ xs: "column", md: "row" }}
-          alignItems={{ xs: "flex-start", md: "center" }}
-          textAlign={{ xs: "left" }}
-          gap={4}
-          px={3}
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            alignItems: { xs: "flex-start", md: "center" },
+            textAlign: { xs: "left" },
+            gap: 4,
+            px: 3,
+          }}
         >
-          <Box display={"flex"} flexDirection="column" gap={2}>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <Typography variant="h2">
               Explore the book club of the month and join engaging discussions
             </Typography>
@@ -24,8 +26,8 @@ export default function HomePage() {
               variant="outlined"
               size="large"
               sx={{
-                  width: "100%",
-                  maxWidth: 300, 
+                width: "100%",
+                maxWidth: 300,
                 borderColor: "#FFF8E9",
                 color: "#FFF8E9",
                 borderWidth: 2,

@@ -3,35 +3,40 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <Box
-      sx={{
-        mt: 10,
-        width: "100%",
-      }}
-    >
-      <Box px={3} display={"flex"} flexDirection="column" alignItems="center" textAlign={"center"}>
+    <Box sx={{ mt: 10, width: "100%" }}>
+      <Box
+        sx={{
+          px: 3,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+      >
         <Typography variant="h1">
           <span className="text-black">Reading together is more fun with</span>{" "}
           BookHive
         </Typography>
 
-        <div style={{ position: "relative", width: "100%", height: "300px" }}>
+        <Box sx={{ position: "relative", width: "100%", height: "300px" }}>
           <Image
             src="/hero-img.png"
             alt="Hero Image"
             fill
             style={{ objectFit: "contain" }}
           />
-        </div>
+        </Box>
 
         <Box
-          display={"flex"}
-          flexDirection={{ xs: "column", md: "row" }}
-          gap={2}
-          mt={4}
-          mb={4}
-          width="100%"
-          maxWidth="400px"
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: 2,
+            mt: 4,
+            mb: 4,
+            width: "100%",
+            maxWidth: "400px",
+          }}
         >
           <Button
             variant="contained"
@@ -48,13 +53,10 @@ export default function Hero() {
             variant="outlined"
             size="large"
             sx={{
-              width: {
-                xs: "100%",
-                md: "auto",
-                borderColor: "#992B15",
-                color: "#992B15",
-                borderWidth: 2,
-              },
+              width: { xs: "100%", md: "auto" },
+              borderColor: "#992B15",
+              color: "#992B15",
+              borderWidth: 2,
             }}
           >
             Become a member

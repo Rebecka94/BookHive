@@ -16,7 +16,13 @@ export default function DesktopNav({ onOpenLogin }: Props) {
   };
 
   return (
-    <Box display={{ xs: "none", sm: "flex" }} gap={4} alignItems="center">
+    <Box
+      sx={{
+        display: { xs: "none", sm: "flex" },
+        gap: 4,
+        alignItems: "center",
+      }}
+    >
       <Link href="/community">
         <Typography variant="body1" color="text.secondary">
           Community

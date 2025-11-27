@@ -1,9 +1,10 @@
 "use client";
 
-import Box from "@mui/material/Box";
-import SearchIcon from "@mui/icons-material/Search";
-import MenuIcon from "@mui/icons-material/Menu";
+import { useSession } from "@/lib/auth-client";
 import ForumIcon from "@mui/icons-material/Forum";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -11,12 +12,17 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import * as React from "react";
+import { signOut } from "better-auth/api";
 import Link from "next/link";
+import * as React from "react";
+
+type Props = {
+  onOpenLogin: () => void;
+};
 
 type Anchor = "top" | "left" | "bottom" | "right";
 
-export default function AnchorTemporaryDrawer() {
+export default function AnchorTemporaryDrawer({ onOpenLogin }: Props) {
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -40,7 +46,9 @@ export default function AnchorTemporaryDrawer() {
 
   const list = (anchor: Anchor) => (
     <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+      sx={{
+        width: anchor === "top" || anchor === "bottom" ? "auto" : 250,
+      }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
@@ -61,12 +69,33 @@ export default function AnchorTemporaryDrawer() {
     </Box>
   );
 
+  const { data: session } = useSession();
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
+
   return (
     <div>
+      <Button
+        variant="outlined"
+        size="medium"
+        sx={{
+          borderColor: "#345b49",
+          borderWidth: "2px",
+          ":hover": {
+            backgroundColor: "#345B49",
+            color: "#ffffff",
+          },
+        }}
+        onClick={session?.user ? handleSignOut : onOpenLogin}
+      >
+        {session?.user ? "Sign Out" : "Sign In"}
+      </Button>
       {(["right"] as const).map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>
-            <MenuIcon fontSize="large"/>
+            <MenuIcon fontSize="large" />
           </Button>
 
           <Drawer
