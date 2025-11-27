@@ -13,15 +13,13 @@ export default function Header() {
 
   return (
     <>
-      <header>
+      <header style={{ width: "100%" }}>
         <Box
+          px={3}
+          py={2}
           display="flex"
           justifyContent="space-between"
           alignItems="center"
-          maxWidth="1200px"
-          mx="auto"
-          py={2}
-          px={3}
         >
           {/* LOGO */}
           <Link href="/">
@@ -35,7 +33,6 @@ export default function Header() {
 
           {/* NAVIGATION */}
           <Box display="flex" alignItems="center" gap={4}>
-            {/* DESKTOP NAV */}
             <DesktopNav onOpenLogin={() => setLoginDialogOpen(true)} />
 
             {/* MOBILE NAV */}
