@@ -50,11 +50,11 @@ export default function Footer() {
         </Box>
 
         <Box sx={{ display: "flex", justifyContent: "center", mt: 2, mb: 2 }}>
-          <Divider sx={{ borderColor: "#FFF8E9", width: "100%" }} />
+          <Divider sx={{ borderColor: "#F7EBD5", width: "100%" }} />
         </Box>
 
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Typography variant="body2" color="#FFF8E9">
+          <Typography variant="body2" color="#F7EBD5">
             &copy; {year} BookHive. All rights reserved.
           </Typography>
         </Box>

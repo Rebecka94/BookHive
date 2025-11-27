@@ -15,15 +15,15 @@ let theme = createTheme({
     background: { default: "#F7EBD5", paper: "#FFF8E9" },
     primary: {
       main: "#345B49",
-      contrastText: "#FFF8E9",
+      contrastText: "#F7EBD5",
     },
     secondary: {
-      main: "#FFF8E9",
-      contrastText: "#000000",
+      main: "#F7EBD5",
+      contrastText: "#345B49",
     },
     text: {
       primary: "#345B49",
-      secondary: "#000000",
+      secondary: "#F7EBD5",
     },
   },
 });

@@ -57,6 +57,10 @@ export default function Hero() {
               borderColor: "#992B15",
               color: "#992B15",
               borderWidth: 2,
+              ":hover": {
+                backgroundColor: "#992B15",
+                color: "#F7EBD5",
+              },
             }}
           >
             Become a member

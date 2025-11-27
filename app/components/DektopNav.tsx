@@ -24,13 +24,13 @@ export default function DesktopNav({ onOpenLogin }: Props) {
       }}
     >
       <Link href="/community">
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="body1" color="text.primary">
           Community
         </Typography>
       </Link>
 
       <Link href="/browse">
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="body1" color="text.primary">
           Browse
         </Typography>
       </Link>
@@ -43,7 +43,7 @@ export default function DesktopNav({ onOpenLogin }: Props) {
           borderWidth: "2px",
           ":hover": {
             backgroundColor: "#345B49",
-            color: "#ffffff",
+            color: "#F7EBD5",
           },
         }}
         onClick={session?.user ? handleSignOut : onOpenLogin}
