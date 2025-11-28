@@ -16,7 +16,7 @@ export default function GreenSection({ children }: GreenSectionProps) {
           src="/wave-divider-up.png"
           alt="divider"
           width={1920}
-          height={200}
+          height={100}
           style={{ width: "100%", height: "auto", display: "block" }}
         />
       </Box>
@@ -26,8 +26,8 @@ export default function GreenSection({ children }: GreenSectionProps) {
           backgroundColor: "#345B49",
           color: "#FFF8E9",
           mt: "-1px",
-          py: { xs: 4, sm: 6, md: 10 },
-          px: { xs: 2, sm: 4, md: 6 },
+          py: 10,
+          px: { xs: 10, md: 12, lg: 18}
         }}
       >
         {children}
@@ -44,7 +44,7 @@ export default function GreenSection({ children }: GreenSectionProps) {
           src="/wave-divider-down.png"
           alt="divider"
           width={1920}
-          height={200}
+          height={100}
           style={{ width: "100%", height: "auto", display: "block" }}
         />
       </Box>
