@@ -9,32 +9,39 @@ export default function BookClubCTA() {
         <Grid container spacing={2}>
           <Grid 
             size={{ xs: 12, md: 6 }}
-            order={{ xs: 2, md: 1 }}
+            order={{ xs: 1, md: 1 }}
             sx={{
               display: "flex",
               alignItems: "center"
             }}
           >
-            <Stack spacing={2} sx={{ width: "100%" }}>
-              <Typography variant="h2" color="text.secondary">
-                Explore the book club of the month and join engaging discussions
+            <Stack spacing={4} sx={{ width: "100%" }}>
+              <Typography variant="h2" color="text.secondary" sx={{ maxWidth: 600 }}>
+                Explore different bookclubs and join engaging discussions
               </Typography>
-              <Button variant="outlined" size="large" sx={{
-                width: "100%",
-                maxWidth: 300,
-                borderColor: "#F7ebd5",
-                color: "#F7ebd5",
-                borderWidth: 2,
-                ":hover": {
-                  backgroundColor: "#F7ebd5",
-                  color: "#345728",
-                },
-              }}>Become a member</Button>
+              <Box 
+                order={{ xs: 3, md: 2 }}
+                sx={{ 
+                  display: { xs: "none", md: "block" }
+                }}
+              >
+                <Button variant="outlined" size="large" sx={{
+                  width: "100%",
+                  maxWidth: 300,
+                  borderColor: "#F7ebd5",
+                  color: "#F7ebd5",
+                  borderWidth: 2,
+                  ":hover": {
+                    backgroundColor: "#F7ebd5",
+                    color: "#345728",
+                  },
+                }}>Become a member</Button>
+              </Box>
             </Stack>
           </Grid>
           <Grid
             size={{ xs: 12, md: 6 }}
-            order={{ xs: 1, md: 2 }}
+            order={{ xs: 2, md: 2 }}
             sx={{
               display: "flex",
               justifyContent: { xs: "flex-start", md: "flex-end" },
@@ -57,6 +64,25 @@ export default function BookClubCTA() {
                 style={{ maxWidth: "100%", height: "auto" }}
               />
             </Box>
+          </Grid>
+          <Grid 
+            size={{ xs: 12 }}
+            order={{ xs: 3 }}
+            sx={{ 
+              display: { xs: "block", md: "none" }
+            }}
+          >
+            <Button variant="outlined" size="large" sx={{
+              width: "100%",
+              maxWidth: 500,
+              borderColor: "#F7ebd5",
+              color: "#F7ebd5",
+              borderWidth: 2,
+              ":hover": {
+                backgroundColor: "#F7ebd5",
+                color: "#345728",
+              },
+            }}>Become a member</Button>
           </Grid>
         </Grid>
       </Box>
