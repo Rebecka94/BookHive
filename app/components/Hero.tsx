@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <Box sx={{ mt: 10, width: "100%" }}>
+    <Box sx={{ mt: 10, mb: 10 , width: "100%" }}>
       <Box
         sx={{
           px: 3,

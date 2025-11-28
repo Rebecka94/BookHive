@@ -2,7 +2,7 @@
 
 import { signOut, useSession } from "@/lib/auth-client";
 import { Box, Button, Typography } from "@mui/material";
-import Link from "next/link";
+import Link from "@mui/material/Link";
 
 type Props = {
   onOpenLogin: () => void;
@@ -23,13 +23,13 @@ export default function DesktopNav({ onOpenLogin }: Props) {
         alignItems: "center",
       }}
     >
-      <Link href="/community">
+      <Link href="/community" underline="hover">
         <Typography variant="body1" color="text.primary">
           Community
         </Typography>
       </Link>
 
-      <Link href="/browse">
+      <Link href="/browse" underline="hover">
         <Typography variant="body1" color="text.primary">
           Browse
         </Typography>

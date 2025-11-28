@@ -76,7 +76,7 @@ export default function AnchorTemporaryDrawer({ onOpenLogin }: Props) {
   };
 
   return (
-    <div>
+    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
       <Button
         variant="outlined"
         size="medium"
@@ -107,6 +107,6 @@ export default function AnchorTemporaryDrawer({ onOpenLogin }: Props) {
           </Drawer>
         </React.Fragment>
       ))}
-    </div>
+    </Box>
   );
 }

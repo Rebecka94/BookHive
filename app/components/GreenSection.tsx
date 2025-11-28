@@ -27,7 +27,7 @@ export default function GreenSection({ children }: GreenSectionProps) {
           color: "#FFF8E9",
           mt: "-1px",
           py: 10,
-          px: { xs: 10, md: 12, lg: 18}
+          px: { xs: 9, md: 12, lg: 18}
         }}
       >
         {children}
