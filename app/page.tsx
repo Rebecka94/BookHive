@@ -1,11 +1,11 @@
-import Typography from "@mui/material/Typography";
+import BooClubCTA from "./components/BooClubCTA";
+import Hero from "./components/Hero";
 
 export default function HomePage() {
   return (
-    <div className="text-center mt-20">
-      <Typography variant="h1">
-       Reading together is more fun with BookHive
-      </Typography>
-    </div>
+    <>
+      <Hero />
+      <BooClubCTA />
+    </>
   );
 }
