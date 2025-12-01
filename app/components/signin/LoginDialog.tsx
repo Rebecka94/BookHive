@@ -1,6 +1,5 @@
 "use client";
 
-import { signIn } from "@/lib/auth-client";
 import {
   Box,
   Button,
@@ -10,8 +9,8 @@ import {
   DialogTitle,
   Typography,
 } from "@mui/material";
+import { createClient } from "@/lib/supabase/client";
 import GithubButton from "./providers/GithubButton";
-import GoogleButton from "./providers/GoogleButton";
 
 interface LoginDialogProps {
   open: boolean;
@@ -19,12 +18,19 @@ interface LoginDialogProps {
 }
 
 export default function LoginDialog({ open, onClose }: LoginDialogProps) {
+  const supabase = createClient();
+
   const handleGitHubSignIn = async () => {
-    await signIn.social({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: "github",
-      callbackURL: "/",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
     });
-    onClose();
+    
+    if (error) {
+      console.error("Login error:", error);
+    }
   };
 
   return (
@@ -45,7 +51,6 @@ export default function LoginDialog({ open, onClose }: LoginDialogProps) {
         <DialogContent>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 1 }}>
             <GithubButton onClick={handleGitHubSignIn} />
-            <GoogleButton />
           </Box>
 
           <Typography

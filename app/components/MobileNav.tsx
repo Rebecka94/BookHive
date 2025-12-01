@@ -1,6 +1,5 @@
 "use client";
 
-import { useSession } from "@/lib/auth-client";
 import ForumIcon from "@mui/icons-material/Forum";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
@@ -12,17 +11,19 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { signOut } from "better-auth/api";
 import Link from "next/link";
 import * as React from "react";
+import type { User } from "@supabase/supabase-js";
 
 type Props = {
+  user: User | null;
   onOpenLogin: () => void;
+  onSignOut: () => void;
 };
 
 type Anchor = "top" | "left" | "bottom" | "right";
 
-export default function AnchorTemporaryDrawer({ onOpenLogin }: Props) {
+export default function MobileNav({ user, onOpenLogin, onSignOut }: Props) {
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -55,8 +56,8 @@ export default function AnchorTemporaryDrawer({ onOpenLogin }: Props) {
     >
       <List>
         {[
-          { text: "Community", href: "/", icon: <ForumIcon /> },
-          { text: "Browse", href: "/", icon: <SearchIcon /> },
+          { text: "Community", href: "/community", icon: <ForumIcon /> },
+          { text: "Browse", href: "/browse", icon: <SearchIcon /> },
         ].map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton component={Link} href={item.href}>
@@ -68,12 +69,6 @@ export default function AnchorTemporaryDrawer({ onOpenLogin }: Props) {
       </List>
     </Box>
   );
-
-  const { data: session } = useSession();
-
-  const handleSignOut = async () => {
-    await signOut();
-  };
 
   return (
     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -88,9 +83,9 @@ export default function AnchorTemporaryDrawer({ onOpenLogin }: Props) {
             color: "#ffffff",
           },
         }}
-        onClick={session?.user ? handleSignOut : onOpenLogin}
+        onClick={user ? onSignOut : onOpenLogin}
       >
-        {session?.user ? "Sign Out" : "Sign In"}
+        {user ? "Sign Out" : "Sign In"}
       </Button>
       {(["right"] as const).map((anchor) => (
         <React.Fragment key={anchor}>
