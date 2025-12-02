@@ -1,21 +1,47 @@
-import { prisma } from "@/prisma/prismaClient";
+import { createClient } from "@/lib/supabase/server";
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
+  const supabase = await createClient();
+  
+  // Hämta inloggad användare
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  
+  if (userError || !user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const body = await request.json();
   const { name, description } = body;
 
-  const bookClub = await prisma.bookClub.create({
-    data: {
+  const { data: bookClub, error } = await supabase
+    .from('book_clubs')
+    .insert({
       name,
       description,
-      creatorId: "lorem",
-    },
-  });
+      creator_id: user.id
+    })
+    .select()
+    .single();
 
-  return Response.json(bookClub);
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  return NextResponse.json(bookClub);
 }
 
 export async function GET() {
-  const bookClubs = await prisma.bookClub.findMany();
-  return Response.json(bookClubs);
+  const supabase = await createClient();
+  
+  const { data: bookClubs, error } = await supabase
+    .from('book_clubs')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  return NextResponse.json(bookClubs);
 }

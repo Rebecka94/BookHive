@@ -1,7 +1,18 @@
-import { prisma } from "@/prisma/prismaClient";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function ProfilePage() {
-  const bookClubs = await prisma.bookClub.findMany();
+  const supabase = await createClient();
+  
+  const { data: bookClubs, error } = await supabase
+    .from('book_clubs')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching book clubs:', error);
+    return <div>Error loading book clubs</div>;
+  }
+
 
   return (
     <div>
