@@ -34,3 +34,13 @@ model Post {
 
   @@map("posts")
 }
+
+model BookClub {
+  id           String   @id @default(uuid())
+  name         String
+  description  String?
+  createdAt    DateTime @default(now())
+  creatorId    String
+
+  @@map("book_clubs")
+}
