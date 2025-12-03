@@ -1,29 +1,22 @@
 import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 
 export default async function ProfilePage() {
   const supabase = await createClient();
-  
-  const { data: bookClubs, error } = await supabase
-    .from('book_clubs')
-    .select('*')
-    .order('created_at', { ascending: false });
 
-  if (error) {
-    console.error('Error fetching book clubs:', error);
-    return <div>Error loading book clubs</div>;
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/");
   }
 
-
   return (
-    <div>
-      <div>
-        {bookClubs.map((bookClub) => (
-          <div key={bookClub.id} className="display flex flex-col gap-2">
-            <h2>{bookClub.name}</h2>
-            <p className="mb-4">{bookClub.description}</p>
-          </div>
-        ))}
-      </div>
+    <div className="p-6">
+      <h1 className="text-3xl font-bold mb-4">My Profile</h1>
+
+      <p>Email: {user.email}</p>
     </div>
   );
 }
