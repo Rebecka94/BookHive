@@ -33,14 +33,13 @@ export default function DesktopNav({ user, onOpenLogin, onSignOut }: Props) {
 
       {user && (
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Link href="/profile">
           <Avatar 
             src={user.user_metadata?.avatar_url} 
             alt={user.user_metadata?.name}
             sx={{ width: 32, height: 32 }}
-          />
-          <Typography variant="body2" color="text.primary">
-            {user.user_metadata?.name || user.email?.split('@')[0]}
-          </Typography>
+            />
+            </Link>
         </Box>
       )}
 

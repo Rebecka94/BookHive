@@ -1,11 +1,11 @@
 "use client";
 
+import { createClient } from "@/lib/supabase/client";
 import { Box } from "@mui/material";
+import type { User } from "@supabase/supabase-js";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { createClient } from "@/lib/supabase/client";
-import type { User } from "@supabase/supabase-js";
+import { useEffect, useState } from "react";
 import DesktopNav from "./DektopNav";
 import MobileNav from "./MobileNav";
 import LoginDialog from "./signin/LoginDialog";
@@ -17,17 +17,19 @@ export default function Header() {
 
   useEffect(() => {
     const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       setUser(user);
     };
-    
+
     getUser();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setUser(session?.user ?? null);
-      }
-    );
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
 
     return () => subscription.unsubscribe();
   }, []);
@@ -58,14 +60,14 @@ export default function Header() {
           </Link>
 
           <Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
-            <DesktopNav 
+            <DesktopNav
               user={user}
               onOpenLogin={() => setLoginDialogOpen(true)}
               onSignOut={handleSignOut}
             />
 
             <Box sx={{ display: { xs: "flex", sm: "none" } }}>
-              <MobileNav 
+              <MobileNav
                 user={user}
                 onOpenLogin={() => setLoginDialogOpen(true)}
                 onSignOut={handleSignOut}
