@@ -1,54 +1,75 @@
 "use client";
 
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
-import * as React from "react";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
+import { User } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
+import { createBookClub } from "../actions";
 
-export default function FormDialog() {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+export default function CreateBookClubForm({ user }: { user: User | null }) {
+    const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const formJson = Object.fromEntries((formData as any).entries());
-    const email = formJson.email;
-    console.log(email);
-    handleClose();
+
+    if (!user) {
+      setErrorMessage("You must be logged in to create a book club.");
+      return;
+    }
+
+    startTransition(async () => {
+      const res = await createBookClub(formData);
+
+      if (res.error) {
+        setErrorMessage(res.error);
+      } else {
+        setErrorMessage(null);
+        setOpen(false);
+        router.refresh();
+      }
+    });
   };
 
   return (
-    <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
+    <>
+      <Button variant="outlined" onClick={() => setOpen(true)}>
         Create a Book Club
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+
+      <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>Create a Book Club</DialogTitle>
+
         <DialogContent>
-          <DialogContentText color="text.primary">
-            Start your own book club! Give it a name and write a few lines about what makes it special.
-          </DialogContentText>
-          <form onSubmit={handleSubmit} id="subscription-form">
+          {!user && (
+            <DialogContentText color="error" sx={{ mb: 2 }}>
+              You must be logged in to create a book club.
+            </DialogContentText>
+          )}
+
+          {errorMessage && (
+            <DialogContentText color="error" sx={{ mb: 2 }}>
+              {errorMessage}
+            </DialogContentText>
+          )}
+
+          <form id="club-form" onSubmit={handleSubmit}>
             <TextField
-              autoFocus
-              required
-              margin="dense"
-              id="name"
               name="name"
               label="Name"
-              type="title"
               fullWidth
+              required
               variant="standard"
               sx={{
                 "& .MuiInputBase-input": { color: "text.primary" },
@@ -62,15 +83,12 @@ export default function FormDialog() {
                 },
               }}
             />
+
             <TextField
-              autoFocus
-              required
-              margin="dense"
-              id="description"
               name="description"
               label="Description"
-              type="description"
               fullWidth
+              required
               variant="standard"
               sx={{
                 "& .MuiInputBase-input": { color: "text.primary" },
@@ -86,13 +104,14 @@ export default function FormDialog() {
             />
           </form>
         </DialogContent>
+
         <DialogActions>
-          <Button type="submit" form="subscription-form">
+          <Button type="submit" form="club-form" disabled={isPending}>
             Create
           </Button>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={() => setOpen(false)}>Cancel</Button>
         </DialogActions>
       </Dialog>
-    </React.Fragment>
+    </>
   );
 }
