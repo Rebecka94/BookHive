@@ -1,6 +1,7 @@
-import { Box, CardMedia, Link, Typography } from "@mui/material";
+"use client";
+
+import { Box, CardMedia, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 
 interface ContentBoxProps {
   name: string;
@@ -8,52 +9,54 @@ interface ContentBoxProps {
   image?: string | null;
 }
 
-export default function ContentBox({
-  name,
-  description,
-  image,
-}: ContentBoxProps) {
+export default function ContentBox({ name, description, image }: ContentBoxProps) {
   return (
     <Card
       sx={{
         display: "flex",
         flexDirection: "row",
-        mb: 3,
         borderRadius: 2,
-        boxShadow: 2,
-        maxWidth: 600,
-        padding: 2,
+        boxShadow: 1,
+        padding: 1.5,
+        minHeight: 140,
+        transition: "transform 0.2s, box-shadow 0.2s",
+        "&:hover": {
+          transform: "translateY(-2px)",
+          boxShadow: 3,
+        },
       }}
     >
-      <Box sx={{
-        maxWidth: 180,
-        maxHeight: 250,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-      }}>
       {image && (
-          <CardMedia
-          component="img"
+        <Box
           sx={{
+            width: 100,
+            height: 100,
+            minWidth: 100,
+            borderRadius: 1,
+            overflow: "hidden",
+            marginRight: 2,
+          }}
+        >
+          <CardMedia
+            component="img"
+            sx={{
+              width: "100%",
+              height: "100%",
               objectFit: "cover",
             }}
             image={image}
             alt={`${name} image`}
-            />
-        )}
+          />
         </Box>
+      )}
 
-      <CardContent sx={{ flex: 1 }}>
-        <Typography variant="h4" sx={{ mb: 1 }}>
-          {name}
-        </Typography>
+      <Box sx={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
+        <Typography variant="h4">{name}</Typography>
 
-        <Typography variant="body1" color="text.primary">
+        <Typography variant="body2" color="text.primary">
           {description}
         </Typography>
-        <Link href="/">Read more</Link>
-      </CardContent>
+      </Box>
     </Card>
   );
 }
