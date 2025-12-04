@@ -5,7 +5,9 @@ import { createClient } from "@/lib/supabase/server";
 export async function createBookClub(formData: FormData) {
   const supabase = await createClient();
 
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
     return { error: "You must be logged in to create a book club." };
@@ -13,6 +15,7 @@ export async function createBookClub(formData: FormData) {
 
   const name = formData.get("name") as string;
   const description = formData.get("description") as string;
+  const image_url = formData.get("image_url") as string;
 
   const { data, error } = await supabase
     .from("book_clubs")
@@ -20,13 +23,12 @@ export async function createBookClub(formData: FormData) {
       name,
       description,
       creator_id: user.id,
+      image_url,
     })
     .select()
     .single();
 
-  if (error) {
-    return { error: error.message };
-  }
+  if (error) return { error: error.message };
 
   return { data };
 }
