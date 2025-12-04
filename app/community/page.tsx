@@ -22,6 +22,7 @@ export default async function CommunityPage() {
         flexDirection: "column",
         alignItems: "center",
         width: "100%",
+        paddingY: 7,
       }}
     >
       <Box

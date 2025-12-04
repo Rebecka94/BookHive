@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
-import { Box, Button, Divider, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import Image from "next/image";
+import JoinButton from "../components/JoinButton";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -10,14 +11,30 @@ export default async function CommunityDetailPage({ params }: Props) {
   const { id } = await params;
   const supabase = await createClient();
 
-  const { data: club, error } = await supabase
+  const { data: club } = await supabase
     .from("book_clubs")
     .select("*")
     .eq("id", id)
     .single();
 
-  if (error) return <div>{error.message}</div>;
   if (!club) return <div>Club not found</div>;
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  let alreadyMember = false;
+
+  if (user) {
+    const { data: member } = await supabase
+      .from("club_members")
+      .select("*")
+      .eq("club_id", id)
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    alreadyMember = !!member;
+  }
 
   return (
     <Box
@@ -26,18 +43,17 @@ export default async function CommunityDetailPage({ params }: Props) {
         display: "flex",
         justifyContent: "center",
         padding: "2.5rem",
-        marginY: 7
       }}
     >
       <Box
         sx={{
-            width: "100%",
-            maxWidth: "1000px",
-            display: "flex",
-            flexDirection: { xs: "column", sm: "row" },
-            gap: 4,
+          width: "100%",
+          maxWidth: "1000px",
+          display: "flex",
+          flexDirection: { xs: "column", sm: "row" },
+          gap: 4,
         }}
-        >
+      >
         <Box
           sx={{
             flexShrink: 0,
@@ -56,42 +72,18 @@ export default async function CommunityDetailPage({ params }: Props) {
           />
         </Box>
 
-        <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
-          <Typography
-            variant="h3"
-            sx={{ fontWeight: 600, mb: 1, color: "text.primary" }}
-          >
+        <Box sx={{ flex: 1 }}>
+          <Typography variant="h3" sx={{ fontWeight: 600, mb: 1 }}>
             {club.name}
           </Typography>
 
           <Divider sx={{ mb: 2 }} />
 
-          <Typography
-            variant="body1"
-            sx={{
-              lineHeight: 1.7,
-              mb: 4,
-              color: "text.primary",
-            }}
-          >
+          <Typography variant="body1" sx={{ mb: 4, lineHeight: 1.7 }}>
             {club.description}
           </Typography>
 
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            sx={{
-              textTransform: "none",
-              borderRadius: 2,
-              px: 4,
-              py: 1.2,
-              fontSize: "1rem",
-              alignSelf: "flex-start"
-            }}
-          >
-            Join Club
-          </Button>
+          <JoinButton clubId={club.id} alreadyMember={alreadyMember} />
         </Box>
       </Box>
     </Box>
