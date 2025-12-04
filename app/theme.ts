@@ -47,8 +47,8 @@ theme = createTheme(theme, {
       [theme.breakpoints.down("sm")]: { fontSize: "1.15rem" },
     },
     body1: {
-      [theme.breakpoints.down("md")]: { fontSize: "1rem" },
-      [theme.breakpoints.down("sm")]: { fontSize: "0.95rem" },
+      [theme.breakpoints.down("md")]: { fontSize: "0.9rem" },
+      [theme.breakpoints.down("sm")]: { fontSize: "0.7rem" },
     },
   },
 });
