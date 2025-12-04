@@ -76,7 +76,7 @@ export default function CreateBookClubForm({ user }: { user: User | null }) {
           )}
 
           {errorMessage && (
-            <DialogContentText color="text.primary" sx={{ mb: 2 }}>
+            <DialogContentText color="error" sx={{ mb: 2 }}>
               {errorMessage}
             </DialogContentText>
           )}
