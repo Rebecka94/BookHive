@@ -45,7 +45,7 @@ export default function JoinButton({
               setOpenSnackbar(true);
 
               setTimeout(() => {
-                router.refresh();
+                router.push(`/community/${clubId}/club`);
               }, 500);
             }
           })

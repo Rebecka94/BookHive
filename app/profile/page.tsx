@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { Typography, List, ListItem } from "@mui/material";
+import Link from "next/link";
 
 interface BookClub {
   id: string;
@@ -44,9 +45,11 @@ export default async function ProfilePage() {
       <List>
         {clubs.map((club) => (
           <ListItem key={club.id}>
+            <Link href={`/community/${club.id}`} style={{ textDecoration: 'none' }}>
             <Typography>
               {club.name} — {club.description ?? "No description"}
             </Typography>
+            </Link>
           </ListItem>
         ))}
       </List>
