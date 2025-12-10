@@ -1,9 +1,9 @@
 "use client";
 
-import { joinClub } from "../actions";
-import { Button, Snackbar, Alert } from "@mui/material";
-import { useTransition, useState } from "react";
+import { Alert, Button, Snackbar } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
+import { joinClub } from "../actions/joinClub";
 
 export default function JoinButton({
   clubId,
@@ -54,9 +54,7 @@ export default function JoinButton({
         Join Club
       </Button>
 
-      {error && (
-        <p style={{ color: "red", marginTop: "8px" }}>{error}</p>
-      )}
+      {error && <p style={{ color: "red", marginTop: "8px" }}>{error}</p>}
 
       <Snackbar
         open={openSnackbar}

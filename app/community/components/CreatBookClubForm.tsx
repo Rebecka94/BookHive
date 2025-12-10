@@ -1,22 +1,22 @@
 "use client";
 
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  TextField,
-  Box,
-  Typography,
   Stack,
+  TextField,
+  Typography,
 } from "@mui/material";
 import { User } from "@supabase/supabase-js";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import Image from "next/image";
-import { createBookClub } from "../actions";
+import { createBookClub } from "../actions/createClub";
 
 const IMAGE_OPTIONS = [
   { src: "/fantasy.png", label: "Fantasy" },
@@ -63,7 +63,12 @@ export default function CreateBookClubForm({ user }: { user: User | null }) {
         Create a Book Club
       </Button>
 
-      <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="sm">
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        fullWidth
+        maxWidth="sm"
+      >
         <DialogTitle sx={{ color: "text.primary" }}>
           Create a Book Club
         </DialogTitle>
