@@ -9,6 +9,7 @@ let theme = createTheme({
     h3: { fontSize: "2rem", lineHeight: 1.35 },
     h4: { fontSize: "1.5rem", lineHeight: 1.4 },
     body1: { fontSize: "1.125rem", lineHeight: 1.6 },
+    body2: {fontSize: "0.7rem", lineheight: 1}
   },
 
   palette: {
@@ -47,8 +48,12 @@ theme = createTheme(theme, {
       [theme.breakpoints.down("sm")]: { fontSize: "1.15rem" },
     },
     body1: {
-      [theme.breakpoints.down("md")]: { fontSize: "1rem" },
-      [theme.breakpoints.down("sm")]: { fontSize: "0.95rem" },
+      [theme.breakpoints.down("md")]: { fontSize: "0.9rem" },
+      [theme.breakpoints.down("sm")]: { fontSize: "0.7rem" },
+    },
+    body2: {
+      [theme.breakpoints.down("md")]: { fontSize: "0.7rem" },
+      [theme.breakpoints.down("sm")]: { fontSize: "0.9rem" },
     },
   },
 });
