@@ -5,8 +5,8 @@ import type { Metadata } from "next";
 import { Gloock } from "next/font/google";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import "./globals.css";
-import theme from "./theme";
+import "./styles/globals.css";
+import theme from "./styles/theme";
 
 const gloock = Gloock({
   weight: "400",
