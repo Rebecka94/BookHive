@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import DesktopNav from "./DektopNav";
 import MobileNav from "./MobileNav";
-import LoginDialog from "./signin/LoginDialog";
+import LoginDialog from "../auth/signin/LoginDialog";
 
 export default function Header() {
   const [loginDialogOpen, setLoginDialogOpen] = useState(false);
