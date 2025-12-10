@@ -1,13 +1,14 @@
+import { BookClub } from "@/app/types/database";
 import { Box, Divider, Typography } from "@mui/material";
 import Image from "next/image";
 import JoinButton from "./JoinButton";
 
-interface props {
-  club: any;
+interface Props {
+  club: BookClub;
   alreadyMember: boolean;
 }
 
-export default function DetailView({ club, alreadyMember }: props) {
+export default function DetailView({ club, alreadyMember }: Props) {
   return (
     <Box
       sx={{

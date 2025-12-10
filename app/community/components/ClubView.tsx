@@ -1,10 +1,11 @@
 "use client"
 
+import { BookClub } from "@/app/types/database";
 import { Box, Button, Card, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
 interface Props {
-  club: any;
+  club: BookClub;
   alreadyMember: boolean;
 }
 
