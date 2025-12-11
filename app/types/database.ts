@@ -9,7 +9,7 @@ export interface BookClub {
 
 export interface Post {
   id: string;
-  title: string;
+  title: string | null;
   content: string;
   author_id: string;
   club_id: string;
