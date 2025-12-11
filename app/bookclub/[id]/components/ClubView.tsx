@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { BookClub } from "@/app/types/database";
 import { Box, Button, Card, TextField, Typography } from "@mui/material";
@@ -6,14 +6,11 @@ import { useState } from "react";
 
 interface Props {
   club: BookClub;
-  alreadyMember: boolean;
 }
 
-export default function ClubView({ club, alreadyMember }: Props) {
+export default function ClubView({ club }: Props) {
   const [inputValue, setInputValue] = useState("");
   const [posts, setPosts] = useState<string[]>([]);
-
-  if (!alreadyMember) return null;
 
   const handlePost = () => {
     if (inputValue.trim().length === 0) return;
@@ -71,6 +68,8 @@ export default function ClubView({ club, alreadyMember }: Props) {
               minRows={4}
               fullWidth
               variant="outlined"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
               sx={{
                 mb: 1,
               }}

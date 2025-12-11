@@ -1,12 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
 import DetailView from "../components/DetailView";
 
-export default async function CommunityDetailPage({
-  params,
-}: {
+interface Props {
   params: Promise<{ id: string }>;
-}) {
+}
+
+export default async function CommunityDetailPage({ params }: Props) {
   const { id } = await params;
   const supabase = await createClient();
 
@@ -22,6 +21,8 @@ export default async function CommunityDetailPage({
     data: { user },
   } = await supabase.auth.getUser();
 
+  let alreadyMember = false;
+
   if (user) {
     const { data: member } = await supabase
       .from("club_members")
@@ -30,10 +31,8 @@ export default async function CommunityDetailPage({
       .eq("user_id", user.id)
       .maybeSingle();
 
-    if (member) {
-      redirect(`/community/${id}/club`);
-    }
+    alreadyMember = !!member;
   }
 
-  return <DetailView club={club} alreadyMember={false} />;
+  return <DetailView club={club} alreadyMember={alreadyMember} />;
 }

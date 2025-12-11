@@ -1,7 +1,7 @@
 import { BookClub } from "@/app/types/database";
 import { Box, Divider, Typography } from "@mui/material";
 import Image from "next/image";
-import JoinButton from "./JoinButton";
+import ActionButton from "./ActionsButton";
 
 interface Props {
   club: BookClub;
@@ -56,7 +56,7 @@ export default function DetailView({ club, alreadyMember }: Props) {
             {club.description}
           </Typography>
 
-          <JoinButton clubId={club.id} alreadyMember={alreadyMember} />
+          <ActionButton clubId={club.id} alreadyMember={alreadyMember} />
         </Box>
       </Box>
     </Box>

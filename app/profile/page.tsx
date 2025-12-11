@@ -45,7 +45,7 @@ export default async function ProfilePage() {
       <List>
         {clubs.map((club) => (
           <ListItem key={club.id}>
-            <Link href={`/community/${club.id}`} style={{ textDecoration: 'none' }}>
+            <Link href={`/bookclub/${club.id}`} style={{ textDecoration: 'none' }}>
             <Typography>
               {club.name} — {club.description ?? "No description"}
             </Typography>

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { joinClub } from "../actions/joinClub";
 
-export default function JoinButton({
+export default function ActionButton({
   clubId,
   alreadyMember,
 }: {
@@ -14,7 +14,6 @@ export default function JoinButton({
 }) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
-
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const router = useRouter();
 
@@ -22,8 +21,13 @@ export default function JoinButton({
 
   if (alreadyMember) {
     return (
-      <Button variant="contained" disabled sx={{ borderRadius: 2 }}>
-        You are a member
+      <Button
+        variant="contained"
+        color="primary"
+        sx={{ borderRadius: 2 }}
+        onClick={() => router.push(`/bookclub/${clubId}`)}
+      >
+        Enter Club
       </Button>
     );
   }
@@ -45,7 +49,7 @@ export default function JoinButton({
               setOpenSnackbar(true);
 
               setTimeout(() => {
-                router.push(`/community/${clubId}/club`);
+                router.refresh();
               }, 500);
             }
           })
