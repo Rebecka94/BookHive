@@ -1,5 +1,4 @@
 import { createClient } from "@/lib/supabase/server";
-import ClubView from "../components/ClubView";
 import DetailView from "../components/DetailView";
 
 interface Props {
@@ -35,13 +34,5 @@ export default async function CommunityDetailPage({ params }: Props) {
     alreadyMember = !!member;
   }
 
-  return (
-  <>
-    {alreadyMember ? (
-      <ClubView club={club} alreadyMember={alreadyMember} />
-    ) : (
-      <DetailView club={club} alreadyMember={alreadyMember} />
-    )}
-  </>
-);
+  return <DetailView club={club} alreadyMember={alreadyMember} />;
 }

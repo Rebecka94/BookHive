@@ -41,9 +41,9 @@ export default function LoginDialog({ open, onClose }: LoginDialogProps) {
       fullWidth
       sx={{ borderRadius: 2 }}
     >
-      <Box sx={{ bgcolor: "background.paper" }}>
+      <Box>
         <DialogTitle sx={{ textAlign: "center", pb: 1 }}>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body2">
             Welcome to BookHive
           </Typography>
         </DialogTitle>
@@ -54,7 +54,6 @@ export default function LoginDialog({ open, onClose }: LoginDialogProps) {
           </Box>
 
           <Typography
-            color="text.secondary"
             variant="body2"
             sx={{ display: "block", textAlign: "center", mt: 3 }}
           >
