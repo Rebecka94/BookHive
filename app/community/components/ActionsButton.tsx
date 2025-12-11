@@ -1,6 +1,6 @@
 "use client";
 
-import { Alert, Button, Snackbar } from "@mui/material";
+import { Alert, Button, Snackbar, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { joinClub } from "../actions/joinClub";
@@ -21,14 +21,17 @@ export default function ActionButton({
 
   if (alreadyMember) {
     return (
+        <>
+        <Typography color="#992B15">You&apos;re already a member</Typography>
       <Button
         variant="contained"
         color="primary"
         sx={{ borderRadius: 2 }}
         onClick={() => router.push(`/bookclub/${clubId}`)}
-      >
+        >
         Enter Club
       </Button>
+          </>
     );
   }
 
