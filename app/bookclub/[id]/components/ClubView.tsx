@@ -139,10 +139,10 @@ export default function ClubView({ club, posts }: Props) {
                 </Typography>
                 <Typography
                   variant="caption"
-                  color="text.secondary"
+                  color="#992B15"
                   sx={{ display: "block", mb: 1 }}
                 >
-                  {new Date(post.created_at).toLocaleDateString("sv-SE", {
+                  {new Date(post.created_at).toLocaleDateString("eng", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
@@ -156,7 +156,7 @@ export default function ClubView({ club, posts }: Props) {
 
             {posts.length === 0 && (
               <Card sx={{ p: 3, textAlign: "center" }}>
-                <Typography color="text.secondary">
+                <Typography color="#992B15">
                   No posts yet. Be the first to share something!
                 </Typography>
               </Card>
