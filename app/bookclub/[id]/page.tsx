@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import { Metadata } from "next";
 import ClubView from "./components/ClubView";
+import { Metadata } from "next";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -9,8 +9,7 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const supabase = await createClient();
-
+  const supabase = await createClient();  
   const { data: club } = await supabase
     .from("book_clubs")
     .select("name")
@@ -53,5 +52,11 @@ export default async function BookClubPage({ params }: Props) {
     redirect(`/community/${id}`);
   }
 
-  return <ClubView club={club} />;
+  const { data: posts } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("club_id", id)
+    .order("created_at", { ascending: false });
+
+  return <ClubView club={club} posts={posts || []} />;
 }
