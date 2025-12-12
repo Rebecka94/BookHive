@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Typography } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -33,7 +33,7 @@ export default function BookSection() {
           )
           .slice(0, 8)
           .map((item) => ({
-            id: item.key,
+            id: item.key.replace("/works/", ""),
             coverImage: `https://covers.openlibrary.org/b/id/${item.cover_i}-L.jpg`,
           })) || [];
 
@@ -55,11 +55,26 @@ export default function BookSection() {
       }}
       bgcolor="background.paper"
     >
-      <Typography
-        variant="h3"
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
       >
-        Trending books
-      </Typography>
+        <Typography variant="h3">Trending books</Typography>
+        <Link
+          href="/browse"
+          sx={{
+            textDecoration: "none",
+            "&:hover": {
+              textDecoration: "underline",
+            },
+          }}
+        >
+          Read more →
+        </Link>
+      </Box>
       <Box
         sx={{
           display: "grid",
@@ -80,14 +95,20 @@ export default function BookSection() {
               aspectRatio: "1 / 2",
               overflow: "hidden",
               mx: "auto",
+              transition: "transform 0.3s ease",
+              "&:hover": {
+                transform: "scale(1.05)",
+              },
             }}
           >
-            <Image
-              src={book.coverImage}
-              alt=""
-              fill
-              style={{ objectFit: "contain" }}
-            />
+            <Link href={`/browse/${book.id}`}>
+              <Image
+                src={book.coverImage}
+                alt=""
+                fill
+                style={{ objectFit: "contain" }}
+              />
+            </Link>
           </Box>
         ))}
       </Box>
