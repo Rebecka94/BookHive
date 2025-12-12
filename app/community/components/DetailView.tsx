@@ -1,3 +1,5 @@
+"use client";
+
 import { BookClub } from "@/app/types/database";
 import { Box, Divider, Typography } from "@mui/material";
 import Image from "next/image";

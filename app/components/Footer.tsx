@@ -1,4 +1,5 @@
 "use client";
+
 import { GitHub, LinkedIn } from "@mui/icons-material";
 import { Box, Divider, Link, Typography } from "@mui/material";
 import Image from "next/image";

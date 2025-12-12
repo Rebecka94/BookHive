@@ -1,3 +1,5 @@
+"use client"
+
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import GreenSection from "./GreenSection";
