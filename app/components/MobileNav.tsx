@@ -3,6 +3,7 @@
 import ForumIcon from "@mui/icons-material/Forum";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import { Avatar } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
@@ -11,9 +12,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import * as React from "react";
-import type { User } from "@supabase/supabase-js";
 
 type Props = {
   user: User | null;
@@ -56,16 +57,29 @@ export default function MobileNav({ user, onOpenLogin, onSignOut }: Props) {
     >
       <List>
         {[
+          {
+            text: "Profile",
+            href: "/profile",
+            icon: user ? (
+              <Avatar
+              src={user.user_metadata?.avatar_url}
+              alt={user.user_metadata?.name}
+              sx={{ width: 32, height: 32 }}
+              />
+            ) : null,
+          },
           { text: "Community", href: "/community", icon: <ForumIcon /> },
           { text: "Browse", href: "/browse", icon: <SearchIcon /> },
-        ].map((item) => (
-          <ListItem key={item.text} disablePadding>
-            <ListItemButton component={Link} href={item.href}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        ]
+          .filter((item) => user || item.text !== "Profile")
+          .map((item) => (
+            <ListItem key={item.text} disablePadding>
+              <ListItemButton component={Link} href={item.href}>
+          {item.icon && <ListItemIcon>{item.icon}</ListItemIcon>}
+          {item.text && <ListItemText primary={item.text} />}
+              </ListItemButton>
+            </ListItem>
+          ))}
       </List>
     </Box>
   );
