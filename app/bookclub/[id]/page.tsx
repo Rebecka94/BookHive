@@ -1,7 +1,8 @@
+import { PostWithBook } from "@/app/types/database";
 import { createClient } from "@/lib/supabase/server";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import ClubView from "./components/ClubView";
-import { Metadata } from "next";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -9,7 +10,7 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const supabase = await createClient();  
+  const supabase = await createClient();
   const { data: club } = await supabase
     .from("book_clubs")
     .select("name")
@@ -54,9 +55,18 @@ export default async function BookClubPage({ params }: Props) {
 
   const { data: posts } = await supabase
     .from("posts")
-    .select("*")
+    .select(
+      `
+    *,
+    book:books (
+      id,
+      title,
+      cover_url
+    )
+  `
+    )
     .eq("club_id", id)
     .order("created_at", { ascending: false });
 
-  return <ClubView club={club} posts={posts || []} />;
+  return <ClubView club={club} posts={(posts ?? []) as PostWithBook[]} />;
 }

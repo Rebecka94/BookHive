@@ -47,6 +47,7 @@ export default function Hero() {
               backgroundColor: "#992B15",
               width: { xs: "100%", md: "auto" },
             }}
+            href="/browse"
           >
             Explore books
           </Button>

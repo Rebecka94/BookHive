@@ -1,7 +1,8 @@
 "use client";
 
-import { Box, Link, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type OLDoc = {
@@ -15,13 +16,17 @@ type BookResult = {
   coverImage: string;
 };
 
-export default function BookSection() {
+type BrowseSectionProps = {
+  genre: string;
+};
+
+export default function BrowseSection({genre}: BrowseSectionProps) {
   const [books, setBooks] = useState<BookResult[]>([]);
 
   useEffect(() => {
     const load = async () => {
       const res = await fetch(
-        "https://openlibrary.org/search.json?subject=romantasy&limit=8"
+        `https://openlibrary.org/search.json?subject=${genre}&limit=8`
       );
       const data = await res.json();
 
@@ -41,21 +46,13 @@ export default function BookSection() {
     };
 
     load();
-  }, []);
-
+  }, [genre]);
   return (
     <Box
       sx={{
         mx: "auto",
-        px: { xs: 2, sm: 4 },
-        py: 5,
         width: "92%",
-        borderRadius: 2,
-        mt: 15,
       }}
-      bgcolor="background.paper"
-      border="1.5px solid"
-        borderColor="divider"
     >
       <Box
         sx={{
@@ -63,20 +60,7 @@ export default function BookSection() {
           justifyContent: "space-between",
           alignItems: "center",
         }}
-      >
-        <Typography variant="h3">Trending books</Typography>
-        <Link
-          href="/browse"
-          sx={{
-            textDecoration: "none",
-            "&:hover": {
-              textDecoration: "underline",
-            },
-          }}
-        >
-          Read more →
-        </Link>
-      </Box>
+      ></Box>
       <Box
         sx={{
           display: "grid",

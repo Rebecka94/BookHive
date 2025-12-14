@@ -27,7 +27,7 @@ export default function BookClubCTA() {
                   display: { xs: "none", md: "block" }
                 }}
               >
-                <Button variant="outlined" size="large" sx={{
+                <Button variant="outlined" size="large" href="/community" sx={{
                   width: "100%",
                   maxWidth: 300,
                   borderColor: "#F7ebd5",
@@ -37,7 +37,7 @@ export default function BookClubCTA() {
                     backgroundColor: "#F7ebd5",
                     color: "#345728",
                   },
-                }}>Become a member</Button>
+                }}>Explore bookclubs</Button>
               </Box>
             </Stack>
           </Grid>
@@ -74,7 +74,7 @@ export default function BookClubCTA() {
               display: { xs: "block", md: "none" }
             }}
           >
-            <Button variant="outlined" size="large" sx={{
+            <Button href="/community" variant="outlined" size="large" sx={{
               width: "100%",
               maxWidth: 500,
               borderColor: "#F7ebd5",
@@ -84,7 +84,7 @@ export default function BookClubCTA() {
                 backgroundColor: "#F7ebd5",
                 color: "#345728",
               },
-            }}>Become a member</Button>
+            }}>Explore bookclubs</Button>
           </Grid>
         </Grid>
       </Box>
