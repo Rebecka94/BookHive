@@ -54,6 +54,8 @@ export default function BookSection() {
         mt: 15,
       }}
       bgcolor="background.paper"
+      border="1.5px solid"
+        borderColor="divider"
     >
       <Box
         sx={{
