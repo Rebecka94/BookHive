@@ -16,13 +16,17 @@ type BookResult = {
   coverImage: string;
 };
 
-export default function BrowseSection() {
+type BrowseSectionProps = {
+  genre: string;
+};
+
+export default function BrowseSection({genre}: BrowseSectionProps) {
   const [books, setBooks] = useState<BookResult[]>([]);
 
   useEffect(() => {
     const load = async () => {
       const res = await fetch(
-        "https://openlibrary.org/search.json?subject=romantasy&limit=8"
+        `https://openlibrary.org/search.json?subject=${genre}&limit=8`
       );
       const data = await res.json();
 
@@ -42,7 +46,7 @@ export default function BrowseSection() {
     };
 
     load();
-  }, []);
+  }, [genre]);
   return (
     <Box
       sx={{

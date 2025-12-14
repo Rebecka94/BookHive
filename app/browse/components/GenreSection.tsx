@@ -3,28 +3,65 @@
 import {
   FormControl,
   FormControlLabel,
+  MenuItem,
   Radio,
   RadioGroup,
+  Select,
+  useMediaQuery,
 } from "@mui/material";
-import React from "react";
+import { useTheme } from "@mui/material/styles";
 
-export default function GenreSection() {
-  const [value, setValue] = React.useState("fantasy");
+type GenreSectionProps = {
+  value: string;
+  onChange: (value: string) => void;
+};
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
-  };
+const genres = [
+  { value: "fantasy", label: "Fantasy" },
+  { value: "romance", label: "Romance" },
+  { value: "science-fiction", label: "Science fiction" },
+  { value: "fiction", label: "Fiction" },
+  { value: "crime", label: "Crime" },
+  { value: "biography", label: "Biography" },
+  { value: "drama", label: "Drama" },
+  { value: "history", label: "History" },
+  { value: "poetry", label: "Poetry" },
+  { value: "horror", label: "Horror" },
+];
 
+export default function GenreSection({ value, onChange }: GenreSectionProps) {
+  const theme = useTheme();
+  const isMdDown = useMediaQuery(theme.breakpoints.down("md"));
+
+  if (isMdDown) {
+    return (
+      <FormControl fullWidth>
+        <Select
+          labelId="genre-select-label"
+          value={value}
+          label="Genre"
+          onChange={(e) => onChange(e.target.value)}
+        >
+          {genres.map((genre) => (
+            <MenuItem key={genre.value} value={genre.value}>
+              {genre.label}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    );
+  }
   return (
     <FormControl>
-      <RadioGroup
-        aria-labelledby="demo-controlled-radio-buttons-group"
-        name="controlled-radio-buttons-group"
-        value={value}
-        onChange={handleChange}
-      >
-        <FormControlLabel value="fantasy" control={<Radio />} label="Fantasy" />
-        <FormControlLabel value="romance" control={<Radio />} label="Romance" />
+      <RadioGroup value={value} onChange={(e) => onChange(e.target.value)}>
+        {genres.map((genre) => (
+          <FormControlLabel
+            key={genre.value}
+            value={genre.value}
+            control={<Radio />}
+            label={genre.label}
+          />
+        ))}
       </RadioGroup>
     </FormControl>
   );
