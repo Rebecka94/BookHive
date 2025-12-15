@@ -1,12 +1,13 @@
 import { createClient } from "@/lib/supabase/server";
+import { Typography } from "@mui/material";
 import { redirect } from "next/navigation";
-import { Typography, List, ListItem } from "@mui/material";
-import Link from "next/link";
+import MyClubsList from "./components/myClubsList";
 
 interface BookClub {
   id: string;
   name: string;
   description: string | null;
+  creator_id: string;
 }
 
 interface ClubMemberRow {
@@ -17,15 +18,15 @@ export default async function ProfilePage() {
   const supabase = await createClient();
 
   const {
-    data: { user }
+    data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) redirect("/");
 
-  const { data } = await supabase
+  const { data } = (await supabase
     .from("club_members")
-    .select("book_clubs(*)")
-    .eq("user_id", user.id) as { data: ClubMemberRow[] | null };
+    .select("book_clubs(id, name, description, creator_id)")
+    .eq("user_id", user.id)) as { data: ClubMemberRow[] | null };
 
   const clubs: BookClub[] = data?.map((row) => row.book_clubs) ?? [];
 
@@ -38,21 +39,11 @@ export default async function ProfilePage() {
         My Book Clubs
       </Typography>
 
-      {clubs.length === 0 && (
+      {clubs.length === 0 ? (
         <Typography>You are not a member of any clubs.</Typography>
+      ) : (
+        <MyClubsList clubs={clubs} userId={user.id} />
       )}
-
-      <List>
-        {clubs.map((club) => (
-          <ListItem key={club.id}>
-            <Link href={`/bookclub/${club.id}`} style={{ textDecoration: 'none' }}>
-            <Typography>
-              {club.name} — {club.description ?? "No description"}
-            </Typography>
-            </Link>
-          </ListItem>
-        ))}
-      </List>
     </div>
   );
 }
