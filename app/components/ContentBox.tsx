@@ -16,6 +16,8 @@ export default function ContentBox({ name, description, image }: ContentBoxProps
         display: "flex",
         flexDirection: "row",
         borderRadius: 2,
+        border: "1px solid",
+        borderColor: "divider",
         boxShadow: 1,
         padding: 1.5,
         minHeight: 140,

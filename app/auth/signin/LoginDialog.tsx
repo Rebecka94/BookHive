@@ -42,10 +42,14 @@ export default function LoginDialog({ open, onClose }: LoginDialogProps) {
       </DialogTitle>
 
       <DialogContent>
-        <Box display="flex" flexDirection="column" gap={3} mt={1}>
+        <Box display="flex" flexDirection="column" gap={2} mt={1}>
           <EmailLoginForm onSuccess={onClose} />
 
-          <Divider />
+          <Divider sx={{mt: 1}} />
+
+          <Typography variant="body1" textAlign="center">
+            Or sign in with
+          </Typography>
 
           <GithubButton onClick={handleGitHubSignIn} />
         </Box>

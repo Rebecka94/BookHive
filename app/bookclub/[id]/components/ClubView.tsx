@@ -194,7 +194,8 @@ export default function ClubView({ club, posts }: Props) {
             })}
 
             {posts.length === 0 && (
-              <Card sx={{ p: 3, textAlign: "center" }}>
+              <Card sx={{ border: "1px solid",
+        borderColor: "divider", p: 3, textAlign: "center" }}>
                 <Typography color="#992B15">
                   No posts yet. Be the first to share something!
                 </Typography>

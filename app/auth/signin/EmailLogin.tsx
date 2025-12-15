@@ -45,7 +45,7 @@ export default function EmailLoginForm({ onSuccess }: { onSuccess: () => void })
         onChange={(e) => setPassword(e.target.value)}
         fullWidth
       />
-      <Button variant="contained" onClick={handleLogin} disabled={loading}>
+      <Button sx={{ py: 1.5, fontSize: "1rem", mt: 1 }} variant="contained" onClick={handleLogin} disabled={loading}>
         Sign in
       </Button>
     </Box>

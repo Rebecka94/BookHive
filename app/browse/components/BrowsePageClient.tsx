@@ -24,14 +24,16 @@ export default function BrowsePageClient() {
             flexShrink: 0,
           }}
         >
-          <Card sx={{ px: 3, py: 2 }}>
+          <Card sx={{ border: "1px solid",
+        borderColor: "divider", px: 3, py: 2 }}>
             <Typography variant="h4">Genres</Typography>
             <GenreSection value={selectedGenre} onChange={setSelectedGenre} />
           </Card>
         </Box>
 
         <Box sx={{ width: { xs: "100%", md: "75%" } }}>
-          <Card sx={{ px: 3, py: 2 }}>
+          <Card sx={{ border: "1px solid",
+        borderColor: "divider", px: 3, py: 2 }}>
             <Typography variant="h3">
               {selectedGenre.charAt(0).toUpperCase() + selectedGenre.slice(1)}
             </Typography>

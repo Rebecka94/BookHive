@@ -13,7 +13,7 @@ let theme = createTheme({
   },
 
   palette: {
-    background: { default: "#F7EBD5", paper: "#FFF8E9" },
+    background: { default: "#F7EBD5", paper: "#FFF8EC" },
     primary: {
       main: "#345B49",
       contrastText: "#F7EBD5",
