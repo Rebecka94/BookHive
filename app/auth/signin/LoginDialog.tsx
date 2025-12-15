@@ -1,5 +1,6 @@
 "use client";
 
+import { createClient } from "@/lib/supabase/client";
 import {
   Box,
   Button,
@@ -7,9 +8,10 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Divider,
   Typography,
 } from "@mui/material";
-import { createClient } from "@/lib/supabase/client";
+import EmailLoginForm from "./EmailLogin";
 import GithubButton from "./providers/GithubButton";
 
 interface LoginDialogProps {
@@ -27,46 +29,33 @@ export default function LoginDialog({ open, onClose }: LoginDialogProps) {
         redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
-    
+
     if (error) {
-      console.error("Login error:", error);
+      console.error("GitHub login error:", error);
     }
   };
 
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      maxWidth="xs"
-      fullWidth
-      sx={{ borderRadius: 2 }}
-    >
-      <Box>
-        <DialogTitle sx={{ textAlign: "center", pb: 1 }}>
-          <Typography variant="body2">
-            Welcome to BookHive
-          </Typography>
-        </DialogTitle>
+    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
+      <DialogTitle textAlign="center">
+        <Typography variant="h6">Welcome to BookHive</Typography>
+      </DialogTitle>
 
-        <DialogContent>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 1 }}>
-            <GithubButton onClick={handleGitHubSignIn} />
-          </Box>
+      <DialogContent>
+        <Box display="flex" flexDirection="column" gap={3} mt={1}>
+          <EmailLoginForm onSuccess={onClose} />
 
-          <Typography
-            variant="body2"
-            sx={{ display: "block", textAlign: "center", mt: 3 }}
-          >
-            By continuing, you agree to our terms of service and privacy policy.
-          </Typography>
-        </DialogContent>
+          <Divider />
 
-        <DialogActions sx={{ justifyContent: "center", pb: 2 }}>
-          <Button onClick={onClose} color="inherit">
-            Cancel
-          </Button>
-        </DialogActions>
-      </Box>
+          <GithubButton onClick={handleGitHubSignIn} />
+        </Box>
+      </DialogContent>
+
+      <DialogActions sx={{ justifyContent: "center" }}>
+        <Button onClick={onClose}>
+          Cancel
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 }
