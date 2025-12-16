@@ -1,7 +1,14 @@
 "use client";
 
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, IconButton, List, ListItem, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Link from "next/link";
 import { deleteClub } from "../actions/deleteClub";
 
@@ -18,15 +25,6 @@ interface Props {
 }
 
 export default function MyClubsList({ clubs, userId }: Props) {
- // Debugging logs
-  console.log("Current userId:", userId);
-  console.log("Clubs:", clubs.map(c => ({ 
-    id: c.id, 
-    name: c.name, 
-    creator: c.creator_id,
-    isCreator: c.creator_id === userId 
-  })));
-
   const handleDelete = async (clubId: string) => {
     const confirmed = confirm(
       "Are you sure you want to delete this book club?"
@@ -37,7 +35,6 @@ export default function MyClubsList({ clubs, userId }: Props) {
 
     if (result?.error) {
       alert(result.error);
-      console.error(result.error);
       return;
     }
 
@@ -45,40 +42,49 @@ export default function MyClubsList({ clubs, userId }: Props) {
   };
 
   return (
-  <List>
-    {clubs.map((club) => {
-      const isCreator = club.creator_id === userId;
+    <Stack spacing={2}>
+      {clubs.map((club) => {
+        const isCreator = club.creator_id === userId;
 
-      return (
-        <ListItem
-          key={club.id}
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Box>
-            <Link
-              href={`/bookclub/${club.id}`}
-              style={{ textDecoration: "none" }}
+        return (
+          <Card key={club.id} variant="outlined">
+            <CardContent
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                gap: 2,
+              }}
             >
-              <Typography fontWeight={600}>{club.name}</Typography>
-              <Typography variant="body2" color="text.secondary">
-                {club.description ?? "No description"}
-              </Typography>
-            </Link>
-          </Box>
+              <Box>
+                <Link
+                  href={`/bookclub/${club.id}`}
+                  style={{
+                    textDecoration: "none",
+                  }}
+                >
+                  <Typography variant="body1">
+                    {club.name}
+                  </Typography>
 
-          <IconButton
-            onClick={() => handleDelete(club.id)}
-            aria-label="Delete club"
-            color={isCreator ? "default" : "warning"}
-          >
-            <CloseIcon />
-          </IconButton>
-        </ListItem>
-      );
-    })}
-  </List>
-)}
+                  <Typography variant="body2">
+                    {club.description || "No description"}
+                  </Typography>
+                </Link>
+              </Box>
+
+              {isCreator && (
+                <IconButton
+                  size="small"
+                  onClick={() => handleDelete(club.id)}
+                >
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+              )}
+            </CardContent>
+          </Card>
+        );
+      })}
+    </Stack>
+  );
+}

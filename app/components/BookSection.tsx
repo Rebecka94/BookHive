@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Link, Typography } from "@mui/material";
+import { Box, Link, Typography, Pagination } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -8,6 +8,7 @@ type OLDoc = {
   key: string;
   cover_i?: number;
   first_publish_year?: number;
+  author_name?: string[];
 };
 
 type BookResult = {
@@ -17,31 +18,32 @@ type BookResult = {
 
 export default function BookSection() {
   const [books, setBooks] = useState<BookResult[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const limit = 4;
 
   useEffect(() => {
     const load = async () => {
       const res = await fetch(
-        "https://openlibrary.org/search.json?subject=romantasy&limit=8"
+        `https://openlibrary.org/search.json?subject=romantasy&limit=${limit}&page=${page}`
       );
       const data = await res.json();
 
       const mapped =
         (data.docs as OLDoc[])
           ?.filter((item) => item.cover_i && item.first_publish_year)
-          .sort(
-            (a, b) => (b.first_publish_year ?? 0) - (a.first_publish_year ?? 0)
-          )
-          .slice(0, 8)
           .map((item) => ({
             id: item.key.replace("/works/", ""),
             coverImage: `https://covers.openlibrary.org/b/id/${item.cover_i}-L.jpg`,
           })) || [];
 
       setBooks(mapped);
+      setTotalPages(Math.ceil(data.numFound / limit));
     };
 
     load();
-  }, []);
+  }, [page]);
 
   return (
     <Box
@@ -55,13 +57,14 @@ export default function BookSection() {
       }}
       bgcolor="background.paper"
       border="1.5px solid"
-        borderColor="divider"
+      borderColor="divider"
     >
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          px: 3.5,
         }}
       >
         <Typography variant="h3">Trending books</Typography>
@@ -77,6 +80,7 @@ export default function BookSection() {
           Read more →
         </Link>
       </Box>
+
       <Box
         sx={{
           display: "grid",
@@ -113,6 +117,15 @@ export default function BookSection() {
             </Link>
           </Box>
         ))}
+      </Box>
+
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+        <Pagination
+          page={page}
+          count={totalPages}
+          onChange={(_, value) => setPage(value)}
+          color="primary"
+        />
       </Box>
     </Box>
   );
