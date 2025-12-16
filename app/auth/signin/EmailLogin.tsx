@@ -1,10 +1,14 @@
 "use client";
 
+import { createClient } from "@/lib/supabase/client";
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
 
-export default function EmailLoginForm({ onSuccess }: { onSuccess: () => void }) {
+export default function EmailLoginForm({
+  onSuccess,
+}: {
+  onSuccess: () => void;
+}) {
   const supabase = createClient();
 
   const [email, setEmail] = useState("");
@@ -32,20 +36,35 @@ export default function EmailLoginForm({ onSuccess }: { onSuccess: () => void })
   return (
     <Box display="flex" flexDirection="column" gap={2}>
       <TextField
-        label="Email"
+        label="Email.."
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         fullWidth
+        sx={{
+          "& .MuiInputLabel-root": {
+            color: "rgba(64, 64, 64, 0.6)",
+          },
+        }}
       />
       <TextField
-        label="Password"
+        label="Password.."
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         fullWidth
+        sx={{
+          "& .MuiInputLabel-root": {
+            color: "rgba(64, 64, 64, 0.6)",
+          },
+        }}
       />
-      <Button sx={{ py: 1.5, fontSize: "1rem", mt: 1 }} variant="contained" onClick={handleLogin} disabled={loading}>
+      <Button
+        sx={{ py: 1.5, fontSize: "1rem", mt: 1 }}
+        variant="contained"
+        onClick={handleLogin}
+        disabled={loading}
+      >
         Sign in
       </Button>
     </Box>
