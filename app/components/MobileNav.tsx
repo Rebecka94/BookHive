@@ -94,7 +94,7 @@ export default function MobileNav({ user, onOpenLogin, onSignOut }: Props) {
           borderWidth: "2px",
           ":hover": {
             backgroundColor: "#345B49",
-            color: "#ffffff",
+            color: "#F7EBD5",
           },
         }}
         onClick={user ? onSignOut : onOpenLogin}

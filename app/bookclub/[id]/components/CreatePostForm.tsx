@@ -50,7 +50,8 @@ export default function CreatePostForm({ clubId }: Props) {
   };
 
   return (
-    <Card sx={{ px: 3, py: 2, mb: 3 }}>
+    <Card sx={{ border: "1px solid",
+        borderColor: "divider", px: 3, py: 2, mb: 3 }}>
       <Typography variant="h4" sx={{ mb: 2 }}>
         Start a topic or just say what is on your mind
       </Typography>

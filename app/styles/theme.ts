@@ -9,11 +9,11 @@ let theme = createTheme({
     h3: { fontSize: "2rem", lineHeight: 1.35 },
     h4: { fontSize: "1.5rem", lineHeight: 1.4 },
     body1: { fontSize: "1.125rem", lineHeight: 1.6 },
-    body2: {fontSize: "0.7rem", lineheight: 1}
+    body2: { fontSize: "0.7rem", lineHeight: 1 },
   },
 
   palette: {
-    background: { default: "#F7EBD5", paper: "#FFF8E9" },
+    background: { default: "#F7EBD5", paper: "#FFF8EC" },
     primary: {
       main: "#345B49",
       contrastText: "#F7EBD5",
@@ -27,7 +27,44 @@ let theme = createTheme({
       secondary: "#F7EBD5",
     },
   },
+
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          "& input": {
+            color: "#345B49", // 👈 texten i input
+          },
+          "& label": {
+            color: "#345B49", // 👈 label
+          },
+          "& input::placeholder": {
+            color: "#7A8F85",
+            opacity: 1,
+          },
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#FFF8",
+
+          "& fieldset": {
+            borderColor: "#345B49",
+          },
+          "&:hover fieldset": {
+            borderColor: "#2B4A3B",
+          },
+          "&.Mui-focused fieldset": {
+            borderColor: "#345B49",
+          },
+        },
+      },
+    },
+  },
 });
+
 
 theme = createTheme(theme, {
   typography: {
