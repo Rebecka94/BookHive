@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
 import { Box, Button, Typography } from "@mui/material";
 import Image from "next/image";
 
 export default function Hero() {
   return (
-    <Box sx={{ mt: 10, mb: 10 , width: "100%" }}>
+    <Box sx={{ py: 6, mb: 4, width: "100%" }}>
       <Box
         sx={{
           px: 3,
@@ -20,7 +20,13 @@ export default function Hero() {
           BookHive
         </Typography>
 
-        <Box sx={{ position: "relative", width: "100%", height: "300px" }}>
+        <Box
+          sx={{
+            position: "relative",
+            width: "100%",
+            height: { xs: "280px", md: "370px" },
+          }}
+        >
           <Image
             src="/hero-img.png"
             alt="Hero Image"

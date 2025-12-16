@@ -67,6 +67,7 @@ export default function BookSection() {
         width: "92%",
         borderRadius: 2,
         mt: 15,
+        mb: 18,
       }}
       bgcolor="background.paper"
       border="1.5px solid"
