@@ -27,6 +27,18 @@ export default function MembersList({
 
   if (!isCreator) return null;
 
+  const handleRemoveMember = (userId: string) => {
+    const confirmed = confirm(
+      "Are you sure you want to remove this member from the club?"
+    );
+    
+    if (!confirmed) return;
+
+    startTransition(async () => {
+      await removeMember(clubId, userId);
+    });
+  };
+
   return (
     <Box>
       <Typography variant="h6" sx={{ mb: 1 }}>
@@ -45,11 +57,7 @@ export default function MembersList({
                   <IconButton
                     edge="end"
                     disabled={isPending}
-                    onClick={() =>
-                      startTransition(async () => {
-                        await removeMember(clubId, member.user_id);
-                      })
-                    }
+                    onClick={() => handleRemoveMember(member.user_id)}
                   >
                     <CloseIcon />
                   </IconButton>
