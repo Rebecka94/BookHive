@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { Box, Link, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -10,11 +10,13 @@ type OLDoc = {
   key: string;
   cover_i?: number;
   first_publish_year?: number;
+  author_name?: string[];
 };
 
 type BookResult = {
   id: string;
   coverImage: string;
+  author: string;
 };
 
 const genres = [
@@ -49,6 +51,7 @@ export default function BookSection() {
           .map((item) => ({
             id: item.key.replace("/works/", ""),
             coverImage: `https://covers.openlibrary.org/b/id/${item.cover_i}-L.jpg`,
+            author: item.author_name?.[0] || "Unknown Author",
           })) || [];
 
       setBooks(mapped);
