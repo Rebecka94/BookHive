@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { Avatar, Box, Card, CardContent, Typography } from "@mui/material";
 import { redirect } from "next/navigation";
+import FavoriteBooksList from "./components/FavoriteBooksList";
 import MyClubsList from "./components/myClubsList";
 
 interface BookClub {
@@ -35,15 +36,13 @@ export default async function ProfilePage() {
       sx={{
         maxWidth: 1100,
         mx: "auto",
-       px: { xs: 2, sm: 4},
+        px: { xs: 2, sm: 4 },
         py: { xs: 4, sm: 6 },
         mb: 12,
         mt: 2,
       }}
     >
-      <Typography variant="h3">
-        My Profile
-      </Typography>
+      <Typography variant="h3">My Profile</Typography>
       <Box
         sx={{
           display: "flex",
@@ -51,8 +50,8 @@ export default async function ProfilePage() {
           gap: 4,
         }}
       >
-         <Box sx={{ flex: 1 }}>
-          <Card sx={{backgroundColor: "#345B49", color: "text.secondary"}}>
+        <Box sx={{ flex: 1 }}>
+          <Card sx={{ backgroundColor: "#345B49", color: "text.secondary" }}>
             <CardContent sx={{ textAlign: "center", py: 4 }}>
               <Avatar
                 src={user.user_metadata?.avatar_url}
@@ -74,13 +73,12 @@ export default async function ProfilePage() {
               <Typography variant="body2">{user.email}</Typography>
             </CardContent>
           </Card>
+              <FavoriteBooksList />
         </Box>
         <Box sx={{ flex: 2 }}>
           <Card>
             <CardContent>
-              <Typography variant="h4">
-                My Book Clubs
-              </Typography>
+              <Typography variant="h4">My Book Clubs</Typography>
 
               {clubs.length === 0 ? (
                 <Typography variant="body2">
