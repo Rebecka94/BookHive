@@ -34,62 +34,72 @@ export default async function ProfilePage() {
   return (
     <Box
       sx={{
-        maxWidth: 1100,
-        mx: "auto",
-        px: { xs: 2, sm: 4 },
-        py: { xs: 4, sm: 6 },
+        display: "flex",
+        flexDirection: { xs: "column", lg: "row" },
+        gap: { xs: 4, lg: 3 },
+        px: { xs: 2, sm: 3, md: 6 },
+        py: { xs: 4, md: 6 },
         mb: 12,
         mt: 2,
+         maxWidth: 1300,
+    mx: "auto",     
       }}
     >
-      <Typography variant="h3">My Profile</Typography>
       <Box
         sx={{
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          gap: 4,
+          width: { xs: "100%", lg: "30%" },
+          flexShrink: 0,
         }}
       >
-        <Box sx={{ flex: 1 }}>
-          <Card sx={{ backgroundColor: "#345B49", color: "text.secondary" }}>
-            <CardContent sx={{ textAlign: "center", py: 4 }}>
-              <Avatar
-                src={user.user_metadata?.avatar_url}
-                alt={user.user_metadata?.name || user.email}
-                sx={{
-                  width: 96,
-                  height: 96,
-                  mx: "auto",
-                  mb: 2,
-                }}
-              >
-                {user.email?.[0]?.toUpperCase()}
-              </Avatar>
+        <Typography variant="h2" sx={{ mb: 3 }}>
+          My Profile
+        </Typography>
 
-              <Typography variant="h4">
-                {user.user_metadata?.name || user.email?.split("@")[0]}
+        <Card sx={{ backgroundColor: "#345B49", color: "text.secondary" }}>
+          <CardContent sx={{ textAlign: "center", py: 4 }}>
+            <Avatar
+              src={user.user_metadata?.avatar_url}
+              alt={user.user_metadata?.name || user.email}
+              sx={{
+                width: 96,
+                height: 96,
+                mx: "auto",
+                mb: 2,
+              }}
+            >
+              {user.email?.[0]?.toUpperCase()}
+            </Avatar>
+
+            <Typography variant="h4">
+              {user.user_metadata?.name || user.email?.split("@")[0]}
+            </Typography>
+
+            <Typography variant="body2">{user.email}</Typography>
+          </CardContent>
+        </Card>
+
+        <FavoriteBooksList />
+      </Box>
+      <Box
+        sx={{
+          width: { xs: "100%", lg: "60%" },
+        }}
+      >
+        <Typography variant="h2" sx={{ mb: 3 }}>
+          My Book Clubs
+        </Typography>
+
+        <Card>
+          <CardContent>
+            {clubs.length === 0 ? (
+              <Typography variant="body2">
+                You are not a member of any clubs yet.
               </Typography>
-
-              <Typography variant="body2">{user.email}</Typography>
-            </CardContent>
-          </Card>
-              <FavoriteBooksList />
-        </Box>
-        <Box sx={{ flex: 2 }}>
-          <Card>
-            <CardContent>
-              <Typography variant="h4">My Book Clubs</Typography>
-
-              {clubs.length === 0 ? (
-                <Typography variant="body2">
-                  You are not a member of any clubs yet.
-                </Typography>
-              ) : (
-                <MyClubsList clubs={clubs} userId={user.id} />
-              )}
-            </CardContent>
-          </Card>
-        </Box>
+            ) : (
+              <MyClubsList clubs={clubs} userId={user.id} />
+            )}
+          </CardContent>
+        </Card>
       </Box>
     </Box>
   );

@@ -1,6 +1,14 @@
 "use client";
 
-import { Box, IconButton, List, ListItem, Typography } from "@mui/material";
+import {
+  Box,
+  Chip,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTransition } from "react";
 import { removeMember } from "../../actions/removeMember";
@@ -31,7 +39,6 @@ export default function MembersList({
     const confirmed = confirm(
       "Are you sure you want to remove this member from the club?"
     );
-    
     if (!confirmed) return;
 
     startTransition(async () => {
@@ -41,33 +48,58 @@ export default function MembersList({
 
   return (
     <Box>
-      <Typography variant="h6" sx={{ mb: 1 }}>
-        Members
-      </Typography>
-
-      <List dense>
+      <List disablePadding>
         {members.map((member) => {
           const isSelf = member.user_id === currentUserId;
 
           return (
             <ListItem
               key={member.user_id}
+              sx={{
+                mb: 1,
+                borderRadius: 2,
+                bgcolor: "background.paper",
+                border: "1px solid",
+                borderColor: "divider",
+              }}
               secondaryAction={
                 !isSelf && (
                   <IconButton
                     edge="end"
+                    size="small"
                     disabled={isPending}
                     onClick={() => handleRemoveMember(member.user_id)}
                   >
-                    <CloseIcon />
+                    <CloseIcon fontSize="small" />
                   </IconButton>
                 )
               }
             >
-              <Typography variant="body2">
-                {member.user_id}
-                {member.role === "creator" && " (creator)"}
-              </Typography>
+              <ListItemText
+                primary={
+                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                    <Typography variant="body2">
+                      {member.user_id}
+                    </Typography>
+
+                    {member.role === "creator" && (
+                      <Chip
+                        label="Creator"
+                        size="small"
+                        color="primary"
+                      />
+                    )}
+
+                    {isSelf && (
+                      <Chip
+                        label="You"
+                        size="small"
+                        variant="outlined"
+                      />
+                    )}
+                  </Box>
+                }
+              />
             </ListItem>
           );
         })}

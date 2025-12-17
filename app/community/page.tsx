@@ -35,7 +35,7 @@ export default async function CommunityPage() {
           padding: "0 1rem",
         }}
       >
-        <Typography sx={{mb: 2}} variant="h1">Join a bookclub or start your own</Typography>
+        <Typography sx={{mb: 2}} variant="h2">Join a bookclub or start your own</Typography>
 
         <CreateBookClubForm user={user} />
 
