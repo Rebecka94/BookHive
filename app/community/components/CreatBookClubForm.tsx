@@ -59,7 +59,7 @@ export default function CreateBookClubForm({ user }: { user: User | null }) {
 
   return (
     <>
-      <Button variant="outlined" onClick={() => setOpen(true)}>
+      <Button sx={{mb:2}} variant="contained" onClick={() => setOpen(true)}>
         Create a Book Club
       </Button>
 

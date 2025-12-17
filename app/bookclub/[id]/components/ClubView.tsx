@@ -66,9 +66,11 @@ export default function ClubView({ club, posts }: Props) {
           flexDirection: { xs: "column", sm: "row" },
           gap: 3,
           px: { xs: 2, sm: 3, md: 5 },
+          py: { xs: 4, md: 6},
+          mb: 12,
+          mt: 2,
         }}
       >
-        {/* Members sidebar - only show if creator */}
         {isCreator && (
           <Box
             sx={{
@@ -87,9 +89,7 @@ export default function ClubView({ club, posts }: Props) {
             </Card>
           </Box>
         )}
-
-        {/* Main content */}
-        <Box sx={{ width: "100%", maxWidth: 700, mx: "auto" }}>
+        <Box sx={{ width: "100%", maxWidth: 800, mx: "auto" }}>
           <CreatePostForm clubId={club.id} />
 
           <PostsList

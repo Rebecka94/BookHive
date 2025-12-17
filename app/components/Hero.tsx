@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <Box sx={{ py: 6, mb: 4, width: "100%" }}>
+    <Box sx={{ py: { xs: 4, sm: 6 }, mb: 4, width: "100%" }}>
       <Box
         sx={{
           px: 3,

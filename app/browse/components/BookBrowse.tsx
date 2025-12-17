@@ -18,15 +18,19 @@ type BookResult = {
 
 type BrowseSectionProps = {
   genre: string;
+  page: number;
 };
 
-export default function BrowseSection({genre}: BrowseSectionProps) {
+export default function BrowseSection({ genre, page }: BrowseSectionProps) {
   const [books, setBooks] = useState<BookResult[]>([]);
+
+  const LIMIT = 8;
+  const offset = (page - 1) * LIMIT;
 
   useEffect(() => {
     const load = async () => {
       const res = await fetch(
-        `https://openlibrary.org/search.json?subject=${genre}&limit=8`
+        `https://openlibrary.org/search.json?subject=${genre}&limit=${LIMIT}&offset=${offset}`
       );
       const data = await res.json();
 
@@ -36,7 +40,6 @@ export default function BrowseSection({genre}: BrowseSectionProps) {
           .sort(
             (a, b) => (b.first_publish_year ?? 0) - (a.first_publish_year ?? 0)
           )
-          .slice(0, 8)
           .map((item) => ({
             id: item.key.replace("/works/", ""),
             coverImage: `https://covers.openlibrary.org/b/id/${item.cover_i}-L.jpg`,
@@ -46,21 +49,10 @@ export default function BrowseSection({genre}: BrowseSectionProps) {
     };
 
     load();
-  }, [genre]);
+  }, [genre, page]);
+
   return (
-    <Box
-      sx={{
-        mx: "auto",
-        width: "92%",
-      }}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      ></Box>
+    <Box sx={{ mx: "auto", width: "92%" }}>
       <Box
         sx={{
           display: "grid",
@@ -70,6 +62,7 @@ export default function BrowseSection({genre}: BrowseSectionProps) {
             sm: "repeat(3, 1fr)",
             md: "repeat(4, 1fr)",
           },
+          gap: 2,
         }}
       >
         {books.map((book) => (
@@ -80,11 +73,8 @@ export default function BrowseSection({genre}: BrowseSectionProps) {
               width: "70%",
               aspectRatio: "1 / 2",
               overflow: "hidden",
-              mx: "auto",
               transition: "transform 0.3s ease",
-              "&:hover": {
-                transform: "scale(1.05)",
-              },
+              "&:hover": { transform: "scale(1.05)" },
             }}
           >
             <Link href={`/browse/${book.id}`}>

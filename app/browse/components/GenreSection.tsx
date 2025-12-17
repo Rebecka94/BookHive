@@ -36,12 +36,7 @@ export default function GenreSection({ value, onChange }: GenreSectionProps) {
   if (isMdDown) {
     return (
       <FormControl fullWidth>
-        <Select
-          labelId="genre-select-label"
-          value={value}
-          label="Genre"
-          onChange={(e) => onChange(e.target.value)}
-        >
+        <Select value={value} onChange={(e) => onChange(e.target.value)}>
           {genres.map((genre) => (
             <MenuItem key={genre.value} value={genre.value}>
               {genre.label}

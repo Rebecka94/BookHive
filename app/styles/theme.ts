@@ -33,10 +33,10 @@ let theme = createTheme({
       styleOverrides: {
         root: {
           "& input": {
-            color: "#345B49", // 👈 texten i input
+            color: "#345B49",
           },
           "& label": {
-            color: "#345B49", // 👈 label
+            color: "#345B49",
           },
           "& input::placeholder": {
             color: "#7A8F85",

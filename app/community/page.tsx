@@ -22,7 +22,10 @@ export default async function CommunityPage() {
         flexDirection: "column",
         alignItems: "center",
         width: "100%",
-        paddingY: 7,
+        py: { xs: 4, sm: 6 },
+        mb: 12,
+        mt: 2,
+        px: { xs: 2, sm: 4}
       }}
     >
       <Box
@@ -32,7 +35,7 @@ export default async function CommunityPage() {
           padding: "0 1rem",
         }}
       >
-        <Typography variant="h1">Book Clubs</Typography>
+        <Typography sx={{mb: 2}} variant="h1">Join a bookclub or start your own</Typography>
 
         <CreateBookClubForm user={user} />
 
@@ -40,7 +43,7 @@ export default async function CommunityPage() {
           sx={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            gap: "1.25rem",
+            gap: "2rem",
             justifyContent: "start",
             mt: 3,
           }}

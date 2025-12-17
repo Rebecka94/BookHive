@@ -35,8 +35,10 @@ export default async function ProfilePage() {
       sx={{
         maxWidth: 1100,
         mx: "auto",
-        px: { xs: 2, md: 4 },
-        py: 6,
+       px: { xs: 2, sm: 4},
+        py: { xs: 4, sm: 6 },
+        mb: 12,
+        mt: 2,
       }}
     >
       <Typography variant="h3">
@@ -49,8 +51,8 @@ export default async function ProfilePage() {
           gap: 4,
         }}
       >
-        <Box sx={{ flex: 1 }}>
-          <Card>
+         <Box sx={{ flex: 1 }}>
+          <Card sx={{backgroundColor: "#345B49", color: "text.secondary"}}>
             <CardContent sx={{ textAlign: "center", py: 4 }}>
               <Avatar
                 src={user.user_metadata?.avatar_url}
