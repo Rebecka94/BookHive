@@ -14,14 +14,14 @@ export default function EmailLoginForm({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isSignup, setIsSignup] = useState(false);
 
-  const handleLogin = async () => {
+  const handleAuth = async () => {
     setLoading(true);
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const { error } = isSignup
+      ? await supabase.auth.signUp({ email, password })
+      : await supabase.auth.signInWithPassword({ email, password });
 
     setLoading(false);
 
@@ -36,36 +36,29 @@ export default function EmailLoginForm({
   return (
     <Box display="flex" flexDirection="column" gap={2}>
       <TextField
-        label="Email.."
+        label="Email"
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         fullWidth
-        sx={{
-          "& .MuiInputLabel-root": {
-            color: "rgba(64, 64, 64, 0.6)",
-          },
-        }}
       />
+
       <TextField
-        label="Password.."
+        label="Password"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         fullWidth
-        sx={{
-          "& .MuiInputLabel-root": {
-            color: "rgba(64, 64, 64, 0.6)",
-          },
-        }}
       />
-      <Button
-        sx={{ py: 1.5, fontSize: "1rem", mt: 1 }}
-        variant="contained"
-        onClick={handleLogin}
-        disabled={loading}
-      >
-        Sign in
+
+      <Button variant="contained" onClick={handleAuth} disabled={loading}>
+        {isSignup ? "Create account" : "Sign in"}
+      </Button>
+
+      <Button variant="text" onClick={() => setIsSignup(!isSignup)}>
+        {isSignup
+          ? "Already have an account? Sign in"
+          : "Don't have an account? Create one"}
       </Button>
     </Box>
   );
