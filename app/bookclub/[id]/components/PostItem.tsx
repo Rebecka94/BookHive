@@ -19,9 +19,16 @@ interface Props {
   isMine: boolean;
   onUpdate: (postId: string, title: string, content: string) => Promise<void>;
   onDelete: (postId: string) => Promise<void>;
+  authorName: string;
 }
 
-export default function PostItem({ post, isMine, onUpdate, onDelete }: Props) {
+export default function PostItem({
+  post,
+  isMine,
+  onUpdate,
+  onDelete,
+  authorName,
+}: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(post.title ?? "");
   const [editContent, setEditContent] = useState(post.content);
@@ -41,10 +48,7 @@ export default function PostItem({ post, isMine, onUpdate, onDelete }: Props) {
     <Card sx={{ p: 2, position: "relative" }}>
       {isMine && !isEditing && (
         <Box sx={{ position: "absolute", top: 8, right: 8 }}>
-          <IconButton
-            onClick={() => setIsEditing(true)}
-            aria-label="Edit post"
-          >
+          <IconButton onClick={() => setIsEditing(true)} aria-label="Edit post">
             <EditIcon />
           </IconButton>
           <IconButton onClick={handleDelete} aria-label="Delete post">
@@ -104,6 +108,9 @@ export default function PostItem({ post, isMine, onUpdate, onDelete }: Props) {
         <>
           <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
             {post.title ?? "Untitled post"}
+          </Typography>
+          <Typography variant="body2" sx={{ fontWeight: 600, mb: 0.5 }}>
+            {authorName}
           </Typography>
 
           <Typography

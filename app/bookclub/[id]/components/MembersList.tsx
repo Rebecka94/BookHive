@@ -16,6 +16,7 @@ import { removeMember } from "../../actions/removeMember";
 interface Member {
   user_id: string;
   role: string;
+  club_username: string;
 }
 
 interface Props {
@@ -33,9 +34,8 @@ export default function MembersList({
 }: Props) {
   const [isPending, startTransition] = useTransition();
 
-  if (!isCreator) return null;
-
   const handleRemoveMember = (userId: string) => {
+    if (!isCreator) return;
     const confirmed = confirm(
       "Are you sure you want to remove this member from the club?"
     );
@@ -63,7 +63,7 @@ export default function MembersList({
                 borderColor: "divider",
               }}
               secondaryAction={
-                !isSelf && (
+                isCreator && !isSelf && (
                   <IconButton
                     edge="end"
                     size="small"
@@ -79,23 +79,15 @@ export default function MembersList({
                 primary={
                   <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                     <Typography variant="body2">
-                      {member.user_id}
+                      {member.club_username}
                     </Typography>
 
                     {member.role === "creator" && (
-                      <Chip
-                        label="Creator"
-                        size="small"
-                        color="primary"
-                      />
+                      <Chip label="Admin" size="small" color="primary" />
                     )}
 
                     {isSelf && (
-                      <Chip
-                        label="You"
-                        size="small"
-                        variant="outlined"
-                      />
+                      <Chip label="You" size="small" variant="outlined" />
                     )}
                   </Box>
                 }

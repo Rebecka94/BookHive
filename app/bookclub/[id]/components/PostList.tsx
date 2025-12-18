@@ -9,6 +9,7 @@ interface Props {
   currentUserId: string | null;
   onUpdate: (postId: string, title: string, content: string) => Promise<void>;
   onDelete: (postId: string) => Promise<void>;
+  authorNameByUserId: Record<string, string>;
 }
 
 export default function PostsList({
@@ -16,6 +17,7 @@ export default function PostsList({
   currentUserId,
   onUpdate,
   onDelete,
+  authorNameByUserId,
 }: Props) {
   if (posts.length === 0) {
     return (
@@ -43,6 +45,7 @@ export default function PostsList({
           isMine={post.author_id === currentUserId}
           onUpdate={onUpdate}
           onDelete={onDelete}
+          authorName={authorNameByUserId[post.author_id] ?? "member"}
         />
       ))}
     </Box>
