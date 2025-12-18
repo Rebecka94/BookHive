@@ -2,15 +2,15 @@
 
 import { BookClub, PostWithBook } from "@/app/types/database";
 import { createClient } from "@/lib/supabase/client";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   Card,
   Typography,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useEffect, useMemo, useState } from "react";
 import { deletePost } from "../../actions/deletePost";
 import { updatePost } from "../../actions/updatePost";
@@ -61,13 +61,20 @@ export default function ClubView({ club, posts }: Props) {
     return map;
   }, [members]);
 
-  const handleUpdate = async (postId: string, title: string, content: string) => {
+  const handleUpdate = async (
+    postId: string,
+    title: string,
+    content: string
+  ) => {
     await updatePost(postId, club.id, { title, content });
   };
 
   const handleDelete = async (postId: string) => {
     await deletePost(postId, club.id);
   };
+
+  const myMember = members.find((m) => m.user_id === userId);
+  const myClubUsername = myMember?.club_username;
 
   return (
     <Box
@@ -81,7 +88,7 @@ export default function ClubView({ club, posts }: Props) {
         mt: 2,
         justifyContent: isCreator ? "flex-start" : "center",
         maxWidth: 1300,
-        mx: "auto", 
+        mx: "auto",
       }}
     >
       {isCreator && (
@@ -117,7 +124,11 @@ export default function ClubView({ club, posts }: Props) {
         }}
       >
         <Typography variant="h2" sx={{ mb: 3 }}>
-          Welcome to {club.name}
+          Welcome{" "}
+          <Box component="span" sx={{ color: "#992B15" }}>
+            {myClubUsername}
+          </Box>{" "}
+          to {club.name}
         </Typography>
 
         <CreatePostForm clubId={club.id} />
