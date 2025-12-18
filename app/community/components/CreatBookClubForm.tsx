@@ -6,7 +6,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Stack,
   TextField,
@@ -19,12 +18,12 @@ import { useState, useTransition } from "react";
 import { createBookClub } from "../actions/createClub";
 
 const IMAGE_OPTIONS = [
-  { src: "/fantasy.png", label: "Fantasy" },
-  { src: "/drama.png", label: "Drama" },
-  { src: "/sci-fi.png", label: "Sci-Fi" },
-  { src: "/romantik.png", label: "Romance" },
-  { src: "/sjalvbiografi.png", label: "Biography" },
-  { src: "/krim.png", label: "Crime" },
+  { src: "/fantasy.png" },
+  { src: "/drama.png" },
+  { src: "/sci-fi.png" },
+  { src: "/romantik.png" },
+  { src: "/sjalvbiografi.png" },
+  { src: "/krim.png" },
 ];
 
 export default function CreateBookClubForm({ user }: { user: User | null }) {
@@ -59,7 +58,7 @@ export default function CreateBookClubForm({ user }: { user: User | null }) {
 
   return (
     <>
-      <Button sx={{mb:2}} variant="contained" onClick={() => setOpen(true)}>
+      <Button variant="contained" sx={{ mb: 2 }} onClick={() => setOpen(true)}>
         Create a Book Club
       </Button>
 
@@ -68,112 +67,109 @@ export default function CreateBookClubForm({ user }: { user: User | null }) {
         onClose={() => setOpen(false)}
         fullWidth
         maxWidth="sm"
+        PaperProps={{
+          sx: {
+            borderRadius: 3,
+            p: { xs: 2, sm: 3 },
+          },
+        }}
       >
-        <DialogTitle sx={{ color: "text.primary" }}>
-          Create a Book Club
+        <DialogTitle>
+          <Typography variant="h3">Create a Book Club</Typography>
         </DialogTitle>
 
         <DialogContent>
-          {!user && (
-            <DialogContentText color="text.primary" sx={{ mb: 2 }}>
-              You must be logged in to create a book club.
-            </DialogContentText>
-          )}
-
           {errorMessage && (
-            <DialogContentText color="error" sx={{ mb: 2 }}>
+            <Typography color="error" sx={{ mb: 2 }}>
               {errorMessage}
-            </DialogContentText>
+            </Typography>
           )}
 
           <form id="club-form" onSubmit={handleSubmit}>
-            <Stack spacing={3}>
-              <TextField
-                name="name"
-                label="Name"
-                fullWidth
-                required
-                variant="standard"
-                InputLabelProps={{ sx: { color: "text.primary" } }}
-                InputProps={{ sx: { color: "text.primary" } }}
-              />
+            <Stack spacing={4}>
+              <Stack spacing={3}>
+                <TextField
+                  name="name"
+                  label="Name"
+                  fullWidth
+                  required
+                  variant="standard"
+                />
 
-              <TextField
-                name="description"
-                label="Description"
-                fullWidth
-                required
-                variant="standard"
-                InputLabelProps={{ sx: { color: "text.primary" } }}
-                InputProps={{ sx: { color: "text.primary" } }}
-              />
+                <TextField
+                  name="description"
+                  label="Description"
+                  fullWidth
+                  required
+                  minRows={3}
+                  variant="standard"
+                />
+              </Stack>
 
-              <Typography
-                variant="subtitle1"
-                sx={{ fontWeight: 600, color: "text.primary" }}
-              >
-                Choose an image
-              </Typography>
+              {/* Image selector */}
+              <Box>
+                <Typography variant="body1" sx={{ mb: 1 }}>
+                  Choose an image
+                </Typography>
 
-              <Box
-                sx={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))",
-                  gap: 2,
-                }}
-              >
-                {IMAGE_OPTIONS.map((img) => (
-                  <Box
-                    key={img.src}
-                    onClick={() => setSelectedImage(img.src)}
-                    sx={{
-                      borderRadius: 2,
-                      overflow: "hidden",
-                      cursor: "pointer",
-                      outline:
-                        selectedImage === img.src
-                          ? "3px solid #1976d2"
-                          : "2px solid transparent",
-                      transition: "outline 0.15s ease",
-                    }}
-                  >
-                    <Image
-                      src={img.src}
-                      alt={img.label}
-                      width={200}
-                      height={200}
-                      style={{
-                        width: "100%",
-                        height: "100px",
-                        objectFit: "cover",
-                      }}
-                    />
-                    <Typography
-                      variant="caption"
-                      textAlign="center"
-                      sx={{
-                        display: "block",
-                        mt: 0.5,
-                        color:
-                          selectedImage === img.src
-                            ? "primary.main"
-                            : "text.primary",
-                      }}
-                    >
-                      {img.label}
-                    </Typography>
-                  </Box>
-                ))}
+                <Box
+                  sx={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fill, minmax(96px, 1fr))",
+                    gap: 2,
+                  }}
+                >
+                  {IMAGE_OPTIONS.map((img) => {
+                    const isSelected = selectedImage === img.src;
+
+                    return (
+                      <Box
+                        key={img.src}
+                        onClick={() => setSelectedImage(img.src)}
+                        sx={{
+                          borderRadius: 3,
+                          cursor: "pointer",
+                          border: "2px solid",
+                          borderColor: isSelected ? "black" : "transparent",
+                          transition: "all 0.2s ease",
+                          "&:hover": {
+                            transform: "translateY(-2px)",
+                          },
+                        }}
+                      >
+                        <Image
+                          src={img.src}
+                          alt="Book Club Image"
+                          width={200}
+                          height={200}
+                          style={{
+                            borderRadius: 10,
+                            width: "100%",
+                            height: "auto",
+                            objectFit: "contain",
+                          }}
+                        />
+                      </Box>
+                    );
+                  })}
+                </Box>
               </Box>
             </Stack>
           </form>
         </DialogContent>
 
-        <DialogActions>
-          <Button type="submit" form="club-form" disabled={isPending}>
+        <DialogActions sx={{ px: 3, pb: 3 }}>
+          <Button onClick={() => setOpen(false)} variant="text">
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            form="club-form"
+            variant="contained"
+            disabled={isPending}
+          >
             Create
           </Button>
-          <Button onClick={() => setOpen(false)}>Cancel</Button>
         </DialogActions>
       </Dialog>
     </>
