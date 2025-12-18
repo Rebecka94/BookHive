@@ -1,6 +1,6 @@
 "use client";
 
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -9,19 +9,24 @@ type OLDoc = {
   key: string;
   cover_i?: number;
   first_publish_year?: number;
+  author_name?: string[];
+  title?: string;
 };
 
 type BookResult = {
   id: string;
   coverImage: string;
+  author: string;
+  title: string;
 };
 
 type BrowseSectionProps = {
   genre: string;
   page: number;
+  searchQuery: string;
 };
 
-export default function BrowseSection({ genre, page }: BrowseSectionProps) {
+export default function BrowseSection({ genre, page, searchQuery }: BrowseSectionProps) {
   const [books, setBooks] = useState<BookResult[]>([]);
 
   const LIMIT = 8;
@@ -29,9 +34,13 @@ export default function BrowseSection({ genre, page }: BrowseSectionProps) {
 
   useEffect(() => {
     const load = async () => {
-      const res = await fetch(
-        `https://openlibrary.org/search.json?subject=${genre}&limit=${LIMIT}&offset=${offset}`
-      );
+      let url = `https://openlibrary.org/search.json?subject=${genre}&limit=${LIMIT}&offset=${offset}`;
+      
+      if (searchQuery && searchQuery.length > 0) {
+        url = `https://openlibrary.org/search.json?q=${encodeURIComponent(searchQuery)}&subject=${genre}&limit=${LIMIT}&offset=${offset}`;
+      }
+
+      const res = await fetch(url);
       const data = await res.json();
 
       const mapped =
@@ -43,16 +52,18 @@ export default function BrowseSection({ genre, page }: BrowseSectionProps) {
           .map((item) => ({
             id: item.key.replace("/works/", ""),
             coverImage: `https://covers.openlibrary.org/b/id/${item.cover_i}-L.jpg`,
+            author: item.author_name?.[0] || "Unknown Author",
+            title: item.title || "Untitled",
           })) || [];
 
       setBooks(mapped);
     };
 
     load();
-  }, [genre, page]);
+  }, [genre, page, searchQuery, offset]);
 
   return (
-    <Box sx={{ mx: "auto", width: "92%" }}>
+    <Box sx={{ width: "100%" }}>
       <Box
         sx={{
           display: "grid",
@@ -62,29 +73,43 @@ export default function BrowseSection({ genre, page }: BrowseSectionProps) {
             sm: "repeat(3, 1fr)",
             md: "repeat(4, 1fr)",
           },
-          gap: 2,
+          gap: 3,
         }}
       >
         {books.map((book) => (
           <Box
             key={book.id}
             sx={{
-              position: "relative",
-              width: "70%",
-              aspectRatio: "1 / 2",
-              overflow: "hidden",
-              transition: "transform 0.3s ease",
-              "&:hover": { transform: "scale(1.05)" },
+              width: "100%",
             }}
           >
-            <Link href={`/browse/${book.id}`}>
-              <Image
-                src={book.coverImage}
-                alt=""
-                fill
-                style={{ objectFit: "contain" }}
-              />
-            </Link>
+            <Box
+              sx={{
+                position: "relative",
+                width: "100%",
+                aspectRatio: "2 / 3",
+                overflow: "hidden",
+                transition: "transform 0.2s ease",
+                "&:hover": {
+                  transform: "translateY(-6px)",
+                },
+              }}
+            >
+              <Link href={`/browse/${book.id}`}>
+                <Image
+                  src={book.coverImage}
+                  alt={book.title}
+                  fill
+                  sizes="(min-width: 1200px) 20vw, (min-width: 900px) 25vw, (min-width: 600px) 33vw, 50vw"
+                  style={{ objectFit: "cover" }}
+                />
+              </Link>
+            </Box>
+            <Box sx={{ mt: 1, textAlign: "left" }}>
+              <Typography variant="body2" sx={{ fontSize: "0.875rem", fontStyle: "italic" }}>
+               Author: {" "} {book.author}
+              </Typography>
+            </Box>
           </Box>
         ))}
       </Box>

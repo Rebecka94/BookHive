@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Card, Pagination, Typography } from "@mui/material";
+import { Box, Pagination, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import BrowseSection from "./BookBrowse";
 import GenreSection from "./GenreSection";
@@ -8,6 +8,7 @@ import GenreSection from "./GenreSection";
 export default function BrowsePageClient() {
   const [selectedGenre, setSelectedGenre] = useState("fantasy");
   const [page, setPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleGenreChange = (genre: string) => {
     setSelectedGenre(genre);
@@ -25,44 +26,69 @@ export default function BrowsePageClient() {
         mb: 12,
         mt: 2,
         maxWidth: 1300,
-    mx: "auto",     
+        mx: "auto",     
       }}
     >
       <Box
         sx={{
           width: { xs: "100%", lg: "30%" },
           flexShrink: 0,
+          display: { xs: "none", lg: "block" },
         }}
       >
         <Typography variant="h2" sx={{ mb: 3 }}>
           Genres
         </Typography>
 
-        <Card sx={{ border: "1px solid", borderColor: "divider", px: 3, py: 2 }}>
-          <GenreSection value={selectedGenre} onChange={handleGenreChange} />
-        </Card>
+        <GenreSection value={selectedGenre} onChange={handleGenreChange} />
       </Box>
 
       <Box
         sx={{
-          width: { xs: "100%", lg: "60%" },
+          width: { xs: "100%", lg: "70%" },
+          flex: 1,
         }}
       >
-        <Typography variant="h2" sx={{ mb: 3 }}>
-          {selectedGenre.charAt(0).toUpperCase() + selectedGenre.slice(1)}
-        </Typography>
-
-        <Card sx={{ border: "1px solid", borderColor: "divider", px: 3, py: 2 }}>
-          <BrowseSection genre={selectedGenre} page={page} />
-
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-            <Pagination
-              count={10}
-              page={page}
-              onChange={(_, value) => setPage(value)}
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3, gap: 2, flexWrap: "wrap" }}>
+          <Typography variant="h2">
+            {selectedGenre.charAt(0).toUpperCase() + selectedGenre.slice(1)}
+          </Typography>
+          
+          <Box sx={{ display: { xs: "flex", lg: "none" }, gap: 2, flex: 1, minWidth: 0 }}>
+            <Box sx={{ minWidth: 150, flex: 1 }}>
+              <GenreSection value={selectedGenre} onChange={handleGenreChange} />
+            </Box>
+            <TextField
+              placeholder="Search books..."
+              variant="outlined"
+              size="small"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              sx={{ flex: 1, minWidth: 150 }}
             />
           </Box>
-        </Card>
+
+          <Box sx={{ display: { xs: "none", lg: "block" }, minWidth: 250 }}>
+            <TextField
+              placeholder="Search books..."
+              variant="outlined"
+              size="small"
+              fullWidth
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </Box>
+        </Box>
+
+        <BrowseSection genre={selectedGenre} page={page} searchQuery={searchQuery} />
+
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+          <Pagination
+            count={10}
+            page={page}
+            onChange={(_, value) => setPage(value)}
+          />
+        </Box>
       </Box>
     </Box>
   );
