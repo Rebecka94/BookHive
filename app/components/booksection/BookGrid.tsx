@@ -52,7 +52,7 @@ export function BookGrid({ books }: Props) {
             <Link href={`/browse/${book.id}`}>
               <Image
                 src={book.coverImage}
-                alt=""
+                alt="Book Cover"
                 fill
                 style={{ objectFit: "cover" }}
               />

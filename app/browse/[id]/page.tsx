@@ -1,5 +1,7 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Image from "next/image";
+import BookFavoriteAction from "../components/BookFavAction";
+import { createClient } from "@/lib/supabase/server";
 
 type BookDetails = {
   title: string;
@@ -19,9 +21,7 @@ async function getBookDetails(id: string): Promise<BookDetails | null> {
     if (data.authors?.length) {
       authors = await Promise.all(
         data.authors.map(async (a: { author: { key: string } }) => {
-          const res = await fetch(
-            `https://openlibrary.org${a.author.key}.json`
-          );
+          const res = await fetch(`https://openlibrary.org${a.author.key}.json`);
           const author = await res.json();
           return author.name;
         })
@@ -50,6 +50,12 @@ export default async function BrowseIdPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const { id } = await params;
   const book = await getBookDetails(id);
 
@@ -59,6 +65,21 @@ export default async function BrowseIdPage({
         <Typography variant="h4">Book not found</Typography>
       </Box>
     );
+  }
+
+  const coverUrl = book.coverId
+    ? `https://covers.openlibrary.org/b/id/${book.coverId}-L.jpg`
+    : "";
+  let initialIsFavorite = false;
+  if (user) {
+    const { data: favRow } = await supabase
+      .from("favorites")
+      .select("book_id")
+      .eq("user_id", user.id)
+      .eq("book_id", id)
+      .maybeSingle();
+
+    initialIsFavorite = !!favRow;
   }
 
   return (
@@ -79,7 +100,7 @@ export default async function BrowseIdPage({
           gap: { xs: 4, md: 8 },
         }}
       >
-        <Box sx={{ width: { xs: "90%", sm: "80%" , md: 260 }, flexShrink: 0 }}>
+        <Box sx={{ width: { xs: "90%", sm: "80%", md: 260 }, flexShrink: 0 }}>
           <Box
             sx={{
               position: "relative",
@@ -89,9 +110,9 @@ export default async function BrowseIdPage({
               boxShadow: 2,
             }}
           >
-            {book.coverId ? (
+            {coverUrl ? (
               <Image
-                src={`https://covers.openlibrary.org/b/id/${book.coverId}-L.jpg`}
+                src={coverUrl}
                 alt={book.title}
                 fill
                 style={{ objectFit: "cover" }}
@@ -141,11 +162,19 @@ export default async function BrowseIdPage({
             </Typography>
           </Box>
 
-          <Box sx={{ maxWidth: 320 }}>
-            <Button variant="contained" sx={{ width: "100%", mt: 1 }}>
-              Add to favorites
-            </Button>
-          </Box>
+          {user && (
+            <Box sx={{ maxWidth: 320 }}>
+              <BookFavoriteAction
+                initialIsFavorite={initialIsFavorite}
+                book={{
+                  id,
+                  title: book.title,
+                  author: book.authors.join(", "),
+                  cover_url: coverUrl,
+                }}
+              />
+            </Box>
+          )}
         </Box>
       </Box>
     </Box>
