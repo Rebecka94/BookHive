@@ -1,5 +1,6 @@
 "use client";
 
+import FavoriteButton from "@/app/components/FavoriteButton";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,7 +27,11 @@ type BrowseSectionProps = {
   searchQuery: string;
 };
 
-export default function BrowseSection({ genre, page, searchQuery }: BrowseSectionProps) {
+export default function BrowseSection({
+  genre,
+  page,
+  searchQuery,
+}: BrowseSectionProps) {
   const [books, setBooks] = useState<BookResult[]>([]);
 
   const LIMIT = 8;
@@ -35,9 +40,11 @@ export default function BrowseSection({ genre, page, searchQuery }: BrowseSectio
   useEffect(() => {
     const load = async () => {
       let url = `https://openlibrary.org/search.json?subject=${genre}&limit=${LIMIT}&offset=${offset}`;
-      
+
       if (searchQuery && searchQuery.length > 0) {
-        url = `https://openlibrary.org/search.json?q=${encodeURIComponent(searchQuery)}&subject=${genre}&limit=${LIMIT}&offset=${offset}`;
+        url = `https://openlibrary.org/search.json?q=${encodeURIComponent(
+          searchQuery
+        )}&subject=${genre}&limit=${LIMIT}&offset=${offset}`;
       }
 
       const res = await fetch(url);
@@ -106,9 +113,20 @@ export default function BrowseSection({ genre, page, searchQuery }: BrowseSectio
               </Link>
             </Box>
             <Box sx={{ mt: 1, textAlign: "left" }}>
-              <Typography variant="body2" sx={{ fontSize: "0.875rem", fontStyle: "italic" }}>
-               Author: {" "} {book.author}
+              <Typography
+                variant="body2"
+                sx={{ fontSize: "0.875rem", fontStyle: "italic" }}
+              >
+                Author: {book.author}
               </Typography>
+              <FavoriteButton
+                book={{
+                  id: book.id,
+                  title: book.title,
+                  author: book.author,
+                  coverImage: book.coverImage,
+                }}
+              />
             </Box>
           </Box>
         ))}
