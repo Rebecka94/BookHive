@@ -11,12 +11,14 @@ type OLDoc = {
   cover_i?: number;
   first_publish_year?: number;
   author_name?: string[];
+  title?: string;
 };
 
 type BookResult = {
   id: string;
   coverImage: string;
   author: string;
+  title: string;
 };
 
 const genres = [
@@ -45,14 +47,14 @@ export default function BookSection() {
       );
       const data = await res.json();
 
-      const mapped =
-        (data.docs as OLDoc[])
-          ?.filter((item) => item.cover_i && item.first_publish_year)
-          .map((item) => ({
-            id: item.key.replace("/works/", ""),
-            coverImage: `https://covers.openlibrary.org/b/id/${item.cover_i}-L.jpg`,
-            author: item.author_name?.[0] || "Unknown Author",
-          })) || [];
+      const mapped = (data.docs as OLDoc[])
+        ?.filter((item) => item.cover_i && item.first_publish_year)
+        .map((item) => ({
+          id: item.key.replace("/works/", ""),
+          coverImage: `https://covers.openlibrary.org/b/id/${item.cover_i}-L.jpg`,
+          author: item.author_name?.[0] || "Unknown Author",
+          title: item.title || "Untitled", // ✅
+        }));
 
       setBooks(mapped);
       setTotalPages(Math.min(Math.ceil(data.numFound / LIMIT), MAX_PAGES));

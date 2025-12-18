@@ -1,30 +1,51 @@
 "use client";
 
-import { Box, Card, CardContent, Divider, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  Divider,
+  Typography,
+  IconButton,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
-
-const favoriteBooks = [
-  {
-    id: "1",
-    title: "The Hobbit",
-    author: "J.R.R. Tolkien",
-    cover: "https://covers.openlibrary.org/b/id/6979861-S.jpg",
-  },
-  {
-    id: "2",
-    title: "Pride and Prejudice",
-    author: "Jane Austen",
-    cover: "https://covers.openlibrary.org/b/id/8231856-S.jpg",
-  },
-  {
-    id: "3",
-    title: "1984",
-    author: "George Orwell",
-    cover: "https://covers.openlibrary.org/b/id/7222246-S.jpg",
-  },
-];
+import { useFavoritesStore } from "@/app/stores/useFavoriteStore";
+import { deleteFavorite } from "../actions/favorites";
+import { FavoriteBook } from "@/app/stores/useFavoriteStore";
 
 export default function FavoriteBooksList() {
+  const favorites = useFavoritesStore((s) => s.favorites);
+  const toggleFavorite = useFavoritesStore((s) => s.toggleFavorite);
+
+  const favoriteList = Object.values(favorites);
+
+  const handleRemove = async (book: FavoriteBook) => {
+    toggleFavorite(book);
+
+    try {
+      await deleteFavorite(book);
+    } catch (error) {
+      console.error("Failed to delete favorite:", error);
+      toggleFavorite(book);
+    }
+  };
+
+  if (favoriteList.length === 0) {
+    return (
+      <Card sx={{ mt: 4 }}>
+        <CardContent>
+          <Typography variant="h4" sx={{ mb: 1 }}>
+            Favorite Books
+          </Typography>
+          <Typography variant="body2">
+            You haven’t added any favorites yet.
+          </Typography>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card sx={{ mt: 4 }}>
       <CardContent>
@@ -33,41 +54,52 @@ export default function FavoriteBooksList() {
         </Typography>
 
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
-          {favoriteBooks.map((book, index) => (
+          {favoriteList.map((book, index) => (
             <Box key={book.id}>
               <Box
                 sx={{
                   display: "flex",
+                  justifyContent: "space-between",
                   alignItems: "center",
                   gap: 2,
                 }}
               >
-                <Box
-                  sx={{
-                    position: "relative",
-                    width: 32,
-                    height: 48,
-                    flexShrink: 0,
-                  }}
+                <Box sx={{ display: "flex", gap: 2 }}>
+                  <Box
+                    sx={{
+                      position: "relative",
+                      width: 32,
+                      height: 48,
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Image
+                      src={book.coverImage}
+                      alt={book.title}
+                      fill
+                      style={{ objectFit: "cover", borderRadius: 4 }}
+                    />
+                  </Box>
+
+                  <Box>
+                    <Typography variant="body1" >
+                      {book.title}
+                    </Typography>
+                    <Typography variant="body2" sx={{ fontStyle: "italic", mt: 0.5 }}>
+                      {book.author}
+                    </Typography>
+                  </Box>
+                </Box>
+
+                <IconButton
+                  size="small"
+                  onClick={() => handleRemove(book)}
                 >
-                  <Image
-                    src={book.cover}
-                    alt={book.title}
-                    fill
-                    style={{ objectFit: "cover", borderRadius: 4 }}
-                  />
-                </Box>
-                <Box>
-                  <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                    {book.title}
-                  </Typography>
-                  <Typography variant="caption">
-                    {book.author}
-                  </Typography>
-                </Box>
+                  <CloseIcon fontSize="small" />
+                </IconButton>
               </Box>
 
-              {index < favoriteBooks.length - 1 && (
+              {index < favoriteList.length - 1 && (
                 <Divider sx={{ mt: 1.5 }} />
               )}
             </Box>
