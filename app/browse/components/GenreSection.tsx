@@ -1,11 +1,9 @@
 "use client";
 
 import {
+  Box,
   FormControl,
-  FormControlLabel,
   MenuItem,
-  Radio,
-  RadioGroup,
   Select,
   useMediaQuery,
 } from "@mui/material";
@@ -31,17 +29,12 @@ const genres = [
 
 export default function GenreSection({ value, onChange }: GenreSectionProps) {
   const theme = useTheme();
-  const isMdDown = useMediaQuery(theme.breakpoints.down("md"));
+  const isLgUp = useMediaQuery(theme.breakpoints.up("lg"));
 
-  if (isMdDown) {
+  if (!isLgUp) {
     return (
-      <FormControl fullWidth>
-        <Select
-          labelId="genre-select-label"
-          value={value}
-          label="Genre"
-          onChange={(e) => onChange(e.target.value)}
-        >
+      <FormControl fullWidth size="small">
+        <Select value={value} onChange={(e) => onChange(e.target.value)}>
           {genres.map((genre) => (
             <MenuItem key={genre.value} value={genre.value}>
               {genre.label}
@@ -51,18 +44,33 @@ export default function GenreSection({ value, onChange }: GenreSectionProps) {
       </FormControl>
     );
   }
+
   return (
-    <FormControl>
-      <RadioGroup value={value} onChange={(e) => onChange(e.target.value)}>
-        {genres.map((genre) => (
-          <FormControlLabel
-            key={genre.value}
-            value={genre.value}
-            control={<Radio />}
-            label={genre.label}
-          />
-        ))}
-      </RadioGroup>
-    </FormControl>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+      {genres.map((genre) => (
+        <Box
+          key={genre.value}
+          onClick={() => onChange(genre.value)}
+          sx={{
+            px: 2,
+            py: 1.5,
+            borderRadius: 2,
+            cursor: "pointer",
+            backgroundColor:
+              value === genre.value ? "rgba(0, 0, 0, 0.08)" : "transparent",
+            color: "text.primary",
+            fontWeight: value === genre.value ? 600 : 400,
+            transition: "all 0.2s ease",
+            "&:hover": {
+              backgroundColor:
+                value === genre.value ? "rgba(0, 0, 0, 0.12)" : "action.hover",
+              transform: "translateX(4px)",
+            },
+          }}
+        >
+          {genre.label}
+        </Box>
+      ))}
+    </Box>
   );
 }

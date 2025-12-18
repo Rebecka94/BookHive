@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
-import { Typography } from "@mui/material";
+import { Avatar, Box, Card, CardContent, Typography } from "@mui/material";
 import { redirect } from "next/navigation";
+import FavoriteBooksList from "./components/FavoriteBooksList";
 import MyClubsList from "./components/myClubsList";
 
 interface BookClub {
@@ -31,19 +32,75 @@ export default async function ProfilePage() {
   const clubs: BookClub[] = data?.map((row) => row.book_clubs) ?? [];
 
   return (
-    <div>
-      <Typography variant="h3">My Profile</Typography>
-      <Typography>Email: {user.email}</Typography>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", lg: "row" },
+        gap: { xs: 4, lg: 3 },
+        px: { xs: 2, sm: 3, md: 6 },
+        py: { xs: 4, md: 6 },
+        mb: 12,
+        mt: 2,
+         maxWidth: 1300,
+    mx: "auto",     
+      }}
+    >
+      <Box
+        sx={{
+          width: { xs: "100%", lg: "30%" },
+          flexShrink: 0,
+        }}
+      >
+        <Typography variant="h2" sx={{ mb: 3 }}>
+          My Profile
+        </Typography>
 
-      <Typography variant="h4" sx={{ mt: 2 }}>
-        My Book Clubs
-      </Typography>
+        <Card sx={{ backgroundColor: "#345B49", color: "text.secondary" }}>
+          <CardContent sx={{ textAlign: "center", py: 4 }}>
+            <Avatar
+              src={user.user_metadata?.avatar_url}
+              alt={user.user_metadata?.name || user.email}
+              sx={{
+                width: 96,
+                height: 96,
+                mx: "auto",
+                mb: 2,
+              }}
+            >
+              {user.email?.[0]?.toUpperCase()}
+            </Avatar>
 
-      {clubs.length === 0 ? (
-        <Typography>You are not a member of any clubs.</Typography>
-      ) : (
-        <MyClubsList clubs={clubs} userId={user.id} />
-      )}
-    </div>
+            <Typography variant="h4">
+              {user.user_metadata?.name || user.email?.split("@")[0]}
+            </Typography>
+
+            <Typography variant="body2">{user.email}</Typography>
+          </CardContent>
+        </Card>
+
+        <FavoriteBooksList />
+      </Box>
+      <Box
+        sx={{
+          width: { xs: "100%", lg: "60%" },
+        }}
+      >
+        <Typography variant="h2" sx={{ mb: 3 }}>
+          My Book Clubs
+        </Typography>
+
+        <Card>
+          <CardContent>
+            {clubs.length === 0 ? (
+              <Typography variant="body2">
+                You are not a member of any clubs yet.
+              </Typography>
+            ) : (
+              <MyClubsList clubs={clubs} userId={user.id} />
+            )}
+          </CardContent>
+        </Card>
+      </Box>
+    </Box>
   );
 }

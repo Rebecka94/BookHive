@@ -2,7 +2,15 @@
 
 import { BookClub, PostWithBook } from "@/app/types/database";
 import { createClient } from "@/lib/supabase/client";
-import { Box, Card, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  Typography,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useEffect, useState } from "react";
 import { deletePost } from "../../actions/deletePost";
 import { updatePost } from "../../actions/updatePost";
@@ -55,51 +63,81 @@ export default function ClubView({ club, posts }: Props) {
   };
 
   return (
-    <>
-      <Typography variant="h2" sx={{ mb: 2, px: { xs: 2, sm: 3, md: 5 } }}>
-        Welcome to {club.name}
-      </Typography>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", lg: "row" },
+        gap: { xs: 4, lg: 3 },
+        px: { xs: 2, sm: 3, md: 6 },
+        py: { xs: 4, md: 6 },
+        mb: 12,
+        mt: 2,
+        justifyContent: isCreator ? "flex-start" : "center",
+         maxWidth: 1300,
+    mx: "auto", 
+      }}
+    >
+      {isCreator && (
+        <Box
+          sx={{
+            display: { xs: "none", lg: "block" },
+            width: { lg: "30%" },
+            flexShrink: 0,
+          }}
+        >
+          <Typography variant="h2" sx={{ mb: 3 }}>
+            Members
+          </Typography>
 
+          <Card sx={{ px: 3, py: 2 }}>
+            <MembersList
+              clubId={club.id}
+              members={members}
+              currentUserId={userId}
+              isCreator={isCreator}
+            />
+          </Card>
+        </Box>
+      )}
       <Box
         sx={{
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          gap: 3,
-          px: { xs: 2, sm: 3, md: 5 },
+          width: {
+            xs: "100%",
+            lg: isCreator ? "60%" : "100%",
+          },
+          maxWidth: isCreator ? "none" : 800,
+          mx: isCreator ? 0 : "auto",
         }}
       >
-        {/* Members sidebar - only show if creator */}
+        <Typography variant="h2" sx={{ mb: 3 }}>
+          Welcome to {club.name}
+        </Typography>
+
+        <CreatePostForm clubId={club.id} />
         {isCreator && (
-          <Box
-            sx={{
-              display: { xs: "none", md: "block" },
-              width: { md: "25%" },
-              flexShrink: 0,
-            }}
-          >
-            <Card sx={{ px: 3, py: 2 }}>
-              <MembersList
-                clubId={club.id}
-                members={members}
-                currentUserId={userId}
-                isCreator={isCreator}
-              />
-            </Card>
+          <Box sx={{ display: { xs: "block", lg: "none" }, mt: 3, mb: 2 }}>
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography fontWeight={600}>Members</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <MembersList
+                  clubId={club.id}
+                  members={members}
+                  currentUserId={userId}
+                  isCreator={isCreator}
+                />
+              </AccordionDetails>
+            </Accordion>
           </Box>
         )}
-
-        {/* Main content */}
-        <Box sx={{ width: "100%", maxWidth: 700, mx: "auto" }}>
-          <CreatePostForm clubId={club.id} />
-
-          <PostsList
-            posts={posts}
-            currentUserId={userId}
-            onUpdate={handleUpdate}
-            onDelete={handleDelete}
-          />
-        </Box>
+        <PostsList
+          posts={posts}
+          currentUserId={userId}
+          onUpdate={handleUpdate}
+          onDelete={handleDelete}
+        />
       </Box>
-    </>
+    </Box>
   );
 }
