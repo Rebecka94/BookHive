@@ -1,9 +1,10 @@
 "use client";
 
-import { Button, Card, TextField, Typography } from "@mui/material";
+import { Box, Button, Card, TextField, Typography } from "@mui/material";
 import { useState, useTransition } from "react";
 import { createPost } from "../../actions/createPost";
 import BookSearch from "./BookSearch";
+import FavoriteBookDropdown from "./FavoriteBookDropdown";
 
 interface Book {
   id: string;
@@ -50,8 +51,15 @@ export default function CreatePostForm({ clubId }: Props) {
   };
 
   return (
-    <Card sx={{ border: "1px solid",
-        borderColor: "divider", px: 3, py: 2, mb: 3 }}>
+    <Card
+      sx={{
+        border: "1px solid",
+        borderColor: "divider",
+        px: 3,
+        py: 2,
+        mb: 3,
+      }}
+    >
       <Typography variant="h4" sx={{ mb: 2 }}>
         Start a topic or just say what is on your mind
       </Typography>
@@ -62,7 +70,27 @@ export default function CreatePostForm({ clubId }: Props) {
         </Typography>
       )}
 
-      <BookSearch selectedBook={selectedBook} onSelectBook={setSelectedBook} />
+      <Box
+        sx={{
+          display: "flex",
+          gap: {md: 2},
+          flexDirection: { xs: "column", md: "row" },
+        }}
+      >
+        <Box sx={{ flex: 1 }}>
+          <BookSearch
+            selectedBook={selectedBook}
+            onSelectBook={setSelectedBook}
+          />
+        </Box>
+
+        <Box sx={{ flex: 1 }}>
+          <FavoriteBookDropdown
+            selectedBook={selectedBook}
+            onSelectBook={setSelectedBook}
+          />
+        </Box>
+      </Box>
 
       <TextField
         label="Title"
