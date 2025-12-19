@@ -26,7 +26,7 @@ export default async function ProfilePage() {
 
   const { data } = (await supabase
     .from("club_members")
-    .select("book_clubs(id, name, description, creator_id)")
+    .select("book_clubs(id, name, description, creator_id, image_url)")
     .eq("user_id", user.id)) as { data: ClubMemberRow[] | null };
 
   const clubs: BookClub[] = data?.map((row) => row.book_clubs) ?? [];

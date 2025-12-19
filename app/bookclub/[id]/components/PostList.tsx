@@ -7,6 +7,7 @@ import PostItem from "./PostItem";
 interface Props {
   posts: PostWithBook[];
   currentUserId: string | null;
+  authorNameByUserId: Record<string, string>;
   onUpdate: (postId: string, title: string, content: string) => Promise<void>;
   onDelete: (postId: string) => Promise<void>;
 }
@@ -14,6 +15,7 @@ interface Props {
 export default function PostsList({
   posts,
   currentUserId,
+  authorNameByUserId,
   onUpdate,
   onDelete,
 }: Props) {
@@ -41,6 +43,7 @@ export default function PostsList({
           key={post.id}
           post={post}
           isMine={post.author_id === currentUserId}
+          authorName={authorNameByUserId[post.author_id]}
           onUpdate={onUpdate}
           onDelete={onDelete}
         />

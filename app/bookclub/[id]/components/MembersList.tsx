@@ -1,5 +1,6 @@
 "use client";
 
+import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
   Chip,
@@ -9,13 +10,13 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import { useTransition } from "react";
 import { removeMember } from "../../actions/removeMember";
 
 interface Member {
   user_id: string;
   role: string;
+  club_username: string;
 }
 
 interface Props {
@@ -33,8 +34,6 @@ export default function MembersList({
 }: Props) {
   const [isPending, startTransition] = useTransition();
 
-  if (!isCreator) return null;
-
   const handleRemoveMember = (userId: string) => {
     const confirmed = confirm(
       "Are you sure you want to remove this member from the club?"
@@ -51,6 +50,7 @@ export default function MembersList({
       <List disablePadding>
         {members.map((member) => {
           const isSelf = member.user_id === currentUserId;
+          const isAdmin = member.role === "creator";
 
           return (
             <ListItem
@@ -63,6 +63,7 @@ export default function MembersList({
                 borderColor: "divider",
               }}
               secondaryAction={
+                isCreator &&
                 !isSelf && (
                   <IconButton
                     edge="end"
@@ -77,24 +78,34 @@ export default function MembersList({
             >
               <ListItemText
                 primary={
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                    <Typography variant="body2">
-                      {member.user_id}
-                    </Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      gap: 1,
+                    }}
+                  >
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                      <Typography variant="body2">
+                        {member.club_username}
+                      </Typography>
 
-                    {member.role === "creator" && (
-                      <Chip
-                        label="Creator"
-                        size="small"
-                        color="primary"
-                      />
-                    )}
+                      {isAdmin && member.club_username !== "Admin" && (
+                        <Typography variant="caption" sx={{ fontWeight: 600 }}>
+                          Admin
+                        </Typography>
+                      )}
+                    </Box>
 
                     {isSelf && (
                       <Chip
                         label="You"
                         size="small"
-                        variant="outlined"
+                        sx={{
+                          bgcolor: "#345B49",
+                          color: "white",
+                        }}
                       />
                     )}
                   </Box>

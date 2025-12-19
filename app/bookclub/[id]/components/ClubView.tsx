@@ -11,7 +11,7 @@ import {
   AccordionDetails,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { deletePost } from "../../actions/deletePost";
 import { updatePost } from "../../actions/updatePost";
 import CreatePostForm from "./CreatePostForm";
@@ -23,15 +23,19 @@ interface Props {
   posts: PostWithBook[];
 }
 
+type MemberRow = {
+  user_id: string;
+  role: string;
+  club_username: string;
+};
+
 export default function ClubView({ club, posts }: Props) {
   const supabase = createClient();
+
   const [userId, setUserId] = useState<string | null>(null);
-  const [members, setMembers] = useState<{ user_id: string; role: string }[]>(
-    []
-  );
+  const [members, setMembers] = useState<MemberRow[]>([]);
 
   const isCreator = userId === club.creator_id;
-
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
       setUserId(data.user?.id ?? null);
@@ -39,16 +43,25 @@ export default function ClubView({ club, posts }: Props) {
   }, [supabase]);
 
   useEffect(() => {
-    if (userId && isCreator) {
-      supabase
-        .from("club_members")
-        .select("user_id, role")
-        .eq("club_id", club.id)
-        .then(({ data }) => {
-          if (data) setMembers(data);
-        });
+    supabase
+      .from("club_members")
+      .select("user_id, role, club_username")
+      .eq("club_id", club.id)
+      .then(({ data }) => {
+        if (data) setMembers(data as MemberRow[]);
+      });
+  }, [supabase, club.id]);
+
+  const authorNameByUserId = useMemo(() => {
+    const map: Record<string, string> = {};
+    for (const m of members) {
+      map[m.user_id] = m.club_username;
     }
-  }, [supabase, club.id, userId, isCreator]);
+    return map;
+  }, [members]);
+
+  const myClubUsername =
+    members.find((m) => m.user_id === userId)?.club_username ?? null;
 
   const handleUpdate = async (
     postId: string,
@@ -72,16 +85,16 @@ export default function ClubView({ club, posts }: Props) {
         py: { xs: 4, md: 6 },
         mb: 12,
         mt: 2,
-        justifyContent: isCreator ? "flex-start" : "center",
-         maxWidth: 1300,
-    mx: "auto", 
+        maxWidth: 1300,
+        mx: "auto",
+
       }}
     >
       {isCreator && (
         <Box
           sx={{
             display: { xs: "none", lg: "block" },
-            width: { lg: "30%" },
+            width: "30%",
             flexShrink: 0,
           }}
         >
@@ -110,10 +123,17 @@ export default function ClubView({ club, posts }: Props) {
         }}
       >
         <Typography variant="h2" sx={{ mb: 3 }}>
-          Welcome to {club.name}
+          Welcome{" "}
+          {myClubUsername && (
+            <Box component="span" sx={{ color: "#992B15" }}>
+              {myClubUsername}
+            </Box>
+          )}{" "}
+          to {club.name}
         </Typography>
 
         <CreatePostForm clubId={club.id} />
+
         {isCreator && (
           <Box sx={{ display: { xs: "block", lg: "none" }, mt: 3, mb: 2 }}>
             <Accordion>
@@ -131,11 +151,13 @@ export default function ClubView({ club, posts }: Props) {
             </Accordion>
           </Box>
         )}
+
         <PostsList
           posts={posts}
           currentUserId={userId}
           onUpdate={handleUpdate}
           onDelete={handleDelete}
+          authorNameByUserId={authorNameByUserId}
         />
       </Box>
     </Box>
