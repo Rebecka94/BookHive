@@ -10,6 +10,7 @@ import {
   IconButton,
   TextField,
   Typography,
+  Divider,
 } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
@@ -17,17 +18,17 @@ import { useState } from "react";
 interface Props {
   post: PostWithBook;
   isMine: boolean;
+  authorName?: string;
   onUpdate: (postId: string, title: string, content: string) => Promise<void>;
   onDelete: (postId: string) => Promise<void>;
-  authorName: string;
 }
 
 export default function PostItem({
   post,
   isMine,
+  authorName,
   onUpdate,
   onDelete,
-  authorName,
 }: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(post.title ?? "");
@@ -45,14 +46,14 @@ export default function PostItem({
   };
 
   return (
-    <Card sx={{ p: 2, position: "relative" }}>
+    <Card sx={{ p: 3, position: "relative" }}>
       {isMine && !isEditing && (
         <Box sx={{ position: "absolute", top: 8, right: 8 }}>
-          <IconButton onClick={() => setIsEditing(true)} aria-label="Edit post">
-            <EditIcon />
+          <IconButton size="small" onClick={() => setIsEditing(true)}>
+            <EditIcon fontSize="small" />
           </IconButton>
-          <IconButton onClick={handleDelete} aria-label="Delete post">
-            <CloseIcon />
+          <IconButton size="small" onClick={handleDelete}>
+            <CloseIcon fontSize="small" />
           </IconButton>
         </Box>
       )}
@@ -63,7 +64,7 @@ export default function PostItem({
             width: 80,
             aspectRatio: "1 / 1.5",
             position: "relative",
-            mb: 1,
+            mb: 2,
           }}
         >
           <Image
@@ -109,25 +110,37 @@ export default function PostItem({
           <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
             {post.title ?? "Untitled post"}
           </Typography>
-          <Typography variant="body2" sx={{ fontWeight: 600, mb: 0.5 }}>
-            {authorName}
+
+          <Typography sx={{ mb: 2, lineHeight: 1.6 }}>
+            {post.content}
           </Typography>
 
-          <Typography
-            variant="caption"
-            color="#992B15"
-            sx={{ display: "block", mb: 1 }}
+          <Divider sx={{ my: 1.5 }} />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
           >
-            {new Date(post.created_at).toLocaleDateString("en", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </Typography>
-
-          <Typography>{post.content}</Typography>
+            <Typography
+              variant="caption"
+              sx={{ fontStyle: "italic", }}
+            >
+              By: {authorName ?? "Member"}
+            </Typography>
+            <Typography
+              variant="caption"
+            >
+              {new Date(post.created_at).toLocaleDateString("en", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </Typography>
+          </Box>
         </>
       )}
     </Card>

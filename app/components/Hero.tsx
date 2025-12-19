@@ -15,9 +15,9 @@ export default function Hero() {
           textAlign: "center",
         }}
       >
-        <Typography variant="h1">
+        <Typography variant="h1" maxWidth={700}>
           <span className="text-black">Reading together is more fun with</span>{" "}
-          BookHive
+          BookHive 🐝
         </Typography>
 
         <Box
