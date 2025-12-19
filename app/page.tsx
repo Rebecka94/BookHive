@@ -1,11 +1,20 @@
-import Typography from "@mui/material/Typography";
+import { Typography } from "@mui/material";
+import BooClubCTA from "./components/BooClubCTA";
+import BookSection from "./components/booksection/BookSection";
+import Hero from "./components/Hero";
 
 export default function HomePage() {
   return (
-    <div className="text-center mt-20">
-      <Typography variant="h1">
-        Att läsa tillsammans blir roligare med BookHive
+    <>
+      <Hero />
+      <BooClubCTA />
+      <Typography
+        variant="h2"
+        sx={{ mt: 10, mb: 3, textAlign: "center", mx: "auto" , maxWidth: { xs: 500 ,lg: 600 }}}
+      >
+        Fall into stories you don’t want to leave 🐝
       </Typography>
-    </div>
+      <BookSection />
+    </>
   );
 }

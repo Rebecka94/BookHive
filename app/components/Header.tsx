@@ -1,35 +1,86 @@
-import { Box, Typography } from "@mui/material";
-import Link from "next/link";
+"use client";
+
+import { createClient } from "@/lib/supabase/client";
+import { Box } from "@mui/material";
+import type { User } from "@supabase/supabase-js";
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import DesktopNav from "./DektopNav";
+import MobileNav from "./MobileNav";
+import LoginDialog from "../auth/signin/LoginDialog";
 
 export default function Header() {
-  return (
-    <header>
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        maxWidth="1200px"
-        mx="auto"
-        py={2}
-        px={3}
-      >
-        <Link href="/">
-          <Image src="/bookhive-logo.png" alt="BookHive Logo" width={150} height={50} />
-        </Link>
+  const [loginDialogOpen, setLoginDialogOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const supabase = createClient();
 
-        <Box component="nav" display="flex" gap={4}>
-          <Link href="/about">
-            <Typography variant="body1" color="text.secondary">About</Typography>
-          </Link>
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+    };
+
+    getUser();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+  };
+
+  return (
+    <>
+      <Box component="header" sx={{ width: "100%" }}>
+        <Box
+          sx={{
+            px: 3,
+            py: 2,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <Link href="/">
-            <Typography variant="body1" color="text.secondary">Community</Typography>
+            <Image
+              src="/bookhive-logo.png"
+              alt="BookHive Logo"
+              width={150}
+              height={50}
+            />
           </Link>
-          <Link href="/contact">
-            <Typography variant="body1" color="text.secondary">Browse</Typography>
-          </Link>
+
+          <Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
+            <DesktopNav
+              user={user}
+              onOpenLogin={() => setLoginDialogOpen(true)}
+              onSignOut={handleSignOut}
+            />
+
+            <Box sx={{ display: { xs: "flex", sm: "none" } }}>
+              <MobileNav
+                user={user}
+                onOpenLogin={() => setLoginDialogOpen(true)}
+                onSignOut={handleSignOut}
+              />
+            </Box>
+          </Box>
         </Box>
       </Box>
-    </header>
+
+      <LoginDialog
+        open={loginDialogOpen}
+        onClose={() => setLoginDialogOpen(false)}
+      />
+    </>
   );
 }
