@@ -26,7 +26,7 @@ export default function BrowsePageClient() {
         mb: 12,
         mt: 2,
         maxWidth: 1300,
-        mx: "auto",     
+        mx: "auto",
       }}
     >
       <Box
@@ -49,22 +49,43 @@ export default function BrowsePageClient() {
           flex: 1,
         }}
       >
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3, gap: 2, flexWrap: "wrap" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", sm: "column", md: "row" },
+            justifyContent: "space-between",
+            mb: 3,
+            gap: 2,
+            flexWrap: "wrap",
+          }}
+        >
           <Typography variant="h2">
             {selectedGenre.charAt(0).toUpperCase() + selectedGenre.slice(1)}
           </Typography>
-          
-          <Box sx={{ display: { xs: "flex", lg: "none" }, gap: 2, flex: 1, minWidth: 0 }}>
-            <Box sx={{ minWidth: 150, flex: 1 }}>
-              <GenreSection value={selectedGenre} onChange={handleGenreChange} />
+
+          <Box
+            sx={{
+              display: { xs: "flex", lg: "none" },
+              gap: 2,
+              flex: 1,
+              minWidth: 0,
+              flexDirection: { xs: "column", sm: "row" },
+            }}
+          >
+            <Box sx={{ width: "100%" }}>
+              <GenreSection
+                value={selectedGenre}
+                onChange={handleGenreChange}
+              />
             </Box>
+
             <TextField
               placeholder="Search books..."
               variant="outlined"
               size="small"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              sx={{ flex: 1, minWidth: 150 }}
+              sx={{ width: "100%" }}
             />
           </Box>
 
@@ -80,7 +101,11 @@ export default function BrowsePageClient() {
           </Box>
         </Box>
 
-        <BrowseSection genre={selectedGenre} page={page} searchQuery={searchQuery} />
+        <BrowseSection
+          genre={selectedGenre}
+          page={page}
+          searchQuery={searchQuery}
+        />
 
         <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
           <Pagination
