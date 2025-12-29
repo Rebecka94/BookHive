@@ -137,7 +137,7 @@ export default function MobileNav({ user, onOpenLogin, onSignOut }: Props) {
       </Button>
       {(["right"] as const).map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>
+          <Button aria-label="Menu icon" onClick={toggleDrawer(anchor, true)}>
             <MenuIcon fontSize="large" />
           </Button>
 

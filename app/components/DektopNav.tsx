@@ -19,13 +19,13 @@ export default function DesktopNav({ user, onOpenLogin, onSignOut }: Props) {
         alignItems: "center",
       }}
     >
-      <Link href="/community" underline="hover">
+      <Link aria-label="community link" href="/community" underline="hover">
         <Typography variant="body1" color="text.primary">
           Community
         </Typography>
       </Link>
 
-      <Link href="/browse" underline="hover">
+      <Link aria-label="browse link" href="/browse" underline="hover">
         <Typography variant="body1" color="text.primary">
           Browse
         </Typography>
@@ -44,6 +44,7 @@ export default function DesktopNav({ user, onOpenLogin, onSignOut }: Props) {
       )}
 
       <Button
+      aria-label="sign in/sign out button"
         variant="outlined"
         size="medium"
         sx={{

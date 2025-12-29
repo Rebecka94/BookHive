@@ -80,6 +80,7 @@ export default function BrowsePageClient() {
             </Box>
 
             <TextField
+            label="search books"
               placeholder="Search books..."
               variant="outlined"
               size="small"
@@ -91,6 +92,7 @@ export default function BrowsePageClient() {
 
           <Box sx={{ display: { xs: "none", lg: "block" }, minWidth: 250 }}>
             <TextField
+            label="search books"
               placeholder="Search books..."
               variant="outlined"
               size="small"

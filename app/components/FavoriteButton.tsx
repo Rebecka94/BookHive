@@ -56,7 +56,7 @@ export default function FavoriteButton({ book }: Props) {
   };
 
   return (
-    <IconButton onClick={handleClick} size="small">
+    <IconButton onClick={handleClick} size="small" aria-label="Add to favorites">
       {isFavorite(book.id) ? (
         <FavoriteIcon color="error" />
       ) : (

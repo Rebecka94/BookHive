@@ -152,6 +152,7 @@ export default function BookSearch({ onSelectBook, selectedBook }: Props) {
       ) : (
         <Box sx={{ position: "relative" }}>
           <TextField
+          label="search for books"
             fullWidth
             size="small"
             placeholder="Search for a book..."

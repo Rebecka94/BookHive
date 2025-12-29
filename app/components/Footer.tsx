@@ -54,10 +54,10 @@ export default function Footer() {
             />
 
             <Box sx={{ display: "flex", gap: 2 }}>
-              <Link href="https://github.com/Rebecka94/BookHive">
+              <Link aria-label="GitHub" href="https://github.com/Rebecka94/BookHive">
                 <GitHub color="secondary" sx={{ fontSize: 40 }} />
               </Link>
-              <Link href="https://www.linkedin.com/in/rebecka-larssson94/">
+              <Link aria-label="LinkedIn" href="https://www.linkedin.com/in/rebecka-larssson94/">
               <LinkedIn color="secondary" sx={{ fontSize: 40 }} />
               </Link>
             </Box>

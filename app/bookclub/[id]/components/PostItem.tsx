@@ -49,10 +49,10 @@ export default function PostItem({
     <Card sx={{ p: 3, position: "relative" }}>
       {isMine && !isEditing && (
         <Box sx={{ position: "absolute", top: 8, right: 8 }}>
-          <IconButton size="small" onClick={() => setIsEditing(true)}>
+          <IconButton aria-label="edit button" size="small" onClick={() => setIsEditing(true)}>
             <EditIcon fontSize="small" />
           </IconButton>
-          <IconButton size="small" onClick={handleDelete}>
+          <IconButton aria-label="close button" size="small" onClick={handleDelete}>
             <CloseIcon fontSize="small" />
           </IconButton>
         </Box>
