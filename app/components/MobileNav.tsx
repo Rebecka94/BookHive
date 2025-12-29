@@ -1,16 +1,14 @@
 "use client";
 
-import ForumIcon from "@mui/icons-material/Forum";
+import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
-import { Avatar } from "@mui/material";
+import { IconButton } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
@@ -49,38 +47,74 @@ export default function MobileNav({ user, onOpenLogin, onSignOut }: Props) {
   const list = (anchor: Anchor) => (
     <Box
       sx={{
-        width: anchor === "top" || anchor === "bottom" ? "auto" : 250,
+        width: "100%",
+        position: "relative",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
       }}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
-        {[
-          {
-            text: "Profile",
-            href: "/profile",
-            icon: user ? (
-              <Avatar
-              src={user.user_metadata?.avatar_url}
-              alt={user.user_metadata?.name}
-              sx={{ width: 32, height: 32 }}
-              />
-            ) : null,
-          },
-          { text: "Community", href: "/community", icon: <ForumIcon /> },
-          { text: "Browse", href: "/browse", icon: <SearchIcon /> },
-        ]
-          .filter((item) => user || item.text !== "Profile")
-          .map((item) => (
-            <ListItem key={item.text} disablePadding>
-              <ListItemButton component={Link} href={item.href}>
-          {item.icon && <ListItemIcon>{item.icon}</ListItemIcon>}
-          {item.text && <ListItemText primary={item.text} />}
-              </ListItemButton>
-            </ListItem>
-          ))}
-      </List>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "center",
+          px: 2,
+          py: 1,
+        }}
+      >
+        <IconButton size="large" onClick={toggleDrawer(anchor, false)}>
+          <CloseIcon />
+        </IconButton>
+      </Box>
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          mt: 6,
+          width: "100%",
+        }}
+      >
+        <List onClick={toggleDrawer(anchor, false)} sx={{ width: "100%", }}>
+          {[
+            { text: "Profile", href: "/profile" },
+            { text: "Community", href: "/community" },
+            { text: "Browse", href: "/browse" },
+          ]
+            .filter((item) => user || item.text !== "Profile")
+            .map((item) => (
+              <ListItem key={item.text} disablePadding>
+                <ListItemButton
+                  component={Link}
+                  href={item.href}
+                  sx={{
+                    width: "100%",
+                    py: 4,
+                    display: "flex",
+                    justifyContent: "center",
+                    "&:hover": {
+                      bgcolor: "rgba(0,0,0,0.06)",
+                    },
+                  }}
+                >
+                  <ListItemText
+                    primary={item.text}
+                    sx={{
+                      ".MuiTypography-root": {
+                        fontSize: "2rem",
+                        textAlign: "center",
+                      },
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+        </List>
+      </Box>
     </Box>
   );
 
@@ -111,6 +145,14 @@ export default function MobileNav({ user, onOpenLogin, onSignOut }: Props) {
             anchor={anchor}
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
+            slotProps={{
+              paper: {
+                sx: {
+                  width: "100%",
+                  maxWidth: "100%",
+                },
+              },
+            }}
           >
             {list(anchor)}
           </Drawer>
