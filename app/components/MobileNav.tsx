@@ -13,6 +13,7 @@ import ListItemText from "@mui/material/ListItemText";
 import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import * as React from "react";
+import SignOutDialog from "../auth/signin/SignOutDialog";
 
 type Props = {
   user: User | null;
@@ -23,6 +24,8 @@ type Props = {
 type Anchor = "top" | "left" | "bottom" | "right";
 
 export default function MobileNav({ user, onOpenLogin, onSignOut }: Props) {
+  const [confirmOpen, setConfirmOpen] = React.useState(false);
+
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -124,14 +127,14 @@ export default function MobileNav({ user, onOpenLogin, onSignOut }: Props) {
         variant="outlined"
         size="medium"
         sx={{
-          borderColor: "#345b49",
+          borderColor: "primary.main",
           borderWidth: "2px",
           ":hover": {
-            backgroundColor: "#345B49",
-            color: "#F7EBD5",
+            backgroundColor: "primary.main",
+            color: "secondary.main",
           },
         }}
-        onClick={user ? onSignOut : onOpenLogin}
+        onClick={user ? () => setConfirmOpen(true) : onOpenLogin}
       >
         {user ? "Sign Out" : "Sign In"}
       </Button>
@@ -158,6 +161,14 @@ export default function MobileNav({ user, onOpenLogin, onSignOut }: Props) {
           </Drawer>
         </React.Fragment>
       ))}
+      <SignOutDialog
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        onConfirm={() => {
+          setConfirmOpen(false);
+          onSignOut();
+        }}
+      />
     </Box>
   );
 }
