@@ -1,14 +1,13 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
-  Button,
   Dialog,
-  DialogActions,
   DialogContent,
-  DialogTitle,
   Divider,
+  IconButton,
   Typography,
 } from "@mui/material";
 import EmailLoginForm from "./EmailLogin";
@@ -37,15 +36,27 @@ export default function LoginDialog({ open, onClose }: LoginDialogProps) {
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
-      <DialogTitle textAlign="center">
-        <Typography variant="h6">Welcome to BookHive</Typography>
-      </DialogTitle>
+      <IconButton
+        aria-label="close"
+        onClick={onClose}
+        sx={{
+          position: "absolute",
+          right: 8,
+          top: 8,
+        }}
+      >
+        <CloseIcon />
+      </IconButton>
 
-      <DialogContent>
+      <DialogContent sx={{ py: 5 }}>
+        <Typography variant="h4" sx={{ textAlign: "center", mb: 3 }}>
+          Sign In to BookHive
+        </Typography>
+
         <Box display="flex" flexDirection="column" gap={2} mt={1}>
           <EmailLoginForm onSuccess={onClose} />
 
-          <Divider sx={{mt: 1}} />
+          <Divider sx={{ mt: 1 }} />
 
           <Typography variant="body1" textAlign="center">
             Or sign in with
@@ -54,12 +65,6 @@ export default function LoginDialog({ open, onClose }: LoginDialogProps) {
           <GithubButton onClick={handleGitHubSignIn} />
         </Box>
       </DialogContent>
-
-      <DialogActions sx={{ justifyContent: "center" }}>
-        <Button onClick={onClose}>
-          Cancel
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }
