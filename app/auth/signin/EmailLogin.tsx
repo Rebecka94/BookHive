@@ -57,8 +57,8 @@ export default function EmailLoginForm({
 
       <Button variant="text" onClick={() => setIsSignup(!isSignup)}>
         {isSignup
-          ? "Already have an account? Sign in"
-          : "Don't have an account? Create one"}
+          ? "Already have an account? Sign in here"
+          : "Don't have an account? Create one here"}
       </Button>
     </Box>
   );

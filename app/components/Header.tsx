@@ -50,7 +50,7 @@ export default function Header() {
             alignItems: "center",
           }}
         >
-          <Link href="/">
+          <Link aria-label="Bookhive logo" href="/">
             <Image
               src="/bookhive-logo.png"
               alt="BookHive Logo"

@@ -1,22 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import CloseIcon from "@mui/icons-material/Close";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 import {
-  TextField,
+  Avatar,
   Box,
+  Chip,
+  CircularProgress,
+  IconButton,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Avatar,
   Paper,
-  Chip,
-  IconButton,
-  CircularProgress,
+  TextField,
   Typography,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
+import { useEffect, useState } from "react";
 
 type OpenLibraryDoc = {
   key: string;
@@ -133,9 +133,7 @@ export default function BookSearch({ onSelectBook, selectedBook }: Props) {
             <Typography variant="body1" sx={{ fontWeight: 600 }}>
               {selectedBook.title}
             </Typography>
-            <Typography variant="body2">
-              {selectedBook.author}
-            </Typography>
+            <Typography variant="body2">{selectedBook.author}</Typography>
             {selectedBook.first_publish_year && (
               <Chip
                 label={selectedBook.first_publish_year}
@@ -152,6 +150,7 @@ export default function BookSearch({ onSelectBook, selectedBook }: Props) {
       ) : (
         <Box sx={{ position: "relative" }}>
           <TextField
+            label="search for books"
             fullWidth
             size="small"
             placeholder="Search for a book..."
@@ -159,9 +158,7 @@ export default function BookSearch({ onSelectBook, selectedBook }: Props) {
             onChange={(e) => setSearchQuery(e.target.value)}
             variant="outlined"
             InputProps={{
-              startAdornment: (
-                <MenuBookIcon sx={{ mr: 1, }} />
-              ),
+              startAdornment: <MenuBookIcon sx={{ mr: 1 }} />,
               endAdornment: isSearching && <CircularProgress size={20} />,
             }}
           />
@@ -201,14 +198,22 @@ export default function BookSearch({ onSelectBook, selectedBook }: Props) {
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText
-                        primary={book.title}
-                        secondary={`${book.author}${
-                          book.first_publish_year
-                            ? ` (${book.first_publish_year})`
-                            : ""
-                        }`}
-                        primaryTypographyProps={{ fontSize: "0.9rem" }}
-                        secondaryTypographyProps={{ fontSize: "0.8rem" }}
+                        primary={
+                          <Typography variant="body1">{book.title}</Typography>
+                        }
+                        secondary={
+                          <Typography
+                            variant="body2"
+                            sx={{
+                              color: "text.primary",
+                              fontStyle: "italic",
+                            }}
+                          >
+                            {book.author}
+                            {book.first_publish_year &&
+                              ` (${book.first_publish_year})`}
+                          </Typography>
+                        }
                       />
                     </ListItem>
                   ))}

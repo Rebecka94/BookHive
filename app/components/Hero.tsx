@@ -49,6 +49,7 @@ export default function Hero() {
           <Button
             variant="contained"
             size="large"
+            aria-label="Explore books"
             sx={{
               backgroundColor: "#992B15",
               width: { xs: "100%", md: "auto" },
@@ -59,6 +60,7 @@ export default function Hero() {
           </Button>
 
           <Button
+          aria-label="Become a member"
             variant="outlined"
             size="large"
             sx={{

@@ -66,6 +66,7 @@ export default function MembersList({
                 isCreator &&
                 !isSelf && (
                   <IconButton
+                    aria-label="close button"
                     edge="end"
                     size="small"
                     disabled={isPending}

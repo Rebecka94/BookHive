@@ -1,7 +1,7 @@
 "use client";
 
 import { GitHub, LinkedIn } from "@mui/icons-material";
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Divider, Link, Typography } from "@mui/material";
 import Image from "next/image";
 
 export default function Footer() {
@@ -54,8 +54,12 @@ export default function Footer() {
             />
 
             <Box sx={{ display: "flex", gap: 2 }}>
-              <GitHub color="secondary" sx={{ fontSize: 40 }} />
+              <Link aria-label="GitHub" href="https://github.com/Rebecka94/BookHive">
+                <GitHub color="secondary" sx={{ fontSize: 40 }} />
+              </Link>
+              <Link aria-label="LinkedIn" href="https://www.linkedin.com/in/rebecka-larssson94/">
               <LinkedIn color="secondary" sx={{ fontSize: 40 }} />
+              </Link>
             </Box>
           </Box>
 

@@ -92,6 +92,7 @@ export default function FavoriteBooksList() {
                 </Box>
 
                 <IconButton
+                aria-label="close button"
                   size="small"
                   onClick={() => handleRemove(book)}
                 >

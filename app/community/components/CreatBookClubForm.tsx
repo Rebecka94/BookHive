@@ -6,7 +6,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   Stack,
   TextField,
   Typography,
@@ -74,9 +73,6 @@ export default function CreateBookClubForm({ user }: { user: User | null }) {
           },
         }}
       >
-        <DialogTitle>
-          <Typography variant="h3">Create a Book Club</Typography>
-        </DialogTitle>
 
         <DialogContent>
           {errorMessage && (
@@ -84,7 +80,7 @@ export default function CreateBookClubForm({ user }: { user: User | null }) {
               {errorMessage}
             </Typography>
           )}
-
+          <Typography variant="h3" sx={{mb: 2}}>Create a Book Club</Typography>
           <form id="club-form" onSubmit={handleSubmit}>
             <Stack spacing={4}>
               <Stack spacing={3}>

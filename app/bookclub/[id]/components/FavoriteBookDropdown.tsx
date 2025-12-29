@@ -37,6 +37,7 @@ export default function FavoriteBookDropdown({
       </Typography>
 
       <Select
+      label="Choose a favorite book"
         fullWidth
         size="small"
         displayEmpty
@@ -59,7 +60,7 @@ export default function FavoriteBookDropdown({
           });
         }}
       >
-        <MenuItem value="">
+        <MenuItem aria-label="test" value="">
           <em>Select a favorite book</em>
         </MenuItem>
 
