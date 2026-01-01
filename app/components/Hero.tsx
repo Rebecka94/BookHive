@@ -28,8 +28,9 @@ export default function Hero() {
           }}
         >
           <Image
+            priority
             src="/hero-img.png"
-            alt="Hero Image"
+            alt="Group of people sitting together reading books in a book club"
             fill
             style={{ objectFit: "contain" }}
           />
@@ -43,13 +44,14 @@ export default function Hero() {
             mt: 4,
             mb: 4,
             width: "100%",
-            maxWidth: "400px",
+            maxWidth: "450px",
+            justifyContent: "center"
           }}
         >
           <Button
             variant="contained"
             size="large"
-            aria-label="Explore books"
+            aria-label="Explore books from hero section"
             sx={{
               backgroundColor: "#992B15",
               width: { xs: "100%", md: "auto" },
@@ -60,9 +62,9 @@ export default function Hero() {
           </Button>
 
           <Button
-          aria-label="Become a member"
             variant="outlined"
             size="large"
+            aria-label="Explore book clubs from hero section"
             sx={{
               width: { xs: "100%", md: "auto" },
               borderColor: "#992B15",
@@ -73,8 +75,9 @@ export default function Hero() {
                 color: "#F7EBD5",
               },
             }}
+            href="/community"
           >
-            Become a member
+            Discover book clubs
           </Button>
         </Box>
       </Box>

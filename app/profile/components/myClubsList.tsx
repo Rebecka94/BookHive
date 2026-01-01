@@ -95,7 +95,7 @@ export default function MyClubsList({ clubs, userId }: Props) {
                   {club.image_url ? (
                     <Image
                       src={club.image_url}
-                      alt={club.name}
+                      alt={`Book club cover image of ${club.name}`}
                       fill
                       style={{ objectFit: "cover" }}
                     />

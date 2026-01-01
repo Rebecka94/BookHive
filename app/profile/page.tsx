@@ -59,7 +59,7 @@ export default async function ProfilePage() {
           <CardContent sx={{ textAlign: "center", py: 4 }}>
             <Avatar
               src={user.user_metadata?.avatar_url}
-              alt={user.user_metadata?.name || user.email}
+              alt={`User image of ${user.user_metadata?.name || user.email}`}
               sx={{
                 width: 96,
                 height: 96,
@@ -70,7 +70,7 @@ export default async function ProfilePage() {
               {user.email?.[0]?.toUpperCase()}
             </Avatar>
 
-            <Typography variant="h4">
+            <Typography variant="body1">
               {user.user_metadata?.name || user.email?.split("@")[0]}
             </Typography>
 

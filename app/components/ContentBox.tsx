@@ -47,13 +47,13 @@ export default function ContentBox({ name, description, image }: ContentBoxProps
               objectFit: "cover",
             }}
             image={image}
-            alt={`${name} image`}
+            alt={`${name} book club cover art`}
           />
         </Box>
       )}
 
       <Box sx={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
-        <Typography variant="h4">{name}</Typography>
+        <Typography sx={{ fontSize: "20px", mb: 1 }} variant="h3">{name}</Typography>
 
         <Typography variant="body2" color="text.primary">
           {description}

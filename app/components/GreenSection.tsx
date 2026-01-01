@@ -14,7 +14,7 @@ export default function GreenSection({ children }: GreenSectionProps) {
       <Box sx={{ width: "100%", overflow: "hidden", lineHeight: 0 }}>
         <Image
           src="/wave-divider-up.png"
-          alt="divider"
+          alt="green divider between sections"
           width={1920}
           height={100}
           style={{ width: "100%", height: "auto", display: "block" }}
