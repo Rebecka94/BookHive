@@ -94,6 +94,7 @@ export default function MobileNav({ user, onOpenLogin, onSignOut }: Props) {
                 <ListItemButton
                   component={Link}
                   href={item.href}
+                  aria-label={`Go to ${item.text} page`}
                   sx={{
                     width: "100%",
                     py: 4,

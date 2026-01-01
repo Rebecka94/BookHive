@@ -30,7 +30,7 @@ export default function DesktopNav({ user, onOpenLogin, onSignOut }: Props) {
           </Typography>
         </Link>
 
-        <Link aria-label="browse link" href="/browse" underline="hover">
+        <Link aria-label="Go to Browse page" href="/browse" underline="hover">
           <Typography variant="body1" color="text.primary">
             Browse
           </Typography>

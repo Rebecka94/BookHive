@@ -19,7 +19,7 @@ export default function BookClubCTA() {
           >
             <Stack spacing={4} sx={{ width: "100%" }}>
               <Typography variant="h2" color="text.secondary" sx={{ maxWidth: 600 }}>
-                Explore different bookclubs and join engaging discussions
+                Explore different book clubs and join engaging discussions
               </Typography>
               <Box 
                 order={{ xs: 3, md: 2 }}
@@ -27,7 +27,7 @@ export default function BookClubCTA() {
                   display: { xs: "none", md: "block" }
                 }}
               >
-                <Button variant="outlined" size="large" href="/community" sx={{
+                <Button aria-label="Go to Book clubs" variant="outlined" size="large" href="/community" sx={{
                   width: "100%",
                   maxWidth: 300,
                   borderColor: "#F7ebd5",
@@ -37,7 +37,7 @@ export default function BookClubCTA() {
                     backgroundColor: "#F7ebd5",
                     color: "#345728",
                   },
-                }}>Explore bookclubs</Button>
+                }}>Explore book clubs</Button>
               </Box>
             </Stack>
           </Grid>
@@ -84,7 +84,7 @@ export default function BookClubCTA() {
                 backgroundColor: "#F7ebd5",
                 color: "#345728",
               },
-            }}>Explore bookclubs</Button>
+            }}>Explore book clubs</Button>
           </Grid>
         </Grid>
       </Box>

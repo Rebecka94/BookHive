@@ -1,18 +1,17 @@
 "use client";
 
+import { FavoriteBook, useFavoritesStore } from "@/app/stores/useFavoriteStore";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
   Card,
   CardContent,
   Divider,
-  Typography,
   IconButton,
+  Typography,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
-import { useFavoritesStore } from "@/app/stores/useFavoriteStore";
 import { deleteFavorite } from "../actions/favorites";
-import { FavoriteBook } from "@/app/stores/useFavoriteStore";
 
 export default function FavoriteBooksList() {
   const favorites = useFavoritesStore((s) => s.favorites);
@@ -35,7 +34,7 @@ export default function FavoriteBooksList() {
     return (
       <Card sx={{ mt: 4 }}>
         <CardContent>
-          <Typography variant="h4" sx={{ mb: 1 }}>
+          <Typography variant="h3" sx={{ mb: 3 }}>
             Favorite Books
           </Typography>
           <Typography variant="body2">
@@ -49,7 +48,7 @@ export default function FavoriteBooksList() {
   return (
     <Card sx={{ mt: 4 }}>
       <CardContent>
-        <Typography variant="h4" sx={{ mb: 2 }}>
+        <Typography variant="h3" sx={{ mb: 3 }}>
           Favorite Books
         </Typography>
 
@@ -75,24 +74,25 @@ export default function FavoriteBooksList() {
                   >
                     <Image
                       src={book.coverImage}
-                      alt={book.title}
+                      alt={`Book cover and link for ${book.title}`}
                       fill
                       style={{ objectFit: "cover", borderRadius: 4 }}
                     />
                   </Box>
 
                   <Box>
-                    <Typography variant="body1" >
-                      {book.title}
-                    </Typography>
-                    <Typography variant="body2" sx={{ fontStyle: "italic", mt: 0.5 }}>
+                    <Typography variant="body1">{book.title}</Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{ fontStyle: "italic", mt: 0.5 }}
+                    >
                       {book.author}
                     </Typography>
                   </Box>
                 </Box>
 
                 <IconButton
-                aria-label="close button"
+                  aria-label="close button"
                   size="small"
                   onClick={() => handleRemove(book)}
                 >
@@ -100,9 +100,7 @@ export default function FavoriteBooksList() {
                 </IconButton>
               </Box>
 
-              {index < favoriteList.length - 1 && (
-                <Divider sx={{ mt: 1.5 }} />
-              )}
+              {index < favoriteList.length - 1 && <Divider sx={{ mt: 1.5 }} />}
             </Box>
           ))}
         </Box>

@@ -45,7 +45,7 @@ export default function DetailView({ club, alreadyMember }: Props) {
         >
           <Image
             src={club.image_url}
-            alt={club.name}
+            alt={`Book club cover image of ${club.name}`}
             fill
             style={{ objectFit: "cover" }}
           />

@@ -4,10 +4,10 @@ import { createClient } from "@/lib/supabase/client";
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
+  Button,
   Dialog,
   DialogContent,
   Divider,
-  IconButton,
   Typography,
 } from "@mui/material";
 import EmailLoginForm from "./EmailLogin";
@@ -36,7 +36,7 @@ export default function LoginDialog({ open, onClose }: LoginDialogProps) {
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
-      <IconButton
+      <Button
         aria-label="close"
         onClick={onClose}
         sx={{
@@ -46,7 +46,7 @@ export default function LoginDialog({ open, onClose }: LoginDialogProps) {
         }}
       >
         <CloseIcon />
-      </IconButton>
+      </Button>
 
       <DialogContent sx={{ py: 5 }}>
         <Typography variant="h4" sx={{ textAlign: "center", mb: 3 }}>

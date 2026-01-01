@@ -9,7 +9,6 @@ import {
   DialogActions,
   DialogContent,
   Divider,
-  IconButton,
   Typography,
 } from "@mui/material";
 
@@ -26,13 +25,13 @@ export default function ConfirmSignOutDialog({
 }: Props) {
   return (
     <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
-      <IconButton
+      <Button
         aria-label="close"
         onClick={onClose}
         sx={{ position: "absolute", right: 10, top: 10 }}
       >
         <CloseIcon />
-      </IconButton>
+      </Button>
 
       <DialogContent sx={{ py: 5 }}>
         <Box
