@@ -17,13 +17,14 @@ import { useState, useTransition } from "react";
 import { createBookClub } from "../actions/createClub";
 
 const IMAGE_OPTIONS = [
-  { src: "/fantasy.png" },
-  { src: "/drama.png" },
-  { src: "/sci-fi.png" },
-  { src: "/romantik.png" },
-  { src: "/sjalvbiografi.png" },
-  { src: "/krim.png" },
+  { src: "/fantasy.png", label: "Fantasy icon" },
+  { src: "/drama.png", label: "Drama icon" },
+  { src: "/sci-fi.png", label: "Sci-fi icon" },
+  { src: "/romantik.png", label: "Romance icon" },
+  { src: "/sjalvbiografi.png", label: "Biography icon" },
+  { src: "/krim.png", label: "Crime icon" },
 ];
+
 
 export default function CreateBookClubForm({ user }: { user: User | null }) {
   const router = useRouter();
@@ -136,7 +137,7 @@ export default function CreateBookClubForm({ user }: { user: User | null }) {
                       >
                         <Image
                           src={img.src}
-                          alt="Book Club Image"
+                          alt=""
                           width={200}
                           height={200}
                           style={{

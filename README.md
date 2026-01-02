@@ -148,92 +148,93 @@ https://book-hive-navy.vercel.app/
 
 ---
 
-## Grading Criteria Checklist
+## Checklista för betygskriterier
 
-Below is a checklist of the **G** (Pass) and **VG** (Pass with Distinction) requirements for the thesis project.  
-Mark the items you have fulfilled with `[x]` and almost fulfilled with `[-]`.
+Nedan finns en checklista över kraven för **G** (Godkänt) och **VG** (Väl godkänd) i examensarbetet.  
+Markera det du har uppfyllt med `[X]` och det som nästan är uppfyllt med `[-]`.
 
-### (G) Requirements
+### (G) Krav
 
-#### 1. Planning and Research
-- [X] Performed a thorough target group analysis.
-- [X] Used a project management tool: Jira
+#### 1. Planering och research
+- [X] Utföra en noggrann målgruppsanalys.
+- [X] Använt ett projekthanteringsverktyg: Jira
 
-#### 2. Design and Prototyping
-- [X] Created wireframes and a prototype in Figma following UX/UI principles.
-- [X] Ensured the design is responsive for at least two screen sizes.
-- [X] Followed WCAG 2.1 standards in the design.
+#### 2. Design och prototyping
+- [X] Skapa wireframes och prototyp i Figma som följer UX/UI-principer.
+- [X] Se till att designen är responsiv för minst två skärmstorlekar.
+- [X] Följt WCAG 2.1-standarder i designen.
 
-#### 3. Application Development
-- [X] Developed the application using a modern JavaScript framework: NextJS
-- [X] Used a database to store and retrieve data: Supabase
-- [X] Implemented state management and dynamic, interactive components.
-- [X] Followed WCAG 2.1 standards and used semantic HTML.
-- [X] Web app is responsive and works correctly on at least two screen sizes
-- [X] The interface adapts for a user-friendly experience on both small and large screens.
-- README file includes:
-  - [X] Information on how to run the project.
-  - [X] Public link to the deployed app.
-  - [X] Checklist of grading criteria that are fulfilled.
+#### 3. Applikationsutveckling
+- [X] Utvecklat applikationen med ett modernt JavaScript-ramverk: NextJS
+- [X] Använt en databas för lagring och hämtning av data: Supabase
+- [X] Implementerat state-hantering samt dynamiska, interaktiva komponenter.
+- [X] Följt WCAG 2.1-standarder och använt semantisk HTML.
+- [X] Webbappen är responsiv och fungerar korrekt på minst två skärmstorlekar.
+- [X] Gränssnittet anpassar sig för en användarvänlig upplevelse både på små och stora skärmar.
+- README-filen innehåller:
+  - [X] Information om hur projektet körs.
+  - [X] Publik länk till den deployade applikationen.
+  - [X] Checklista över betygskriterier som är uppfyllda.
 
-#### 4. Version Control
-- [X] Used Git for version control.
-- [X] Hosted the project in a GitHub repository.
+#### 4. Versionshantering
+- [X] Använt Git för versionshantering.
+- [X] Hostat projektet i ett GitHub-repo.
 
-#### 5. Final Report (2–3 pages)
-- [X] Includes an abstract in English.
-- [X] Describes the tech stack and motivates the choices.
-- [X] Documents the work process, planning and research.
+#### 5. Slutrapport (2–3 sidor)
+- [X] Innehåller abstract på engelska.
+- [X] Beskriver tech stack och motiverar valen.
+- [X] Dokumenterar arbetsprocess, planering och research.
 
 #### 6. Deploy
-- [X] The project is hosted and publicly accessible: Vercel
+- [X] Projektet är hostat och publikt tillgängligt: Vercel
 
-#### 7. Overall Experience (G)
-- [X] The application is free from major technical errors (no dead links, no crashing pages).
-- [X] The design is consistent.
-- [X] Navigation works smoothly through the entire application.
+#### 7. Helhetsupplevelse (G)
+- [X] Applikationen är fri från större tekniska fel (inga döda länkar, inga kraschande sidor).
+- [X] Designen är konsekvent.
+- [X] Navigeringen fungerar smidigt genom hela applikationen.
 
 
-### (VG) Requirements
+### (VG) Krav
 
-#### 1. Design and Prototyping
-- [X] The prototype includes interactivity that demonstrates how users interact with the product.
-- [X] The prototype is very close to the final product.
-- [X] The design follows WCAG 2.1 level A and AA without exceptions.
+#### 1. Design och prototyping
+- [X] Prototypen innehåller interaktivitet som visar hur användaren interagerar med produkten.
+- [X] Prototypen ligger väldigt nära den färdiga produkten.
+- [X] Designen följer WCAG 2.1 nivå A och AA utan undantag.
 
-#### 2. Application Development
-- [X] A state management solution is used for global state: Zustand
-- [-] The code follows WCAG 2.1 level A and AA without exceptions.
-  - [-] Tested in WebAIM WAVE with no errors or warnings.
-- [X] The product is optimized (e.g. reasonable file sizes, reused components, performance optimizations where needed).
-- [X] CRUD (Create, Read, Update, Delete) is fully implemented with secure handling of user data.
-- [X] A secure authentication solution is implemented for the database: Supabase Auth with email and oauth.
-- [X] Only authorised users can access and manage protected data.
-- [X] For web app: the product is fully responsive and adapts dynamically to various screen sizes and devices (from mobile to large screens).
+#### 2. Applikationsutveckling
+- [X] En state management-lösning används för global state: Zustand
+- [-] Koden följer WCAG 2.1 nivå A och AA utan undantag.
+- [X] Testad i WebAIM WAVE utan fel eller varningar.
+- [X] Produkten är optimerad (t.ex. rimliga filstorlekar, återanvända komponenter, prestandaoptimeringar där det behövs).
+- [X] CRUD (Create, Read, Update, Delete) är fullt implementerat med säker hantering av användardata.
+- [X] En säker autentiseringslösning för databasen är implementerad: Supabase Auth med e-post och OAuth.
+- [X] Endast behöriga användare kan komma åt och hantera skyddad data.
+- [X] För webbapp: Produkten är fullt responsiv och anpassar sig dynamiskt till olika skärmstorlekar och enheter (från mobil till större skärmar).
 
 #### 3. README
-- README not only describes the project and how to run it, but also:
-  - [X] Explains the technical choices.
-  - [X] Describes how key features are implemented.
+- README beskriver inte bara projektet och hur det körs, utan:
+  - [X] Förklarar de tekniska valen.
+  - [X] Beskriver hur centrala funktioner är implementerade.
 
-#### 4. Version Control
-- [X] Worked with feature branches.
-- [X] Created pull requests before merging into the main codebase.
-- [X] Commit messages are clear, informative and document each step.
+#### 4. Versionshantering
+- [X] Arbetat med feature branches.
+- [X] Skapat pull requests innan merge till huvudbranchen.
+- [X] Commit-meddelanden är tydliga, informativa och dokumenterar varje steg.
 
 #### 5. Deploy
-- [X] Automated flow for build and deploy:
-  - [X] The build process automatically triggers deployment to production.
-  - [X] No manual steps are required for publishing new versions.
+- [X] Automatiserat flöde för build och deploy:
+  - [X] Byggprocessen triggar automatiskt deploy till produktion.
+  - [X] Inga manuella steg krävs för att publicera nya versioner.
 
-#### 6. Final Report (3–6 pages)
-- [X] Includes a deep analysis of the full work process.
-- [X] Reflects on technical and design challenges and how they were solved.
-- [X] Describes which tools and technologies were used and why they were chosen over alternatives.
-- [X] Explains and motivates UX/UI and accessibility decisions and how they improved the user experience.
+#### 6. Slutrapport (3–6 sidor)
+- [X] Innehåller en fördjupad analys av hela arbetsprocessen.
+- [X] Reflekterar över tekniska och designmässiga utmaningar och hur de löstes.
+- [X] Beskriver vilka verktyg och tekniker som använts och varför de valts framför alternativ.
+- [X] Förklarar och motiverar UX/UI- och tillgänglighetsbeslut samt hur de förbättrat användarupplevelsen.
 
-#### 7. Overall Experience (VG)
-- [X] The application offers a professional and optimized user experience.
-- [X] Loading times are minimized.
-- [X] The app gives clear feedback on all user interactions.
-- [X] The application has been tested for consistent function and design on multiple devices and browsers.
+#### 7. Helhetsupplevelse (VG)
+- [X] Applikationen erbjuder en professionell och optimerad användarupplevelse.
+- [X] Laddningstider är minimerade.
+- [X] Appen ger tydlig återkoppling vid alla användarinteraktioner.
+- [X] Applikationen är testad för enhetlig funktion och design på flera enheter och webbläsare.
+

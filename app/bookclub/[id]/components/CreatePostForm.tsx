@@ -1,6 +1,14 @@
 "use client";
 
-import { Box, Button, Card, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  FormControl,
+  FormLabel,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useState, useTransition } from "react";
 import { createPost } from "../../actions/createPost";
 import BookSearch from "./BookSearch";
@@ -52,13 +60,7 @@ export default function CreatePostForm({ clubId }: Props) {
 
   return (
     <Card
-      sx={{
-        border: "1px solid",
-        borderColor: "divider",
-        px: 3,
-        py: 2,
-        mb: 3,
-      }}
+      sx={{ border: "1px solid", borderColor: "divider", px: 3, py: 2, mb: 3 }}
     >
       <Typography
         variant="h3"
@@ -96,24 +98,36 @@ export default function CreatePostForm({ clubId }: Props) {
       </Box>
 
       <TextField
-        id="Title"
+        id="post-title"
+        name="post-title"
         label="Title"
         fullWidth
         value={titleValue}
         onChange={(e) => setTitleValue(e.target.value)}
         sx={{ mb: 2 }}
+        inputProps={{ id: "post-title" }}
       />
 
-      <TextField
-        id="post-content"
-        label="Content"
-        multiline
-        minRows={4}
-        fullWidth
-        value={contentValue}
-        onChange={(e) => setContentValue(e.target.value)}
-        sx={{ mb: 1 }}
-      />
+      <FormControl fullWidth sx={{ mb: 2 }}>
+        <FormLabel htmlFor="post-content" sx={{ color: 'text.primary' }}>Write something..</FormLabel>
+
+        <textarea
+          id="post-content"
+          name="post-content"
+          rows={5}
+          value={contentValue}
+          onChange={(e) => setContentValue(e.target.value)}
+          style={{
+            width: "100%",
+            fontSize: "16px",
+            padding: "10px",
+            borderRadius: "4px",
+            border: "1px solid #6e6e6e",
+            fontFamily: "inherit",
+            backgroundColor: "#FFFCF6"
+          }}
+        />
+      </FormControl>
 
       <Button
         variant="contained"

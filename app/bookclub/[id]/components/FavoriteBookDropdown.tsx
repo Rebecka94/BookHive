@@ -1,12 +1,7 @@
 "use client";
 
-import {
-  Box,
-  MenuItem,
-  Select,
-  Typography,
-} from "@mui/material";
 import { useFavoritesStore } from "@/app/stores/useFavoriteStore";
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 interface Book {
   id: string;
@@ -24,53 +19,63 @@ export default function FavoriteBookDropdown({
   onSelectBook,
   selectedBook,
 }: Props) {
-  const favorites = Object.values(
-    useFavoritesStore((s) => s.favorites)
-  );
+  const favorites = Object.values(useFavoritesStore((s) => s.favorites));
 
   if (favorites.length === 0) return null;
 
   return (
     <Box sx={{ mb: 2 }}>
-      <Typography variant="body2" sx={{ mb: 1 }}>
-        ⭐ Choose from your favorites
-      </Typography>
-
-      <Select
-      label="Choose a favorite book"
-      id="favorite-book"
+      <FormControl
         fullWidth
         size="small"
-        displayEmpty
-        value={selectedBook?.id ?? ""}
-        onChange={(e) => {
-          const fav = favorites.find(
-            (b) => b.id === e.target.value
-          );
-
-          if (!fav) {
-            onSelectBook(null);
-            return;
-          }
-
-          onSelectBook({
-            id: fav.id,
-            title: fav.title,
-            author: fav.author,
-            cover_url: fav.coverImage,
-          });
+        sx={{
+          "& .MuiInputLabel-root": {
+            color: "text.primary",
+          },
+          "& .MuiInputLabel-root.Mui-focused": {
+            color: "text.primary",
+          },
+          "& .MuiOutlinedInput-input": {
+            color: "text.primary",
+          },
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: "text.primary",
+          },
         }}
       >
-        <MenuItem aria-label="test" value="">
-          <em>Select a favorite book</em>
-        </MenuItem>
+        <InputLabel htmlFor="favorite-book">Choose a favorite book</InputLabel>
 
-        {favorites.map((book) => (
-          <MenuItem key={book.id} value={book.id}>
-            {book.title} — {book.author}
+        <Select
+          label="Choose a favorite book"
+          inputProps={{ id: "favorite-book" }}
+          value={selectedBook?.id ?? ""}
+          onChange={(e) => {
+            const fav = favorites.find((b) => b.id === e.target.value);
+
+            if (!fav) {
+              onSelectBook(null);
+              return;
+            }
+
+            onSelectBook({
+              id: fav.id,
+              title: fav.title,
+              author: fav.author,
+              cover_url: fav.coverImage,
+            });
+          }}
+        >
+          <MenuItem value="">
+            <em>Select a favorite book</em>
           </MenuItem>
-        ))}
-      </Select>
+
+          {favorites.map((book) => (
+            <MenuItem key={book.id} value={book.id}>
+              {book.title} — {book.author}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     </Box>
   );
 }

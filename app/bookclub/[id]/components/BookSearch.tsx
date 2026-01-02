@@ -99,9 +99,6 @@ export default function BookSearch({ onSelectBook, selectedBook }: Props) {
 
   return (
     <Box sx={{ mb: 2 }}>
-      <Typography variant="body2" sx={{ mb: 1 }}>
-        📚 Link a book to this post (optional)
-      </Typography>
 
       {selectedBook ? (
         <Paper
@@ -151,7 +148,7 @@ export default function BookSearch({ onSelectBook, selectedBook }: Props) {
         <Box sx={{ position: "relative" }}>
           <TextField
           id="book-search"
-            label="search for books"
+            label="Link a book to this post (optional) 📚"
             fullWidth
             size="small"
             placeholder="Search for a book..."
