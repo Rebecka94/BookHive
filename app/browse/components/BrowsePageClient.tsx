@@ -16,6 +16,9 @@ export default function BrowsePageClient() {
   };
 
   return (
+  <>
+  <Typography variant="h1" sx={{display: "flex", justifyContent: {xs: "flex-start" , md: "center"}, px: { xs: 2, sm: 3, md: 6 },
+        pt: { xs: 4, md: 6 }, pb: {md: 2}}}>Find Your Next Book 📚</Typography>
     <Box
       sx={{
         display: "flex",
@@ -24,7 +27,6 @@ export default function BrowsePageClient() {
         px: { xs: 2, sm: 3, md: 6 },
         py: { xs: 4, md: 6 },
         mb: 12,
-        mt: 2,
         maxWidth: 1300,
         mx: "auto",
       }}
@@ -118,5 +120,6 @@ export default function BrowsePageClient() {
         </Box>
       </Box>
     </Box>
+    </>
   );
 }

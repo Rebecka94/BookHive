@@ -51,7 +51,7 @@ export default async function ProfilePage() {
           flexShrink: 0,
         }}
       >
-        <Typography variant="h2" sx={{ mb: 3 }}>
+        <Typography variant="h1" sx={{ mb: 3 }}>
           My Profile
         </Typography>
 
@@ -85,7 +85,7 @@ export default async function ProfilePage() {
           width: { xs: "100%", lg: "60%" },
         }}
       >
-        <Typography variant="h2" sx={{ mb: 3 }}>
+        <Typography variant="h2" sx={{ mt: 1 ,mb: 4 }}>
           My Book Clubs
         </Typography>
 

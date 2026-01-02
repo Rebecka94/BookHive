@@ -66,6 +66,7 @@ export default function CreateBookClubForm({ user }: { user: User | null }) {
         onClose={() => setOpen(false)}
         fullWidth
         maxWidth="sm"
+        aria-labelledby="create-bookclub-dialog-title"
         PaperProps={{
           sx: {
             borderRadius: 3,
@@ -80,7 +81,7 @@ export default function CreateBookClubForm({ user }: { user: User | null }) {
               {errorMessage}
             </Typography>
           )}
-          <Typography variant="h3" sx={{mb: 2}}>Create a Book Club</Typography>
+          <Typography id="create-bookclub-dialog-title" variant="h3" sx={{mb: 2}}>Create a Book Club</Typography>
           <form id="club-form" onSubmit={handleSubmit}>
             <Stack spacing={4}>
               <Stack spacing={3}>

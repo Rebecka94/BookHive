@@ -60,7 +60,10 @@ export default function CreatePostForm({ clubId }: Props) {
         mb: 3,
       }}
     >
-      <Typography variant="h4" sx={{ mb: 2 }}>
+      <Typography
+        variant="h3"
+        sx={{ fontSize: { xs: "18px", md: "25px" }, mb: 3 }}
+      >
         Start a topic or just say what is on your mind
       </Typography>
 
@@ -73,7 +76,7 @@ export default function CreatePostForm({ clubId }: Props) {
       <Box
         sx={{
           display: "flex",
-          gap: {md: 2},
+          gap: { md: 2 },
           flexDirection: { xs: "column", md: "row" },
         }}
       >
@@ -93,6 +96,7 @@ export default function CreatePostForm({ clubId }: Props) {
       </Box>
 
       <TextField
+        id="Title"
         label="Title"
         fullWidth
         value={titleValue}
@@ -101,7 +105,8 @@ export default function CreatePostForm({ clubId }: Props) {
       />
 
       <TextField
-        label="Write something..."
+        id="post-content"
+        label="Content"
         multiline
         minRows={4}
         fullWidth

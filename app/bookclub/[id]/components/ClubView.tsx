@@ -138,7 +138,7 @@ export default function ClubView({ club, posts }: Props) {
           <Box sx={{ display: { xs: "block", lg: "none" }, mt: 3, mb: 2 }}>
             <Accordion>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography fontWeight={600}>Members</Typography>
+                <Typography variant="h4">Members</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <MembersList

@@ -48,7 +48,7 @@ export default function FavoriteBooksList() {
   return (
     <Card sx={{ mt: 4 }}>
       <CardContent>
-        <Typography variant="h3" sx={{ mb: 3 }}>
+        <Typography variant="body1" sx={{ fontSize: {xs: "20px"},  mb: 3 }}>
           Favorite Books
         </Typography>
 

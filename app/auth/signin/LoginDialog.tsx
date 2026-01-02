@@ -35,7 +35,8 @@ export default function LoginDialog({ open, onClose }: LoginDialogProps) {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth aria-labelledby="login-dialog-title"
+>
       <Button
         aria-label="close"
         onClick={onClose}
@@ -49,7 +50,8 @@ export default function LoginDialog({ open, onClose }: LoginDialogProps) {
       </Button>
 
       <DialogContent sx={{ py: 5 }}>
-        <Typography variant="h4" sx={{ textAlign: "center", mb: 3 }}>
+        <Typography id="login-dialog-title"
+ variant="h4" sx={{ textAlign: "center", mb: 3 }}>
           Sign In to BookHive
         </Typography>
 

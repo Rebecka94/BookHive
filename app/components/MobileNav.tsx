@@ -68,7 +68,7 @@ export default function MobileNav({ user, onOpenLogin, onSignOut }: Props) {
           py: 1,
         }}
       >
-        <IconButton size="large" onClick={toggleDrawer(anchor, false)}>
+        <IconButton aria-label="close button" size="large" onClick={toggleDrawer(anchor, false)}>
           <CloseIcon />
         </IconButton>
       </Box>
@@ -94,7 +94,6 @@ export default function MobileNav({ user, onOpenLogin, onSignOut }: Props) {
                 <ListItemButton
                   component={Link}
                   href={item.href}
-                  aria-label={`Go to ${item.text} page`}
                   sx={{
                     width: "100%",
                     py: 4,

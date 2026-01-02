@@ -143,7 +143,7 @@ export default async function BrowseIdPage({
           }}
         >
           <Box>
-            <Typography variant="h3">{book.title}</Typography>
+            <Typography variant="h1">{book.title}</Typography>
             <Typography variant="body2" sx={{ fontStyle: "italic" }}>
               {book.authors.join(", ")}
             </Typography>

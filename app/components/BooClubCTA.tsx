@@ -11,7 +11,7 @@ export default function BookClubCTA() {
         <Grid container spacing={2}>
           <Grid 
             size={{ xs: 12, md: 6 }}
-            order={{ xs: 1, md: 1 }}
+            order={{ xs: 2, md: 1 }}
             sx={{
               display: "flex",
               alignItems: "center"
@@ -22,28 +22,38 @@ export default function BookClubCTA() {
                 Explore different book clubs and join engaging discussions
               </Typography>
               <Box 
-                order={{ xs: 3, md: 2 }}
                 sx={{ 
-                  display: { xs: "none", md: "block" }
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  width: "100%"
                 }}
               >
-                <Button aria-label="Go to Book clubs" variant="outlined" size="large" href="/community" sx={{
-                  width: "100%",
-                  maxWidth: 300,
-                  borderColor: "#F7ebd5",
-                  color: "#F7ebd5",
-                  borderWidth: 2,
-                  ":hover": {
-                    backgroundColor: "#F7ebd5",
-                    color: "#345728",
-                  },
-                }}>Explore book clubs</Button>
+                <Button 
+                  variant="outlined" 
+                  size="large" 
+                  href="/community" 
+                  aria-label="Explore books from CTA section"
+                  sx={{
+                    width: { xs: "100%", md: "auto" },
+                    maxWidth: { xs: 500, md: 300 },
+                    minWidth: { md: 250 },
+                    borderColor: "#F7ebd5",
+                    color: "#F7ebd5",
+                    borderWidth: 2,
+                    ":hover": {
+                      backgroundColor: "#F7ebd5",
+                      color: "#345728",
+                    },
+                  }}
+                >
+                  Find your book club
+                </Button>
               </Box>
             </Stack>
           </Grid>
           <Grid
             size={{ xs: 12, md: 6 }}
-            order={{ xs: 2, md: 2 }}
+            order={{ xs: 1, md: 2 }}
             sx={{
               display: "flex",
               justifyContent: { xs: "flex-start", md: "flex-end" },
@@ -66,25 +76,6 @@ export default function BookClubCTA() {
                 style={{ maxWidth: "100%", height: "auto" }}
               />
             </Box>
-          </Grid>
-          <Grid 
-            size={{ xs: 12 }}
-            order={{ xs: 3 }}
-            sx={{ 
-              display: { xs: "block", md: "none" }
-            }}
-          >
-            <Button href="/community" variant="outlined" size="large" sx={{
-              width: "100%",
-              maxWidth: 500,
-              borderColor: "#F7ebd5",
-              color: "#F7ebd5",
-              borderWidth: 2,
-              ":hover": {
-                backgroundColor: "#F7ebd5",
-                color: "#345728",
-              },
-            }}>Explore book clubs</Button>
           </Grid>
         </Grid>
       </Box>

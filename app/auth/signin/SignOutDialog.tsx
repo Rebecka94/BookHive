@@ -24,7 +24,7 @@ export default function ConfirmSignOutDialog({
   onConfirm,
 }: Props) {
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth aria-labelledby="logout-dialog-title">
       <Button
         aria-label="close"
         onClick={onClose}
@@ -43,7 +43,7 @@ export default function ConfirmSignOutDialog({
         >
           <WarningAmberRoundedIcon sx={{ fontSize: 48, color: "#df9d33" }} />
         </Box>
-        <Typography textAlign="center">
+        <Typography textAlign="center" id="logout-dialog-title">
           Are you sure you want to leave BookHive?
         </Typography>
 

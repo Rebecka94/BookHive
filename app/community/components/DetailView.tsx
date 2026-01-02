@@ -51,7 +51,7 @@ export default function DetailView({ club, alreadyMember }: Props) {
           />
         </Box>
         <Box sx={{ flex: 1 }}>
-          <Typography variant="h3" sx={{ fontWeight: 600, mb: 1.5 }}>
+          <Typography variant="h1" sx={{ fontWeight: 600, mb: 1.5 }}>
             {club.name}
           </Typography>
 

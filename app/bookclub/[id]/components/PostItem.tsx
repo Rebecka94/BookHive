@@ -107,7 +107,7 @@ export default function PostItem({
         </>
       ) : (
         <>
-          <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+          <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
             {post.title ?? "Untitled post"}
           </Typography>
 

@@ -38,6 +38,7 @@ export default function FavoriteBookDropdown({
 
       <Select
       label="Choose a favorite book"
+      id="favorite-book"
         fullWidth
         size="small"
         displayEmpty

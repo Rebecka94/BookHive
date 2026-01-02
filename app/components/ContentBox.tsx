@@ -53,7 +53,7 @@ export default function ContentBox({ name, description, image }: ContentBoxProps
       )}
 
       <Box sx={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
-        <Typography sx={{ fontSize: "20px", mb: 1 }} variant="h3">{name}</Typography>
+        <Typography sx={{ fontSize: {xs: "18px", md: "20px"}, mb: 1 }} variant="body1">{name}</Typography>
 
         <Typography variant="body2" color="text.primary">
           {description}
